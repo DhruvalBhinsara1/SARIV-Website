@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-black text-neutral-500 font-display">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
