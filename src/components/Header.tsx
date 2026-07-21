@@ -2,10 +2,10 @@ import Link from "next/link";
 import { Mark } from "./Mark";
 
 const NAV_LINKS = [
-  { label: "Work", href: "#" },
+  { label: "Work", href: "/work" },
   { label: "FreeFlow", href: "#" },
   { label: "Identity", href: "/identity" },
-  { label: "Contact", href: "#" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
