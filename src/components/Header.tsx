@@ -3,7 +3,6 @@ import { Mark } from "./Mark";
 
 const NAV_LINKS = [
   { label: "Work", href: "/work" },
-  { label: "FreeFlow", href: "#" },
   { label: "Identity", href: "/identity" },
   { label: "Contact", href: "/contact" },
 ];
