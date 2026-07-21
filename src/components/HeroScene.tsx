@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Mark } from "./Mark";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function HeroScene() {
   const stageRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const markRef = useRef<HTMLDivElement>(null);
+  const line1Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLSpanElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -20,20 +22,16 @@ export function HeroScene() {
         scrollTrigger: {
           trigger: stageRef.current,
           start: "top top",
-          end: "+=100%",
+          end: "+=125%",
           scrub: 1,
           pin: true,
         },
       });
 
-      // Only ever animate transform (never opacity) so scrolling past the
-      // pin's end leaves a clean, fully legible resting frame — not a
-      // half-faded mid-transition state.
-      tl.to(imageRef.current, { scale: 1.16, rotateX: 5, ease: "none" }, 0).to(
-        headlineRef.current,
-        { yPercent: -14, ease: "none" },
-        0
-      );
+      tl.to(markRef.current, { rotateY: 360, rotateX: 14, z: 140, scale: 1.3, ease: "none" }, 0)
+        .to(line1Ref.current, { yPercent: -55, z: 60, ease: "none" }, 0)
+        .to(line2Ref.current, { yPercent: 35, z: -50, ease: "none" }, 0)
+        .to(orbRef.current, { scale: 1.5, opacity: 0.4, ease: "none" }, 0);
     });
 
     return () => mm.revert();
@@ -42,34 +40,24 @@ export function HeroScene() {
   return (
     <div
       ref={stageRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-screen w-full overflow-hidden flex items-center justify-center"
       style={{ perspective: "1400px" }}
     >
-      <div
-        ref={imageRef}
-        className="absolute inset-0"
-        style={{ transformOrigin: "center 65%", willChange: "transform" }}
-      >
-        <Image
-          src="/hero-bg.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#f5f5f5]/60 via-transparent to-[#f5f5f5]/20" />
-      </div>
-
-      <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-20">
+      <div ref={orbRef} className="gradient-orb absolute inset-0" />
+      <div className="relative z-10 flex flex-col items-center" style={{ transformStyle: "preserve-3d" }}>
+        <div ref={markRef} className="mb-8" style={{ transformStyle: "preserve-3d", willChange: "transform" }}>
+          <Mark className="size-24 md:size-40 text-[#0c0a09]" />
+        </div>
         <h1
-          ref={headlineRef}
-          className="max-w-3xl font-display font-light text-[#0c0a09] text-[13vw] md:text-[96px] leading-[1.05] tracking-[-1.92px]"
-          style={{ willChange: "transform" }}
+          className="font-display font-light text-[#0c0a09] text-[13vw] md:text-[96px] leading-[1.05] tracking-[-1.92px] text-center"
+          style={{ transformStyle: "preserve-3d" }}
         >
-          Building
-          <br />
-          what matters.
+          <span ref={line1Ref} className="block" style={{ willChange: "transform" }}>
+            Building
+          </span>
+          <span ref={line2Ref} className="block" style={{ willChange: "transform" }}>
+            what matters.
+          </span>
         </h1>
       </div>
     </div>
