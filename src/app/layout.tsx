@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const displayFont = Cormorant_Garamond({
   variable: "--font-display",
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400"],
   subsets: ["latin"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  weight: ["400", "500"],
+const inter = Inter({
+  variable: "--font-body",
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
 });
 
@@ -29,9 +29,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${displayFont.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black text-neutral-500 font-display">
+      <body className="min-h-full flex flex-col bg-[#f5f5f5] text-[#4e4e4e] font-body">
         <Header />
         {children}
         <Footer />

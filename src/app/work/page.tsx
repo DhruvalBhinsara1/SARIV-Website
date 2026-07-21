@@ -36,35 +36,38 @@ const FOCUS_AREAS = [
 export default function WorkPage() {
   return (
     <main className="flex-1 w-full">
-      <section className="px-8 md:px-20 pt-12 pb-32">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <h1 className="animate-reveal text-white text-[12vw] md:text-[140px] font-bold leading-[0.85] tracking-[-0.04em]">
+      <section className="px-8 md:px-20 pt-12 pb-24">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
+          <h1 className="animate-reveal font-display font-light text-[#0c0a09] text-[11vw] md:text-[64px] leading-[1.05] tracking-[-1.92px]">
             Selected
             <br />
             Work
           </h1>
-          <p className="animate-fade-up max-w-xs font-mono text-xs uppercase tracking-widest leading-relaxed text-neutral-500">
+          <p className="animate-fade-up max-w-xs font-body text-sm leading-relaxed tracking-[0.15px] text-[#777169]">
             SARIV is early. What follows is FreeFlow — our lab, not a client roster.
           </p>
         </div>
       </section>
 
-      <section className="w-full aspect-[21/9] flex items-center justify-center relative overflow-hidden bg-[#050505]">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="premium-text-stroke text-[24vw] font-bold select-none leading-none">
-            FreeFlow
-          </span>
+      <section className="px-8 md:px-20 pb-24">
+        <div className="animate-fade-up relative max-w-[1200px] mx-auto aspect-[21/9] rounded-2xl bg-[#fafafa] flex items-center justify-center overflow-hidden">
+          <div className="gradient-orb absolute inset-0" />
+          <div className="relative z-10 flex flex-col items-center gap-4">
+            <Mark className="size-20 md:size-28 text-[#0c0a09]" />
+            <span className="font-display font-light text-[#0c0a09] text-3xl md:text-5xl tracking-[-0.32px]">
+              FreeFlow
+            </span>
+          </div>
         </div>
-        <Mark className="animate-fade-up kinetic-glow relative z-10 size-48 md:size-80 text-white" />
       </section>
 
-      <section className="px-8 md:px-20 py-32">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
-          <h2 className="animate-fade-up md:col-span-4 text-white text-3xl md:text-4xl font-bold leading-tight tracking-[-0.02em]">
+      <section className="px-8 md:px-20 py-24">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          <h2 className="animate-fade-up md:col-span-4 font-display font-light text-[#0c0a09] text-3xl md:text-4xl leading-tight tracking-[-0.32px]">
             FreeFlow is our experimental laboratory.
           </h2>
           <p
-            className="animate-fade-up md:col-span-7 md:col-start-6 text-base font-light leading-relaxed max-w-2xl"
+            className="animate-fade-up md:col-span-7 md:col-start-6 font-body text-base leading-relaxed tracking-[0.16px] text-[#4e4e4e] max-w-2xl"
             style={{ animationDelay: "0.15s" }}
           >
             Before an idea reaches production, it goes through FreeFlow first. It&apos;s where we
@@ -77,21 +80,23 @@ export default function WorkPage() {
         </div>
       </section>
 
-      <section className="px-8 md:px-20 py-32 border-t border-white/5">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+      <section className="px-8 md:px-20 py-24 border-t border-[#e7e5e4]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FOCUS_AREAS.map((area, i) => (
             <div
               key={area.index}
-              className="animate-fade-up flex flex-col gap-6"
+              className="animate-fade-up flex flex-col gap-4 rounded-xl border border-[#e7e5e4] bg-white p-6"
               style={{ animationDelay: `${0.1 + i * 0.1}s` }}
             >
-              <div className="flex items-baseline gap-4">
-                <span className="font-mono text-[10px] text-neutral-700">{area.index}</span>
-                <h3 className="text-white text-xs font-bold tracking-[0.4em] uppercase">
+              <div className="flex items-baseline gap-3">
+                <span className="font-body text-[10px] text-[#a8a29e]">{area.index}</span>
+                <h3 className="font-body text-xs font-semibold tracking-[0.96px] uppercase text-[#0c0a09]">
                   {area.title}
                 </h3>
               </div>
-              <p className="text-sm font-light leading-relaxed max-w-xs">{area.body}</p>
+              <p className="font-body text-sm leading-relaxed tracking-[0.15px] text-[#4e4e4e]">
+                {area.body}
+              </p>
             </div>
           ))}
         </div>

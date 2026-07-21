@@ -1,18 +1,16 @@
 export function Footer() {
   return (
-    <footer className="px-8 md:px-20 py-24 flex justify-between items-center border-t border-white/5">
-      <span className="font-mono text-[10px] tracking-widest text-neutral-700">
-        ©2026 SARIV SYSTEMS
-      </span>
+    <footer className="px-8 md:px-20 py-16 flex justify-between items-center border-t border-[#e7e5e4] bg-[#f5f5f5]">
+      <span className="font-body text-[15px] text-[#777169]">©2026 SARIV SYSTEMS</span>
       <div className="flex gap-8">
         <a
-          className="text-[10px] font-bold tracking-widest uppercase hover:text-white transition-colors"
+          className="font-body text-[15px] text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
           href="#"
         >
           Digital
         </a>
         <a
-          className="text-[10px] font-bold tracking-widest uppercase hover:text-white transition-colors"
+          className="font-body text-[15px] text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
           href="#"
         >
           Physical

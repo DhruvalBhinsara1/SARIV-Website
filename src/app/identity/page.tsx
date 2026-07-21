@@ -21,49 +21,49 @@ const DETAILS = [
 export default function IdentityPage() {
   return (
     <main className="flex-1 w-full">
-      <section className="px-8 md:px-20 pt-12 pb-32">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <h1 className="animate-reveal text-white text-[12vw] md:text-[140px] font-bold leading-[0.85] tracking-[-0.04em]">
+      <section className="px-8 md:px-20 pt-12 pb-24">
+        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
+          <h1 className="animate-reveal font-display font-light text-[#0c0a09] text-[11vw] md:text-[64px] leading-[1.05] tracking-[-1.92px]">
             Identity
             <br />
             System
           </h1>
-          <p className="animate-fade-up max-w-xs font-mono text-xs uppercase tracking-widest leading-relaxed text-neutral-500">
+          <p className="animate-fade-up max-w-xs font-body text-sm leading-relaxed tracking-[0.15px] text-[#777169]">
             Practical application of the mark in digital OS environments. A study in optical balance.
           </p>
         </div>
       </section>
 
-      <section className="w-full aspect-[21/9] flex items-center justify-center relative overflow-hidden bg-[#050505]">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="premium-text-stroke text-[40vw] font-bold select-none leading-none">
-            SARIV
-          </span>
+      <section className="px-8 md:px-20 pb-24">
+        <div className="animate-fade-up relative max-w-[1200px] mx-auto aspect-[21/9] rounded-2xl bg-[#fafafa] flex items-center justify-center overflow-hidden">
+          <div className="gradient-orb absolute inset-0" />
+          <Mark className="relative z-10 size-32 md:size-48 text-[#0c0a09]" />
         </div>
-        <Mark className="animate-fade-up kinetic-glow relative z-10 size-48 md:size-80 text-white" />
       </section>
 
-      <section className="px-8 md:px-20 py-48">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24">
+      <section className="px-8 md:px-20 py-24">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
           {DETAILS.map((detail, i) => (
             <div
               key={detail.index}
-              className="animate-fade-up lg:col-span-4 flex flex-col gap-12"
+              className="animate-fade-up lg:col-span-4 flex flex-col gap-6 rounded-xl border border-[#e7e5e4] bg-white p-6"
               style={{ animationDelay: `${0.1 + i * 0.2}s` }}
             >
-              <div className="flex items-baseline gap-4">
-                <span className="font-mono text-[10px] text-neutral-700">{detail.index}</span>
-                <h3 className="text-white text-xs font-bold tracking-[0.4em] uppercase">
+              <div className="flex items-baseline gap-3">
+                <span className="font-body text-[10px] text-[#a8a29e]">{detail.index}</span>
+                <h3 className="font-body text-xs font-semibold tracking-[0.96px] uppercase text-[#0c0a09]">
                   {detail.title}
                 </h3>
               </div>
-              <div className="flex flex-col items-start gap-16">
-                <div className="w-full aspect-square bg-[#0a0a0a] flex items-center justify-center transition-colors duration-700 hover:bg-[#111]">
-                  <div className="w-48 h-48 bg-white rounded-[32px] flex items-center justify-center shadow-2xl transition-transform hover:scale-105">
-                    <Mark className="size-16 text-black" />
+              <div className="flex flex-col gap-6">
+                <div className="w-full aspect-square rounded-lg bg-[#f0efed] flex items-center justify-center">
+                  <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
+                    <Mark className="size-10 text-[#0c0a09]" />
                   </div>
                 </div>
-                <p className="text-sm font-light leading-relaxed max-w-xs">{detail.body}</p>
+                <p className="font-body text-sm leading-relaxed tracking-[0.15px] text-[#4e4e4e]">
+                  {detail.body}
+                </p>
               </div>
             </div>
           ))}

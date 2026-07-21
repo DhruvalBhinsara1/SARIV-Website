@@ -2,7 +2,7 @@
 
 @theme inline {
   --font-display: var(--font-display);
-  --font-mono: var(--font-mono);
+  --font-body: var(--font-body);
 }
 
 .nav-link::after {
@@ -12,7 +12,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background: white;
+  background: #0c0a09;
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -20,13 +20,13 @@
   width: 100%;
 }
 
-.premium-text-stroke {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-  color: transparent;
-}
-
-.kinetic-glow {
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
+.gradient-orb {
+  background:
+    radial-gradient(circle at 30% 30%, #a7e5d3 0%, transparent 50%),
+    radial-gradient(circle at 70% 55%, #f4c5a8 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, #c8b8e0 0%, transparent 55%);
+  filter: blur(60px);
+  opacity: 0.7;
 }
 
 @keyframes fadeUp {
