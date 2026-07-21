@@ -30,6 +30,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${displayFont.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-[#f5f5f5] text-[#4e4e4e] font-body">
         <Header />
