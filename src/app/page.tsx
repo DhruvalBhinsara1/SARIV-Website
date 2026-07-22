@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { HeroScene } from "@/components/HeroScene";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Typography } from "@/components/ui/Typography";
@@ -61,10 +60,8 @@ const STEPS = [
 export default function Home() {
   return (
     <main className="flex-1 w-full bg-background">
-      <HeroScene />
-
-      {/* Intro Section */}
-      <section className="relative px-4 md:px-20 py-32 overflow-hidden border-t border-border">
+      {/* Hero / Intro Section */}
+      <section className="relative px-4 md:px-20 pt-48 pb-32 overflow-hidden">
         <div className="animate-fade-up max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
           <Typography variant="body" className="max-w-xl text-lg md:text-xl">
             We design and build digital products that feel timeless, intentional, and technically
