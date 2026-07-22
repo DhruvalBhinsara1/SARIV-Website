@@ -118,11 +118,11 @@ export default function ContactPage() {
             {errors.message && <p className="text-sm text-red-500">{errors.message.message}</p>}
           </div>
 
-          <div className="pt-4">
+          <div className="flex flex-col items-start gap-4 pt-4">
             <Button type="submit" variant="primary" disabled={isSubmitting}>
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
-            <Typography variant="caption" muted className="mt-4 max-w-[480px]">
+            <Typography variant="caption" muted className="max-w-[480px]">
               Have a project in mind? Visit the <a href="/start-project" className="underline underline-offset-4 hover:text-primary">Start a Project page</a> instead.
             </Typography>
           </div>

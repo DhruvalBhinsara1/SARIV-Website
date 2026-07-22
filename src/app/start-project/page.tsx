@@ -139,7 +139,7 @@ export default function StartProjectPage() {
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger aria-label="Project type">
-                      <SelectValue placeholder="Select a project type" />
+                      <SelectValue placeholder="Project type" />
                     </SelectTrigger>
                     <SelectContent>
                       {PROJECT_TYPES.map((type) => (
@@ -160,7 +160,7 @@ export default function StartProjectPage() {
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger aria-label="Budget range">
-                      <SelectValue placeholder="Select a budget range" />
+                      <SelectValue placeholder="Budget range" />
                     </SelectTrigger>
                     <SelectContent>
                       {BUDGET_RANGES.map((range) => (
@@ -181,7 +181,7 @@ export default function StartProjectPage() {
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger aria-label="Timeline">
-                      <SelectValue placeholder="Select a timeline" />
+                      <SelectValue placeholder="Timeline" />
                     </SelectTrigger>
                     <SelectContent>
                       {TIMELINES.map((timeline) => (
@@ -206,11 +206,11 @@ export default function StartProjectPage() {
             {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
           </div>
 
-          <div className="pt-4">
+          <div className="flex flex-col items-start gap-4 pt-4">
             <Button type="submit" variant="primary" size="large" disabled={isSubmitting}>
               {isSubmitting ? "Sending..." : "Submit Project Inquiry"}
             </Button>
-            <Typography variant="caption" muted className="mt-4 max-w-[480px]">
+            <Typography variant="caption" muted className="max-w-[480px]">
               Looking for general support instead? Reach us via the <a href="/contact" className="underline underline-offset-4 hover:text-primary">Contact page</a>.
             </Typography>
           </div>

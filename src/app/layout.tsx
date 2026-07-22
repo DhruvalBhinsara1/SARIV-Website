@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
+import GradualBlur from "@/components/ui/GradualBlur";
 import "./globals.css";
 
 const displayFont = Instrument_Serif({
@@ -94,7 +95,18 @@ export default function RootLayout({
           <Header />
           <SmoothScrolling>
             {children}
-            <Footer />
+            <div className="relative">
+              <Footer />
+              {/* ponytail: anchored to the document's true end (not the viewport), so it can never cover live content further up the page */}
+              <GradualBlur
+                position="bottom"
+                target="parent"
+                height="6rem"
+                strength={2}
+                divCount={5}
+                opacity={1}
+              />
+            </div>
           </SmoothScrolling>
           <ToastViewport />
         </ToastProvider>
