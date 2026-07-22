@@ -77,7 +77,7 @@ export default function Home() {
               Identity System
             </Link>
             <a
-              href="mailto:hello@sariv.systems"
+              href="mailto:officialsariv@gmail.com"
               className={buttonVariants({ variant: "secondary" })}
             >
               Get in touch
@@ -166,7 +166,7 @@ export default function Home() {
             Want early access to FreeFlow?
           </Typography>
           <a
-            href="mailto:hello@sariv.systems"
+            href="mailto:officialsariv@gmail.com"
             className={buttonVariants({ variant: "primary" })}
           >
             Get in touch

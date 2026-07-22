@@ -66,7 +66,7 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Contact
           </Typography>
-          <a href="mailto:hello@sariv.co" className="text-secondary hover:text-primary transition-colors text-sm font-medium">hello@sariv.co</a>
+          <a href="mailto:officialsariv@gmail.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium">officialsariv@gmail.com</a>
           <a href="tel:+1234567890" className="text-secondary hover:text-primary transition-colors text-sm font-medium">+1 (234) 567-890</a>
         </div>
       </div>
