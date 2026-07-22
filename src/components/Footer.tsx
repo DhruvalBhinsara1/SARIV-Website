@@ -1,5 +1,6 @@
 import { Typography } from "./ui/Typography";
 import { LinkPreview } from "./ui/link-preview";
+import Link from "next/link";
 import { Triangle } from "lucide-react";
 
 export function Footer() {
@@ -24,10 +25,10 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Pages
           </Typography>
-          <a href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Home</a>
-          <a href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Work</a>
-          <a href="/identity" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Identity</a>
-          <a href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Contact</a>
+          <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Home</Link>
+          <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Work</Link>
+          <Link href="/identity" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Identity</Link>
+          <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Contact</Link>
         </div>
 
         {/* Socials */}

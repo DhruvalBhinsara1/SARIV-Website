@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { SmoothInput as Input } from "@/components/ui/SmoothInput";
-import { Textarea } from "@/components/ui/Textarea";
+import { SmoothTextarea as Textarea } from "@/components/ui/SmoothTextarea";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Toast, ToastTitle, ToastDescription, ToastClose } from "@/components/ui/Toast";
