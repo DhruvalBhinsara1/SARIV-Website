@@ -1,4 +1,5 @@
 import { Typography } from "@/components/ui/Typography";
+import { Keyboard } from "@/components/ui/Keyboard";
 
 const PRINCIPLES = [
   {
@@ -69,9 +70,14 @@ export default function AboutPage() {
                 <Typography variant="heading" className="mb-4 text-2xl">
                   {principle.title}
                 </Typography>
-                <Typography variant="body">
+                <Typography variant="body" className="mb-8">
                   {principle.description}
                 </Typography>
+                {principle.title === "Developer Experience" && (
+                  <div className="w-full flex justify-center py-12 bg-surface-elevated rounded-2xl border border-border mt-8 overflow-hidden">
+                    <Keyboard showPreview={true} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
