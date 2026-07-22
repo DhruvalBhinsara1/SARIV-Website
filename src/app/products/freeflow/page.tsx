@@ -43,17 +43,15 @@ export default function FreeFlowProductPage() {
       </section>
 
       {/* 2. Visual Showcase */}
-      <section className="max-w-screen-xl mx-auto px-4 md:px-8 mb-32">
-        <div className="w-full aspect-video rounded-3xl border border-border bg-surface-elevated p-8 md:p-16 flex items-center justify-center">
-          <div className="relative w-full h-full">
-            <Image 
-              src="/freeflow-ui.png" 
-              alt="FreeFlow Demo Interface" 
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+      <section className="max-w-5xl mx-auto px-4 md:px-8 mb-32">
+        <div className="relative w-full aspect-[4/3] sm:aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5">
+          <Image 
+            src="/freeflow-ui.png" 
+            alt="FreeFlow Demo Interface" 
+            fill
+            className="object-cover object-center"
+            priority
+          />
         </div>
       </section>
 
