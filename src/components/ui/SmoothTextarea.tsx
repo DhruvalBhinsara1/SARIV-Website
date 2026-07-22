@@ -178,7 +178,7 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
           />
           <div className="absolute inset-0 bg-surface rounded-md pointer-events-none z-0" />
           <motion.div
-            className="bg-primary pointer-events-none absolute h-[1.2em] w-[2px] z-20"
+            className="bg-primary pointer-events-none absolute top-0 left-0 h-[1.2em] w-[2px] z-20"
             style={{ x: springCaretX, y: springCaretY, opacity: caretOpacity }}
           />
         </div>

@@ -48,7 +48,8 @@ export default function ContactPage() {
               <label htmlFor="email" className="text-sm font-medium text-primary">Email</label>
               <Input 
                 id="email" 
-                type="email" 
+                type="text"
+                inputMode="email"
                 placeholder="ada@example.com" 
                 required 
                 value={formData.email}
