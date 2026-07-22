@@ -49,9 +49,9 @@ function HeaderContent() {
     >
       <div className="flex h-[72px] w-full items-center justify-between px-4 md:px-20">
         <Link href="/" className="group flex items-center gap-4 relative z-[10000]">
-          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome && !open ? "text-white" : "text-primary")} />
-          <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome && !open ? "text-white" : "text-primary")}>
-            Sariv
+          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome || open ? "text-white" : "text-primary")} />
+          <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome || open ? "text-white" : "text-primary")}>
+            SARIV
           </span>
         </Link>
       
