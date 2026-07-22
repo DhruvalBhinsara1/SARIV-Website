@@ -2,10 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
-import React, { useState, useEffect, createContext, useContext } from "react";
-import { createPortal } from "react-dom";
+import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
 
 interface Links {
   label: string;
@@ -111,12 +109,6 @@ export const MobileSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen } = useSidebar();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
 
   return (
     <>
@@ -126,55 +118,56 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="flex justify-end z-20 w-full text-current">
-          <Menu
-            className="cursor-pointer"
+        <div className="flex justify-end z-[10000] w-full text-current relative">
+          <button
             onClick={() => setOpen(!open)}
-          />
+            className="relative z-[10000] flex flex-col justify-center items-center w-6 h-6 gap-[5px] text-current cursor-pointer"
+          >
+            <motion.span
+              animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+              className="block h-[2px] w-6 bg-current transition-transform duration-300 origin-center"
+            />
+            <motion.span
+              animate={open ? { opacity: 0 } : { opacity: 1 }}
+              className="block h-[2px] w-6 bg-current transition-opacity duration-300"
+            />
+            <motion.span
+              animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+              className="block h-[2px] w-6 bg-current transition-transform duration-300 origin-center"
+            />
+          </button>
         </div>
-        {mounted && createPortal(
-          <AnimatePresence>
-            {open && (
-              <motion.div
-                key="backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-sm"
-                onClick={() => setOpen(false)}
-              />
-            )}
-            {open && (
-              <motion.div
-                key="panel"
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                transition={{
-                  duration: 0.3,
-                  ease: "easeInOut",
-                }}
-                className={cn(
-                  "fixed h-[100dvh] w-[80vw] max-w-[320px] right-0 top-0 bg-background z-[9999] flex flex-col p-8 shadow-2xl",
-                  className
-                )}
-              >
-                <motion.div
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
-                  className="absolute right-4 top-4 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-all active:scale-95 group"
-                  onClick={() => setOpen(false)}
-                >
-                  <X className="size-6 transition-transform duration-300 group-hover:rotate-90" />
-                </motion.div>
-                {children}
-              </motion.div>
-            )}
-          </AnimatePresence>,
-          document.body
-        )}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+            />
+          )}
+          {open && (
+            <motion.div
+              key="panel"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{
+                duration: 0.3,
+                ease: "easeInOut",
+              }}
+              className={cn(
+                "fixed h-[100dvh] w-[80vw] max-w-[320px] right-0 top-0 bg-background z-[9999] flex flex-col px-8 pt-24 pb-8 shadow-2xl",
+                className
+              )}
+            >
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

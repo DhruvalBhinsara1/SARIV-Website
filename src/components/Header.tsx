@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Mark } from "./Mark";
 import { Button } from "./ui/Button";
-import { Sidebar, SidebarBody, MobileSidebar, SidebarLink } from "./ui/sidebar";
+import { SidebarProvider, useSidebar, MobileSidebar, SidebarLink } from "./ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Home, Briefcase, Fingerprint, Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,15 @@ const NAV_LINKS = [
 ];
 
 export function Header() {
+  return (
+    <SidebarProvider>
+      <HeaderContent />
+    </SidebarProvider>
+  );
+}
+
+function HeaderContent() {
+  const { open } = useSidebar();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -29,9 +38,9 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 flex w-full flex-col transition-all duration-300",
-        isHome ? "text-white" : "text-primary",
-        isScrolled
+        "fixed top-0 z-[10000] flex w-full flex-col transition-all duration-300",
+        isHome && !open ? "text-white" : "text-primary",
+        (isScrolled && !open)
           ? isHome
             ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
             : "border-b border-border bg-background/90 backdrop-blur-md"
@@ -39,9 +48,9 @@ export function Header() {
       )}
     >
       <div className="flex h-[72px] w-full items-center justify-between px-4 md:px-20">
-        <Link href="/" className="group flex items-center gap-4 relative z-50">
-          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome ? "text-white" : "text-primary")} />
-          <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome ? "text-white" : "text-primary")}>
+        <Link href="/" className="group flex items-center gap-4 relative z-[10000]">
+          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome && !open ? "text-white" : "text-primary")} />
+          <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome && !open ? "text-white" : "text-primary")}>
             Sariv
           </span>
         </Link>
@@ -75,8 +84,7 @@ export function Header() {
 
           {/* Mobile Sidebar Trigger & Menu */}
           <div className="md:hidden flex items-center">
-            <Sidebar>
-              <MobileSidebar className="pt-24 bg-background">
+            <MobileSidebar>
                 <div className="flex flex-col gap-6">
                   {NAV_LINKS.map((link, idx) => (
                     <SidebarLink key={idx} link={link} className="text-xl" />
@@ -88,7 +96,6 @@ export function Header() {
                   </div>
                 </div>
               </MobileSidebar>
-            </Sidebar>
           </div>
         </div>
       </div>
