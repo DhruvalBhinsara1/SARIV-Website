@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -110,6 +111,13 @@ export const MobileSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen } = useSidebar();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
   return (
     <>
       <div
@@ -124,31 +132,34 @@ export const MobileSidebar = ({
             onClick={() => setOpen(!open)}
           />
         </div>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-              className={cn(
-                "fixed h-full w-full inset-0 bg-background p-10 z-[100] flex flex-col justify-between",
-                className
-              )}
-            >
-              <div
-                className="absolute right-10 top-10 z-50 text-primary cursor-pointer"
-                onClick={() => setOpen(!open)}
+        {mounted && createPortal(
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ x: "-100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "-100%", opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut",
+                }}
+                className={cn(
+                  "fixed h-[100dvh] w-screen inset-0 bg-background z-[9999] flex flex-col p-10",
+                  className
+                )}
               >
-                <X />
-              </div>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <div
+                  className="absolute right-6 top-6 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full"
+                  onClick={() => setOpen(!open)}
+                >
+                  <X className="size-6" />
+                </div>
+                {children}
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
       </div>
     </>
   );
@@ -176,7 +187,7 @@ export const SidebarLink = ({
         // Automatically close on mobile when a link is clicked
         const isMobile = window.innerWidth < 768;
         if (isMobile) {
-          const sidebarContext = document.querySelector(".group\\/sidebar")?.closest("[data-sidebar-provider]");
+          document.querySelector(".group\\/sidebar")?.closest("[data-sidebar-provider]");
           // Best effort close is handled by standard navigation in Next.js, but we'll leave this structural.
         }
       }}
