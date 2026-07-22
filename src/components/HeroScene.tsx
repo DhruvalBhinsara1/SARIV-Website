@@ -7,7 +7,7 @@ export function HeroScene() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero_image.png"
+          src="/hero_image_upscale.png"
           alt="Background Hero Image"
           fill
           className="object-cover"
