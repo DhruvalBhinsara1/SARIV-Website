@@ -3,7 +3,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-
+import { DitherShader } from "@/components/ui/DitherShader";
 export default function CaseStudyPage() {
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-32">
@@ -69,12 +69,18 @@ export default function CaseStudyPage() {
         </section>
 
         {/* Visual Break */}
-        <section className="mb-24 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-          <div className="w-full aspect-video rounded-3xl border border-border bg-surface-elevated p-8 flex items-center justify-center">
-             <Typography variant="subheading" muted>
-                [ Case Study Image Placeholder ]
-             </Typography>
-          </div>
+        <section className="mb-24 animate-fade-up w-full aspect-video rounded-3xl overflow-hidden border border-border relative" style={{ animationDelay: "0.2s" }}>
+          <DitherShader 
+             src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" 
+             gridSize={4} 
+             colorMode="duotone"
+             primaryColor="#000000"
+             secondaryColor="#4f46e5" 
+             pixelRatio={1}
+             animated={false}
+             objectFit="cover"
+             className="absolute inset-0"
+          />
         </section>
 
         {/* The Solution */}
