@@ -152,7 +152,7 @@ export const MobileSidebar = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-md"
               onClick={() => setOpen(false)}
             />
           )}

@@ -40,7 +40,7 @@ function HeaderContent() {
       className={cn(
         "fixed top-0 z-[10000] flex w-full flex-col transition-all duration-300",
         isHome && !open ? "text-white" : "text-primary",
-        (isScrolled && !open)
+        isScrolled
           ? isHome
             ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
             : "border-b border-border bg-background/90 backdrop-blur-md"
