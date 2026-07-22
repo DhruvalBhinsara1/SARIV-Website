@@ -89,8 +89,8 @@ function HeaderContent() {
                   {NAV_LINKS.map((link, idx) => (
                     <SidebarLink key={idx} link={link} className="text-xl" />
                   ))}
-                  <div className="mt-8 border-t border-border pt-8">
-                    <Button variant="primary" className="w-full justify-center">
+                  <div className="mt-8 border-t border-border pt-8 flex">
+                    <Button variant="primary">
                       Start Project
                     </Button>
                   </div>
