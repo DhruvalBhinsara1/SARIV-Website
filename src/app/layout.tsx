@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Instrument_Serif, Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
 import "./globals.css";
 
-const displayFont = Cormorant_Garamond({
+const displayFont = Instrument_Serif({
   variable: "--font-display",
-  weight: ["300", "400"],
+  weight: ["400"],
   subsets: ["latin"],
 });
 
@@ -32,10 +33,13 @@ export default function RootLayout({
       className={`${displayFont.variable} ${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#f5f5f5] text-[#4e4e4e] font-body">
-        <Header />
-        {children}
-        <Footer />
+      <body className="min-h-full flex flex-col bg-background text-primary font-body">
+        <ToastProvider>
+          <Header />
+          {children}
+          <Footer />
+          <ToastViewport />
+        </ToastProvider>
       </body>
     </html>
   );

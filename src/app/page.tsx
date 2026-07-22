@@ -1,5 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { HeroScene } from "@/components/HeroScene";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import { Typography } from "@/components/ui/Typography";
+import { buttonVariants } from "@/components/ui/Button";
 
 const FEATURES = [
   {
@@ -54,25 +59,26 @@ const STEPS = [
 
 export default function Home() {
   return (
-    <main className="flex-1 w-full">
+    <main className="flex-1 w-full bg-background">
       <HeroScene />
 
-      <section className="relative px-8 md:px-20 py-32 overflow-hidden">
+      {/* Intro Section */}
+      <section className="relative px-4 md:px-20 py-32 overflow-hidden border-t border-border">
         <div className="animate-fade-up max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <p className="max-w-md font-body text-base leading-relaxed tracking-[0.16px] text-[#4e4e4e]">
+          <Typography variant="body" className="max-w-xl text-lg md:text-xl">
             We design and build digital products that feel timeless, intentional, and technically
             exceptional. We don&apos;t chase trends. We build products people remember.
-          </p>
-          <div className="flex gap-3">
+          </Typography>
+          <div className="flex gap-4">
             <Link
               href="/identity"
-              className="flex items-center h-10 px-5 rounded-full bg-[#292524] text-white font-body text-[15px] font-medium hover:bg-[#0c0a09] transition-colors"
+              className={buttonVariants({ variant: "primary" })}
             >
               Identity System
             </Link>
             <a
               href="mailto:hello@sariv.systems"
-              className="flex items-center h-10 px-5 rounded-full border border-[#d6d3d1] text-[#0c0a09] font-body text-[15px] font-medium hover:border-[#0c0a09] transition-colors"
+              className={buttonVariants({ variant: "secondary" })}
             >
               Get in touch
             </a>
@@ -80,57 +86,59 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-8 md:px-20 py-24 border-t border-[#e7e5e4]">
-        <div className="max-w-[1200px] mx-auto flex flex-col gap-6">
-          <span className="animate-fade-up font-body text-xs font-semibold tracking-[0.96px] uppercase text-[#777169]">
-            Our flagship
-          </span>
-          <div className="animate-fade-up flex flex-col md:flex-row md:items-end justify-between gap-12">
-            <h2 className="font-display font-light text-[#0c0a09] text-4xl md:text-6xl tracking-[-0.96px]">
-              FreeFlow
-            </h2>
-            <p className="max-w-md font-body text-base leading-relaxed tracking-[0.16px] text-[#4e4e4e]">
-              A native macOS app for recording beautiful product demos. Capture your screen, and
-              FreeFlow automatically zooms into the action, re-renders a crisp synthetic cursor, and
-              exports a themed video — a lightweight alternative to Screen Studio, Loom, and Arcade.
-            </p>
+      {/* Flagship Product Section */}
+      <section className="px-4 md:px-20 py-32 border-t border-border bg-surface">
+        <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
+          <SectionHeader
+            eyebrow="Our flagship"
+            heading="FreeFlow"
+            supportingText="A native macOS app for recording beautiful product demos. Capture your screen, and FreeFlow automatically zooms into the action, re-renders a crisp synthetic cursor, and exports a themed video — a lightweight alternative to Screen Studio, Loom, and Arcade."
+            cta={
+              <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
+                See how it works
+              </Link>
+            }
+          />
+          
+          <div className="animate-fade-up w-full aspect-video rounded-3xl border border-border shadow-elevation bg-surface-elevated p-8 md:p-16 flex items-center justify-center group">
+            <div className="relative w-full h-full">
+              <Image 
+                src="/freeflow-ui.png" 
+                alt="FreeFlow App Interface" 
+                fill
+                className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
           </div>
-          <Link
-            href="/work"
-            className="animate-fade-up self-start mt-4 flex items-center h-10 px-5 rounded-full border border-[#d6d3d1] text-[#0c0a09] font-body text-[15px] font-medium hover:border-[#0c0a09] transition-colors"
-          >
-            See how it works
-          </Link>
         </div>
       </section>
 
-      <section className="px-8 md:px-20 py-24">
+      {/* Features Grid */}
+      <section className="px-4 md:px-20 py-32">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {FEATURES.map((feature, i) => (
-            <div
-              key={feature.index}
-              className="animate-fade-up flex flex-col gap-4 rounded-xl border border-[#e7e5e4] bg-white p-6"
-              style={{ animationDelay: `${0.05 + i * 0.08}s` }}
-            >
-              <div className="flex items-baseline gap-3">
-                <span className="font-body text-[10px] text-[#a8a29e]">{feature.index}</span>
-                <h3 className="font-body text-xs font-semibold tracking-[0.96px] uppercase text-[#0c0a09]">
-                  {feature.title}
-                </h3>
-              </div>
-              <p className="font-body text-sm leading-relaxed tracking-[0.15px] text-[#4e4e4e]">
-                {feature.body}
-              </p>
-            </div>
+            <Card key={feature.index} className="animate-fade-up" style={{ animationDelay: `${0.05 + i * 0.08}s` }}>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Image src="/freeflow-logo.png" alt="" width={16} height={16} className="opacity-50" />
+                  <Typography variant="caption" muted className="font-semibold tracking-widest uppercase">
+                    {feature.index}
+                  </Typography>
+                </div>
+                <CardTitle className="mt-4">{feature.title}</CardTitle>
+                <CardDescription className="mt-2">{feature.body}</CardDescription>
+              </CardHeader>
+            </Card>
           ))}
         </div>
       </section>
 
-      <section className="px-8 md:px-20 py-24 border-t border-[#e7e5e4]">
+      {/* Steps / How it Works */}
+      <section className="px-4 md:px-20 py-32 border-t border-border">
         <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
-          <h2 className="animate-fade-up font-display font-light text-[#0c0a09] text-3xl md:text-4xl tracking-[-0.32px]">
+          <Typography variant="heading" className="animate-fade-up text-4xl md:text-5xl">
             How it works
-          </h2>
+          </Typography>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {STEPS.map((step, i) => (
               <div
@@ -138,27 +146,30 @@ export default function Home() {
                 className="animate-fade-up flex flex-col gap-4"
                 style={{ animationDelay: `${0.1 + i * 0.15}s` }}
               >
-                <span className="font-display font-light text-[#0c0a09] text-5xl tracking-[-0.32px]">
+                <Typography variant="heading" className="text-5xl md:text-6xl text-border">
                   {step.index}
-                </span>
-                <h3 className="font-body text-base font-medium text-[#0c0a09]">{step.title}</h3>
-                <p className="font-body text-sm leading-relaxed tracking-[0.15px] text-[#4e4e4e]">
+                </Typography>
+                <Typography variant="subheading" className="font-medium">
+                  {step.title}
+                </Typography>
+                <Typography variant="body" muted>
                   {step.body}
-                </p>
+                </Typography>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-8 md:px-20 py-32 border-t border-[#e7e5e4] bg-[#fafafa]">
+      {/* CTA Section */}
+      <section className="px-4 md:px-20 py-32 border-t border-border bg-surface-elevated">
         <div className="animate-fade-up max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <h2 className="font-display font-light text-[#0c0a09] text-3xl md:text-4xl tracking-[-0.32px] max-w-lg">
+          <Typography variant="heading" className="text-3xl md:text-4xl max-w-lg">
             Want early access to FreeFlow?
-          </h2>
+          </Typography>
           <a
             href="mailto:hello@sariv.systems"
-            className="flex items-center h-10 px-5 rounded-full bg-[#292524] text-white font-body text-[15px] font-medium hover:bg-[#0c0a09] transition-colors shrink-0"
+            className={buttonVariants({ variant: "primary" })}
           >
             Get in touch
           </a>

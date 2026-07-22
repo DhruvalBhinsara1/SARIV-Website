@@ -1,38 +1,89 @@
+"use client";
+
+import { useState } from "react";
+import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
+import { Button } from "@/components/ui/Button";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Toast, ToastTitle, ToastDescription, ToastClose } from "@/components/ui/Toast";
+
 export default function ContactPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate network request
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setShowToast(true);
+      setFormData({ name: "", email: "", message: "" });
+    }, 1200);
+  };
+
   return (
-    <main className="flex-1 w-full">
-      <section className="px-8 md:px-20 pt-12 pb-24">
-        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <h1 className="animate-reveal font-display font-light text-[#0c0a09] text-[11vw] md:text-[64px] leading-[1.05] tracking-[-1.92px]">
-            Get in
-            <br />
-            touch.
-          </h1>
-          <p className="animate-fade-up max-w-xs font-body text-sm leading-relaxed tracking-[0.15px] text-[#777169]">
-            No forms, no funnels. Just write to us.
-          </p>
-        </div>
-      </section>
+    <main className="flex-1 w-full bg-background pt-32 pb-24">
+      <div className="max-w-[720px] mx-auto px-4 md:px-8">
+        <SectionHeader 
+          heading="Start a Project"
+          supportingText="We partner with ambitious teams to engineer enduring digital experiences. Tell us about your objectives."
+          className="animate-fade-up mb-16"
+        />
 
-      <section className="px-8 md:px-20 pb-24">
-        <div className="animate-fade-up relative max-w-[1200px] mx-auto aspect-[21/9] rounded-2xl bg-[#fafafa] flex items-center justify-center overflow-hidden px-8">
-          <div className="gradient-orb absolute inset-0" />
-          <a
-            href="mailto:hello@sariv.systems"
-            className="relative z-10 font-display font-light text-[#0c0a09] text-[7vw] md:text-[56px] tracking-[-0.96px] leading-none hover:opacity-70 transition-opacity text-center break-all"
-          >
-            hello@sariv.systems
-          </a>
-        </div>
-      </section>
+        <form onSubmit={handleSubmit} className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.1s" }}>
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="flex-1 space-y-3">
+              <label htmlFor="name" className="text-sm font-medium text-primary">Name</label>
+              <Input 
+                id="name" 
+                placeholder="Ada Lovelace" 
+                required 
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
+            <div className="flex-1 space-y-3">
+              <label htmlFor="email" className="text-sm font-medium text-primary">Email</label>
+              <Input 
+                id="email" 
+                type="email" 
+                placeholder="ada@example.com" 
+                required 
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+            </div>
+          </div>
+          
+          <div className="space-y-3">
+            <label htmlFor="message" className="text-sm font-medium text-primary">Project Details</label>
+            <Textarea 
+              id="message" 
+              placeholder="What are we building?" 
+              className="min-h-[160px]"
+              required 
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            />
+          </div>
 
-      <section className="px-8 md:px-20 py-24">
-        <div className="max-w-[1200px] mx-auto">
-          <p className="animate-fade-up font-body text-sm leading-relaxed tracking-[0.15px] text-[#777169] max-w-sm">
-            For project inquiries and collaborations.
-          </p>
-        </div>
-      </section>
+          <div className="pt-4">
+            <Button type="submit" variant="primary" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Submit Inquiry"}
+            </Button>
+          </div>
+        </form>
+
+        <Toast open={showToast} onOpenChange={setShowToast}>
+          <div className="grid gap-1">
+            <ToastTitle>Inquiry Received</ToastTitle>
+            <ToastDescription>We will review your details and respond within 24 hours.</ToastDescription>
+          </div>
+          <ToastClose />
+        </Toast>
+      </div>
     </main>
   );
 }

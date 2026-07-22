@@ -119,12 +119,14 @@ Used extremely sparingly, only when communicating critical states.
 - **Size:** `18px` (Base)
 - **Line Height:** `170%` (Generous for readability)
 - **Max Width:** `70 characters` (To maintain optimal reading measure)
+- **Alignment:** Justified (Text must stretch to align with both left and right margins, preventing ragged edges and giving a highly engineered look).
 
 #### Caption (Metadata / Tags)
 - **Font:** Inter
 - **Weight:** Medium
 - **Size:** `12px` – `14px`
 - **Case:** Uppercase optional with slight letter spacing (`1px`).
+- **Alignment:** Justified (where applicable for multi-line captions).
 
 ---
 

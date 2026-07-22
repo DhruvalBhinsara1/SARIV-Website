@@ -1,74 +1,92 @@
-import { Mark } from "@/components/Mark";
-
-const DETAILS = [
-  {
-    index: "01",
-    title: "App OS Architecture",
-    body: "Adaptive geometry for strict OS containers. The mark maintains consistent optical volume across variable corner radii (r: 22.5px to r: 16px).",
-  },
-  {
-    index: "02",
-    title: "Surface Integration",
-    body: "Refining the relationship between mark and complex background depths. Utilizing high-fidelity backdrop filters for environmental context.",
-  },
-  {
-    index: "03",
-    title: "Wordmark Pairing",
-    body: "Space Grotesk Bold with precise tracking rules (+0.15em). Geometric harmony established between signet height and cap height.",
-  },
-];
+import { Typography } from "@/components/ui/Typography";
 
 export default function IdentityPage() {
   return (
-    <main className="flex-1 w-full">
-      <section className="px-8 md:px-20 pt-12 pb-24">
-        <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <h1 className="animate-reveal font-display font-light text-[#0c0a09] text-[11vw] md:text-[64px] leading-[1.05] tracking-[-1.92px]">
-            Identity
-            <br />
-            System
-          </h1>
-          <p className="animate-fade-up max-w-xs font-body text-sm leading-relaxed tracking-[0.15px] text-[#777169]">
-            Practical application of the mark in digital OS environments. A study in optical balance.
-          </p>
-        </div>
-      </section>
+    <main className="flex-1 w-full bg-background pt-32 pb-24">
+      <div className="max-w-[720px] mx-auto px-4 md:px-8 flex flex-col gap-16">
+        <section className="animate-fade-up">
+          <Typography variant="display" className="mb-8">
+            Identity System
+          </Typography>
+          <Typography variant="body" className="text-xl">
+            The SARIV Design System exists to ensure that every digital interface we build feels unmistakably like it belongs to the same product family. Our goal is not to look modern. Our goal is to be timeless.
+          </Typography>
+        </section>
 
-      <section className="px-8 md:px-20 pb-24">
-        <div className="animate-fade-up relative max-w-[1200px] mx-auto aspect-[21/9] rounded-2xl bg-[#fafafa] flex items-center justify-center overflow-hidden">
-          <div className="gradient-orb absolute inset-0" />
-          <Mark className="relative z-10 size-32 md:size-48 text-[#0c0a09]" />
-        </div>
-      </section>
+        <hr className="border-border" />
 
-      <section className="px-8 md:px-20 py-24">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {DETAILS.map((detail, i) => (
-            <div
-              key={detail.index}
-              className="animate-fade-up lg:col-span-4 flex flex-col gap-6 rounded-xl border border-[#e7e5e4] bg-white p-6"
-              style={{ animationDelay: `${0.1 + i * 0.2}s` }}
-            >
-              <div className="flex items-baseline gap-3">
-                <span className="font-body text-[10px] text-[#a8a29e]">{detail.index}</span>
-                <h3 className="font-body text-xs font-semibold tracking-[0.96px] uppercase text-[#0c0a09]">
-                  {detail.title}
-                </h3>
-              </div>
-              <div className="flex flex-col gap-6">
-                <div className="w-full aspect-square rounded-lg bg-[#f0efed] flex items-center justify-center">
-                  <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
-                    <Mark className="size-10 text-[#0c0a09]" />
-                  </div>
-                </div>
-                <p className="font-body text-sm leading-relaxed tracking-[0.15px] text-[#4e4e4e]">
-                  {detail.body}
-                </p>
-              </div>
+        <section className="animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <Typography variant="heading" className="mb-8">
+            1. Principles
+          </Typography>
+          <div className="flex flex-col gap-8">
+            <div>
+              <Typography variant="subheading" className="mb-4">Less, Better</Typography>
+              <Typography variant="body">
+                Do fewer things, but do them exceptionally well. Avoid visual clutter at all costs. Every single element on the screen must earn its place.
+              </Typography>
             </div>
-          ))}
-        </div>
-      </section>
+            <div>
+              <Typography variant="subheading" className="mb-4">Typography Is The Interface</Typography>
+              <Typography variant="body">
+                In the absence of heavy graphical elements, typography carries the vast majority of the visual weight. We rely on large, striking headlines, readable body copy, generous line spacing, and high contrast.
+              </Typography>
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border" />
+
+        <section className="animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          <Typography variant="heading" className="mb-8">
+            2. Typography
+          </Typography>
+          <div className="flex flex-col gap-12">
+            <div>
+              <Typography variant="caption" muted className="mb-2 uppercase tracking-widest">Display</Typography>
+              <Typography variant="display">Instrument Serif</Typography>
+            </div>
+            <div>
+              <Typography variant="caption" muted className="mb-2 uppercase tracking-widest">Heading</Typography>
+              <Typography variant="heading">Instrument Serif</Typography>
+            </div>
+            <div>
+              <Typography variant="caption" muted className="mb-2 uppercase tracking-widest">Subheading</Typography>
+              <Typography variant="subheading">Inter Medium</Typography>
+            </div>
+            <div>
+              <Typography variant="caption" muted className="mb-2 uppercase tracking-widest">Body</Typography>
+              <Typography variant="body">Inter Regular. Used for all readable interface content. We enforce full text justification to create a strict, engineered, and editorial reading experience.</Typography>
+            </div>
+          </div>
+        </section>
+
+        <hr className="border-border" />
+
+        <section className="animate-fade-up" style={{ animationDelay: "0.3s" }}>
+          <Typography variant="heading" className="mb-8">
+            3. Color Palette
+          </Typography>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="flex flex-col gap-2">
+              <div className="h-24 rounded-lg bg-background border border-border"></div>
+              <Typography variant="caption" muted>Background</Typography>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="h-24 rounded-lg bg-surface border border-border"></div>
+              <Typography variant="caption" muted>Surface</Typography>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="h-24 rounded-lg bg-surface-elevated border border-border"></div>
+              <Typography variant="caption" muted>Surface Elevated</Typography>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="h-24 rounded-lg bg-primary border border-border"></div>
+              <Typography variant="caption" muted>Primary Text</Typography>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
