@@ -24,11 +24,10 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Pages
           </Typography>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">All Products</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Studio</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Clients</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Pricing</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Blog</a>
+          <a href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Home</a>
+          <a href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Work</a>
+          <a href="/identity" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Identity</a>
+          <a href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Contact</a>
         </div>
 
         {/* Socials */}
@@ -36,17 +35,17 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Socials
           </Typography>
-          <LinkPreview url="https://facebook.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
-            Facebook
-          </LinkPreview>
-          <LinkPreview url="https://instagram.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
-            Instagram
-          </LinkPreview>
-          <LinkPreview url="https://twitter.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+          <LinkPreview url="https://twitter.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             Twitter
           </LinkPreview>
-          <LinkPreview url="https://linkedin.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+          <LinkPreview url="https://linkedin.com/company/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             LinkedIn
+          </LinkPreview>
+          <LinkPreview url="https://instagram.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+            Instagram
+          </LinkPreview>
+          <LinkPreview url="https://github.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+            GitHub
           </LinkPreview>
         </div>
 
@@ -57,23 +56,21 @@ export function Footer() {
           </Typography>
           <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Privacy Policy</a>
           <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Terms of Service</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Cookie Policy</a>
         </div>
 
-        {/* Register */}
+        {/* Contact */}
         <div className="flex flex-col gap-4">
           <Typography variant="caption" className="font-semibold text-primary mb-2">
-            Register
+            Contact
           </Typography>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Sign Up</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Login</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium leading-tight">Forgot Password</a>
+          <a href="mailto:hello@sariv.co" className="text-secondary hover:text-primary transition-colors text-sm font-medium">hello@sariv.co</a>
+          <a href="tel:+1234567890" className="text-secondary hover:text-primary transition-colors text-sm font-medium">+1 (234) 567-890</a>
         </div>
       </div>
 
       {/* Massive Background Text */}
       <div className="w-full flex justify-center pointer-events-none mt-12 md:mt-8 select-none overflow-hidden relative top-[4vw] z-0">
-        <span className="text-[25vw] font-bold leading-[0.75] tracking-tighter text-muted/10 opacity-50 dark:opacity-20">
+        <span className="text-[25vw] font-bold leading-[0.75] tracking-tighter text-neutral-200 dark:text-neutral-800">
           SARIV
         </span>
       </div>
