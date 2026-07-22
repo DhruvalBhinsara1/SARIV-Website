@@ -12,10 +12,10 @@ export function Footer() {
         {/* Branding */}
         <div className="flex flex-col gap-6 col-span-2 md:col-span-1">
           <div className="flex items-center gap-2">
-            <Mark className="w-8 h-8 text-primary" />
             <Typography variant="subheading" className="font-bold tracking-widest uppercase [text-box:trim-both_cap_alphabetic]">
               SARIV
             </Typography>
+            <Mark className="w-8 h-8 text-primary" />
           </div>
           <Typography variant="body" muted className="text-sm">
             © copyright SARIV {new Date().getFullYear()}. All rights reserved.
