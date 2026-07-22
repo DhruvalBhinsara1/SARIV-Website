@@ -1,77 +1,102 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Typography } from "@/components/ui/Typography";
 import { ArrowLeft } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import { getJournalPostBySlug, getJournalPosts } from "@/lib/journal";
+import { Typography } from "@/components/ui/Typography";
 
-export default function JournalArticlePage() {
+export async function generateStaticParams() {
+  const posts = getJournalPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getJournalPostBySlug(slug);
+
+  if (!post) return {};
+
+  return {
+    title: `${post.title} | SARIV Journal`,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+    },
+  };
+}
+
+export default async function JournalPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getJournalPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
   return (
-    <main className="flex-1 w-full bg-background pt-32 pb-32">
-      <article className="max-w-[720px] mx-auto px-4 md:px-8">
-        
-        {/* Breadcrumbs / Back */}
-        <Link href="/journal" className="inline-flex items-center text-muted hover:text-primary transition-colors font-body text-sm font-medium mb-16 group">
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+    <main className="flex-1 w-full bg-background pt-32 pb-24">
+      <div className="max-w-[800px] mx-auto px-4 md:px-8">
+        <Link 
+          href="/journal" 
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-12 group"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
           Back to Journal
         </Link>
 
-        {/* Article Header */}
-        <header className="mb-16">
-          <div className="flex items-center gap-4 mb-6">
-            <Typography variant="caption" transform="uppercase" className="text-secondary font-semibold">
-              Engineering
-            </Typography>
-            <span className="text-muted text-sm font-body font-medium">July 22, 2026</span>
-          </div>
-          <Typography variant="heading" className="mb-6">
-            Engineering a Zero-Technical-Debt Foundation
+        <header className="mb-16 animate-fade-up">
+          <Typography variant="caption" transform="uppercase" muted className="mb-4">
+            {post.category} • {post.date}
           </Typography>
-          <Typography variant="subheading" muted>
-            How we architected the SARIV frontend using Next.js App Router, strictly typed Tailwind v4, and Radix UI to ensure infinite scalability.
+          <Typography variant="display" className="mb-6">
+            {post.title}
+          </Typography>
+          <Typography variant="body" className="text-xl text-muted-foreground leading-relaxed">
+            {post.description}
           </Typography>
         </header>
 
-        {/* Mock Article Content */}
-        <div className="prose prose-lg dark:prose-invert max-w-none flex flex-col gap-6">
-          <Typography variant="body">
-            When we set out to build the SARIV digital experience, we established a non-negotiable constraint: zero technical debt. In an era where web applications often accumulate layers of obsolete dependencies and brittle CSS over months, we engineered our stack for decades.
-          </Typography>
-
-          <Typography variant="subheading" className="mt-8 mb-4">
-            The Architecture
-          </Typography>
-
-          <Typography variant="body">
-            We chose Next.js App Router for its aggressive server-side optimizations. By treating every component as a Server Component by default, we effectively zeroed out our client-side JavaScript payload for the core reading experience. Interactivity was pushed to the absolute leaves of our component tree.
-          </Typography>
-
-          <div className="my-8 p-6 bg-surface-elevated border border-border rounded-xl font-mono text-sm text-primary overflow-x-auto">
-            <pre>
-              <code>
-{`// src/app/journal/page.tsx
-export default async function JournalIndex() {
-  const posts = await fetchPosts();
-  return (
-    <main>
-      <PostGrid posts={posts} />
-    </main>
-  );
-}`}
-              </code>
-            </pre>
-          </div>
-
-          <Typography variant="body">
-            Design tokens were meticulously mapped into Tailwind CSS v4. Instead of arbitrary pixel values scattered across stylesheets, every margin, padding, and font size references our canonical Design System.
-          </Typography>
-
-          <Typography variant="subheading" className="mt-8 mb-4">
-            The Result
-          </Typography>
-
-          <Typography variant="body">
-            The result is an application that achieves a perfect 100 on Lighthouse performance scores, passes strict WCAG AA accessibility audits natively via Radix UI, and provides our engineering team with complete type-safety through strict TypeScript compliance.
-          </Typography>
-        </div>
-      </article>
+        <article className="animate-fade-up" style={{ animationDelay: "0.1s" }}>
+          <ReactMarkdown
+            components={{
+              h1: ({ node, ...props }) => <Typography variant="heading" className="mt-12 mb-6 text-3xl" {...props} />,
+              h2: ({ node, ...props }) => <Typography variant="heading" className="mt-12 mb-6 text-2xl" {...props} />,
+              h3: ({ node, ...props }) => <Typography variant="subheading" className="mt-8 mb-4 font-bold" {...props} />,
+              p: ({ node, ...props }) => <Typography variant="body" className="mb-6 leading-relaxed" {...props} />,
+              a: ({ node, ...props }) => <a className="text-secondary hover:underline underline-offset-4" {...props} />,
+              ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-6 space-y-2 text-muted-foreground" {...props} />,
+              li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
+              blockquote: ({ node, ...props }) => (
+                <blockquote className="border-l-4 border-secondary pl-6 italic my-8 text-muted-foreground" {...props} />
+              ),
+              code: ({ node, className, children, ...props }) => {
+                const match = /language-(\w+)/.exec(className || "");
+                const isInline = !match && !className;
+                return isInline ? (
+                  <code className="bg-surface-elevated px-1.5 py-0.5 rounded-md text-sm font-mono text-primary" {...props}>
+                    {children}
+                  </code>
+                ) : (
+                  <div className="rounded-xl overflow-hidden my-8 border border-border shadow-elevation">
+                    <pre className="bg-surface-elevated p-6 overflow-x-auto text-sm font-mono leading-relaxed">
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    </pre>
+                  </div>
+                );
+              },
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
+        </article>
+      </div>
     </main>
   );
 }

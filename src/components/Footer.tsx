@@ -1,22 +1,24 @@
 import { Typography } from "./ui/Typography";
 import { LinkPreview } from "./ui/link-preview";
 import Link from "next/link";
+import { Mark } from "./Mark";
 import { Triangle } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="relative w-full border-t border-border bg-background pt-24 mt-auto overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-8 md:px-12 grid grid-cols-2 md:grid-cols-6 gap-x-8 gap-y-16 z-10 relative">
-        {/* Branding & Copyright */}
-        <div className="col-span-2 flex flex-col items-start">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Triangle className="h-4 w-4 fill-current" />
-            </div>
-            <span className="text-xl font-bold tracking-tight">SARIV</span>
+      <div className="max-w-[1200px] mx-auto px-4 md:px-20 grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-8 pb-32">
+        
+        {/* Branding */}
+        <div className="flex flex-col gap-6 md:col-span-1">
+          <div className="flex items-center gap-3">
+            <Mark className="w-8 h-8 text-primary" />
+            <Typography variant="subheading" className="font-bold tracking-widest uppercase">
+              SARIV
+            </Typography>
           </div>
-          <Typography variant="body" muted className="max-w-xs text-sm">
-            © copyright SARIV 2024. All rights reserved.
+          <Typography variant="body" muted className="text-sm">
+            © copyright SARIV {new Date().getFullYear()}. All rights reserved.
           </Typography>
         </div>
 

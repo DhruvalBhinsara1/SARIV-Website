@@ -18,8 +18,33 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Sariv | Building what matters",
-  description: "Design and build digital products that feel timeless, intentional, and technically exceptional.",
+  metadataBase: new URL("https://sariv.systems"),
+  title: "SARIV | Building what matters",
+  description: "We design and build digital products that feel timeless, intentional, and technically exceptional.",
+  openGraph: {
+    title: "SARIV | Building what matters",
+    description: "We design and build digital products that feel timeless, intentional, and technically exceptional.",
+    url: "https://sariv.systems",
+    siteName: "SARIV",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SARIV | Building what matters",
+    description: "We design and build digital products that feel timeless, intentional, and technically exceptional.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
