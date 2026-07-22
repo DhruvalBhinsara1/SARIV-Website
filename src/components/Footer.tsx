@@ -67,7 +67,7 @@ export function Footer() {
             Contact
           </Typography>
           <a href="mailto:officialsariv@gmail.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium">officialsariv@gmail.com</a>
-          <a href="tel:+1234567890" className="text-secondary hover:text-primary transition-colors text-sm font-medium">+1 (234) 567-890</a>
+          <a href="tel:+919510517172" className="text-secondary hover:text-primary transition-colors text-sm font-medium">+91 9510517172</a>
         </div>
       </div>
 
