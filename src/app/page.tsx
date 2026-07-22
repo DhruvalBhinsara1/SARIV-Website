@@ -101,7 +101,7 @@ export default function Home() {
           />
         </div>
           
-        <div className="relative animate-fade-up w-full max-w-[1400px] aspect-[4/3] sm:aspect-[16/10] group">
+        <div className="relative animate-fade-up w-full max-w-[1400px] aspect-[4/3] sm:aspect-[16/10] group overflow-hidden rounded-2xl bg-surface border border-border">
           <Image 
             src="/freeflow-ui.png" 
             alt="FreeFlow App Interface" 
@@ -118,10 +118,10 @@ export default function Home() {
             <Card key={feature.index} className="animate-fade-up" style={{ animationDelay: `${0.05 + i * 0.08}s` }}>
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <Image src="/freeflow-logo.png" alt="" width={16} height={16} className="opacity-50" />
                   <Typography variant="caption" muted className="font-semibold tracking-widest uppercase">
                     {feature.index}
                   </Typography>
+                  <Image src="/freeflow-logo.png" alt="" width={16} height={16} className="opacity-50" />
                 </div>
                 <CardTitle className="mt-4">{feature.title}</CardTitle>
                 <CardDescription className="mt-2 text-justify">{feature.body}</CardDescription>

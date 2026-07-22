@@ -71,9 +71,8 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Massive Background Text */}
-      <div className="w-full flex justify-center pointer-events-none select-none absolute bottom-0 left-0 right-0 translate-y-[26%] z-0">
-        <span className="text-[25vw] font-bold leading-[0.75] tracking-tighter text-neutral-200 dark:text-neutral-800">
+      <div className="w-full flex justify-center pointer-events-none mt-12 md:mt-8 select-none relative z-0">
+        <span className="text-[25vw] font-bold leading-[0.7] tracking-tighter text-neutral-200 dark:text-neutral-800 -mb-[4vw]">
           SARIV
         </span>
       </div>

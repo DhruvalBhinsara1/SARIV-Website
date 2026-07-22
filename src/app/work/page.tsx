@@ -29,7 +29,7 @@ export default function WorkPage() {
               </Link>
             }
           />
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10]">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-2xl bg-surface border border-border">
             <Image 
               src="/freeflow-ui.png" 
               alt="FreeFlow Demo" 
