@@ -100,15 +100,13 @@ export default function Home() {
             }
           />
           
-          <div className="animate-fade-up w-full aspect-video rounded-3xl border border-border shadow-elevation bg-surface-elevated p-8 md:p-16 flex items-center justify-center group">
-            <div className="relative w-full h-full">
-              <Image 
-                src="/freeflow-ui.png" 
-                alt="FreeFlow App Interface" 
-                fill
-                className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-            </div>
+          <div className="relative animate-fade-up w-full aspect-[4/3] sm:aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5 group">
+            <Image 
+              src="/freeflow-ui.png" 
+              alt="FreeFlow App Interface" 
+              fill
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+            />
           </div>
         </div>
       </section>
