@@ -66,6 +66,16 @@
     outline-offset: 4px;
   }
 
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+
+  ::-moz-selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+
   #smooth-wrapper {
     position: fixed;
     inset: 0;

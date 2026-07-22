@@ -4,6 +4,33 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 
+const projects = [
+  {
+    number: "01",
+    title: "",
+    description: "A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.",
+    linkText: "View Case Study",
+    linkUrl: "/products/freeflow",
+    external: false,
+    logo: "/freeflow-logo.png",
+    image: "/freeflow-ui.png",
+    imageAspect: "aspect-[4/3] sm:aspect-[16/10]",
+    imageClass: "object-contain object-center"
+  },
+  {
+    number: "02",
+    title: "Architecting the digital presence for next-generation defense.",
+    description: "We partnered with Core Defenses to design and engineer a high-performance, visually striking marketing experience. Featuring cinematic video headers, rigorous typography, and seamless animations, the site was built from the ground up to reflect the precision of their critical infrastructure platforms.",
+    linkText: "View Live Site",
+    linkUrl: "https://www.core-defenses.com/",
+    external: true,
+    logo: "",
+    image: "/core-defenses.png",
+    imageAspect: "aspect-[4/3] sm:aspect-video rounded-3xl overflow-hidden border border-border bg-surface",
+    imageClass: "object-cover object-top"
+  }
+];
+
 export default function WorkPage() {
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">
@@ -17,56 +44,56 @@ export default function WorkPage() {
       </div>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 flex flex-col gap-32">
-        {/* Project 1: FreeFlow */}
-        <section className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.2s" }}>
-          <div className="flex flex-col-reverse gap-6 md:flex-row md:items-start md:gap-16">
-            <div className="flex max-w-[560px] flex-col items-start gap-6">
-              <Typography variant="caption" transform="uppercase" muted>
-                01
-              </Typography>
-              <Typography variant="subheading" muted className="text-justify">
-                A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.
-              </Typography>
-              <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
-                View Case Study
-              </Link>
+        {projects.map((project, index) => (
+          <section key={project.number} className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+            <div className={`flex flex-col-reverse gap-6 md:items-start md:gap-16 ${index % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"}`}>
+              <div className={`flex max-w-[560px] flex-col gap-6 ${index % 2 === 1 ? 'items-end text-right' : 'items-start text-left'}`}>
+                <Typography variant="caption" transform="uppercase" muted>
+                  {project.number}
+                </Typography>
+                
+                {project.title && (
+                  <Typography variant="display" className="text-3xl tracking-tight">
+                    {project.title}
+                  </Typography>
+                )}
+                
+                <Typography variant="subheading" muted className="text-justify">
+                  {project.description}
+                </Typography>
+                
+                {project.external ? (
+                  <a href={project.linkUrl} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "primary" })}>
+                    {project.linkText}
+                  </a>
+                ) : (
+                  <Link href={project.linkUrl} className={buttonVariants({ variant: "primary" })}>
+                    {project.linkText}
+                  </Link>
+                )}
+              </div>
+              
+              {project.logo && (
+                <Image
+                  src={project.logo}
+                  alt={`Logo for ${project.number}`}
+                  width={400}
+                  height={100}
+                  className="w-40 md:w-[280px] h-auto flex-shrink-0 object-contain mt-2"
+                />
+              )}
             </div>
-            <Image
-              src="/freeflow-logo.png"
-              alt="FreeFlow"
-              width={400}
-              height={100}
-              className="w-40 md:w-[280px] h-auto flex-shrink-0 object-contain mt-2"
-            />
-          </div>
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10]">
-            <Image
-              src="/freeflow-ui.png"
-              alt="FreeFlow Demo"
-              fill
-              className="object-contain object-center"
-            />
-          </div>
-        </section>
-
-        {/* Project 2: Placeholder */}
-        <section className="animate-fade-up flex flex-col gap-8">
-          <SectionHeader
-            eyebrow="02"
-            heading="Atlas"
-            supportingText="A spatial computing interface for organizing complex, heavily nested data structures. Currently in stealth mode."
-            cta={
-              <a href="#" className={buttonVariants({ variant: "secondary" })}>
-                Coming Soon
-              </a>
-            }
-          />
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden border border-border bg-surface flex items-center justify-center">
-            <Typography variant="subheading" muted>
-              Classified
-            </Typography>
-          </div>
-        </section>
+            
+            <div className={`relative w-full ${project.imageAspect} flex items-center justify-center`}>
+              <Image
+                src={project.image}
+                alt={`Screenshot for ${project.number}`}
+                fill
+                className={project.imageClass}
+              />
+            </div>
+          </section>
+        ))}
       </div>
     </main>
   );

@@ -266,6 +266,7 @@ const KeyboardProvider = ({
   const [lastPressedKey, setLastPressedKey] = useState<string | null>(null);
   const [soundLoaded, setSoundLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isFallbackRef = useRef(false);
 
   useEffect(() => {
     if (!enableSound) return;
@@ -275,7 +276,25 @@ const KeyboardProvider = ({
         audioContextRef.current = new AudioContext();
         const response = await fetch("/sounds/sound.ogg");
         if (!response.ok) {
-          console.warn("Sound file not available");
+          console.warn("Sound file not available, using synthetic fallback");
+          isFallbackRef.current = true;
+          const sampleRate = audioContextRef.current.sampleRate;
+          const buffer = audioContextRef.current.createBuffer(1, sampleRate * 0.1, sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < data.length; i++) {
+            const t = i / sampleRate;
+            // 1. High frequency plastic impact (sharp click)
+            const click = (Math.random() * 2 - 1) * Math.exp(-t * 300);
+            // 2. Low frequency thud/thock (the switch hitting the board, ~150Hz)
+            const thock = Math.sin(2 * Math.PI * 150 * t) * Math.exp(-t * 80);
+            // 3. Middle frequency noise for friction
+            const noise = (Math.random() * 2 - 1) * Math.exp(-t * 150);
+            
+            // Mix them together. The thock provides the 'body', the click provides the 'snap'
+            data[i] = (click * 0.3 + thock * 1.5 + noise * 0.2) * 0.4;
+          }
+          audioBufferRef.current = buffer;
+          setSoundLoaded(true);
           return;
         }
         const arrayBuffer = await response.arrayBuffer();
@@ -313,7 +332,11 @@ const KeyboardProvider = ({
       const source = audioContextRef.current.createBufferSource();
       source.buffer = audioBufferRef.current;
       source.connect(audioContextRef.current.destination);
-      source.start(0, startTime, duration);
+      if (isFallbackRef.current) {
+        source.start(0, 0, duration);
+      } else {
+        source.start(0, startTime, duration);
+      }
     },
     [enableSound, soundLoaded],
   );
@@ -337,7 +360,11 @@ const KeyboardProvider = ({
       const source = audioContextRef.current.createBufferSource();
       source.buffer = audioBufferRef.current;
       source.connect(audioContextRef.current.destination);
-      source.start(0, startTime, duration);
+      if (isFallbackRef.current) {
+        source.start(0, 0, duration);
+      } else {
+        source.start(0, startTime, duration);
+      }
     },
     [enableSound, soundLoaded],
   );
@@ -491,7 +518,7 @@ export const Keyboard = ({
       <div
         ref={containerRef}
         className={cn(
-          "mx-auto w-fit [zoom:0.8] sm:[zoom:1.25] md:[zoom:1.5] lg:[zoom:1.75] xl:[zoom:2]",
+          "mx-auto w-fit [zoom:0.5] sm:[zoom:0.65] md:[zoom:0.8] lg:[zoom:0.9] xl:[zoom:1]",
           className,
         )}
       >
