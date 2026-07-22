@@ -99,6 +99,7 @@ export default function RootLayout({
               <Footer />
               {/* ponytail: anchored to the document's true end (not the viewport), so it can never cover live content further up the page */}
               <GradualBlur
+                className="hidden md:block"
                 position="bottom"
                 target="parent"
                 height="6rem"
