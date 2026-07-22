@@ -36,7 +36,7 @@ export default function WorkPage() {
               alt="FreeFlow"
               width={400}
               height={100}
-              className="h-6 w-auto flex-shrink-0 object-contain md:h-8"
+              className="w-40 md:w-[280px] h-auto flex-shrink-0 object-contain mt-2"
             />
           </div>
           <div className="relative w-full aspect-[4/3] sm:aspect-[16/10]">

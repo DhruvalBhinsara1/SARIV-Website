@@ -105,7 +105,7 @@ export default function Home() {
             alt="FreeFlow"
             width={400}
             height={100}
-            className="h-6 w-auto flex-shrink-0 object-contain md:h-8"
+            className="w-40 md:w-[320px] h-auto flex-shrink-0 object-contain"
           />
         </div>
           
