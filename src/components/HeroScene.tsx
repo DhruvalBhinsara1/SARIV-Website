@@ -13,6 +13,17 @@ export function HeroScene() {
           className="object-cover"
           priority
         />
+        
+        {/* Paper Shader Overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.65] mix-blend-multiply">
+          <svg className="w-full h-full" preserveAspectRatio="none">
+            <filter id="paper-texture" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
+              <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.15 0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#paper-texture)" />
+          </svg>
+        </div>
       </div>
 
       {/* Background ambient gradient orb */}
