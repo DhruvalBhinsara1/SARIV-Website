@@ -1,61 +1,29 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeroScene } from "@/components/HeroScene";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
 
-const FEATURES = [
+const PROJECTS = [
   {
-    index: "01",
-    title: "Auto-Zoom & Camera Follow",
-    body: "A critically-damped spring follows the action — holding, reframing, never snapping. Deterministic, so the same recording always renders the same way.",
+    id: "freeflow",
+    title: "FreeFlow",
+    subtitle: "A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.",
+    image: "/freeflow-ui.png",
+    link: "/products/freeflow",
+    external: false,
+    theme: "bg-[#F4F4F2]" // Light mode aesthetic
   },
   {
-    index: "02",
-    title: "Synthetic Cursor",
-    body: "Cursor pixels are excluded from capture; the pointer is re-rendered from the input timeline, so it stays crisp under any zoom level.",
-  },
-  {
-    index: "03",
-    title: "One-Pass Export",
-    body: "Sequential decode, single analysis pass — export time scales linearly with recording length, with real progress in-app and in the menubar.",
-  },
-  {
-    index: "04",
-    title: "Display P3 Color",
-    body: "Capture, render, and export all stay in Display P3 end-to-end, so what you export matches what your panel showed.",
-  },
-  {
-    index: "05",
-    title: "Non-Destructive Editing",
-    body: "Theme, canvas, and zoom are intent, not baked-in edits. Change your mind after recording — Update Video re-renders, the capture is never touched.",
-  },
-  {
-    index: "06",
-    title: "Privacy-First Capture",
-    body: "The input timeline records where interaction happened — cursor, clicks, scroll, typing bursts — never key codes or on-screen content.",
-  },
-];
-
-const STEPS = [
-  {
-    index: "01",
-    title: "Record",
-    body: "Capture your full display, a single window, or a drag-selected area — with system audio and an optional mic track.",
-  },
-  {
-    index: "02",
-    title: "Auto-edit",
-    body: "FreeFlow analyzes the input timeline and computes zoom, camera follow, and cursor rendering — no manual keyframing.",
-  },
-  {
-    index: "03",
-    title: "Export",
-    body: "One pass to a themed 1080p, 4K, or vertical MP4 — or an animated GIF. Re-export anytime after restyling.",
-  },
+    id: "core-defenses",
+    title: "Core Defenses",
+    subtitle: "Architecting the digital presence for next-generation defense. A high-performance, visually striking marketing experience featuring cinematic video headers and rigorous typography.",
+    image: "/core-defenses.png",
+    link: "https://www.core-defenses.com/",
+    external: true,
+    theme: "bg-[#111111] text-white" // Dark mode aesthetic to contrast
+  }
 ];
 
 export default function Home() {
@@ -63,89 +31,76 @@ export default function Home() {
     <main className="flex-1 w-full bg-background">
       <HeroScene />
 
-      {/* Visual Section */}
-      <section className="px-4 md:px-20 py-12 md:py-32 flex flex-col gap-12 items-center border-t border-border">
-        <div className="max-w-[1200px] w-full flex flex-col-reverse gap-8 md:flex-row md:items-start md:gap-16">
-          <SectionHeader
-            eyebrow="The Solution"
-            heading="Record once. Re-render instantly."
-            supportingText="A native macOS app for recording beautiful product demos. Capture your screen, and FreeFlow automatically zooms into the action, re-renders a crisp synthetic cursor, and exports a themed video — a lightweight alternative to Screen Studio, Loom, and Arcade."
-            cta={
-              <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
-                See how it works
-              </Link>
-            }
-          />
-          <Image
-            src="/freeflow-logo.png"
-            alt="FreeFlow"
-            width={400}
-            height={100}
-            className="w-40 md:w-[320px] h-auto flex-shrink-0 object-contain"
-          />
-        </div>
-          
-        <div className="relative animate-fade-up w-full max-w-[1400px] aspect-[4/3] sm:aspect-[16/10] group">
-          <Image
-            src="/freeflow-ui.png"
-            alt="FreeFlow App Interface"
-            fill
-            className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]"
-          />
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="px-4 md:px-20 py-32">
-        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((feature, i) => (
-            <Card key={feature.index} className="animate-fade-up" style={{ animationDelay: `${0.05 + i * 0.08}s` }}>
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Typography variant="caption" muted className="font-semibold tracking-widest uppercase">
-                    {feature.index}
-                  </Typography>
-                  <Image src="/freeflow-logo.png" alt="" width={16} height={16} className="opacity-50" />
-                </div>
-                <CardTitle className="mt-4">{feature.title}</CardTitle>
-                <CardDescription className="mt-2 text-justify">{feature.body}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
+      {/* Manifesto Section */}
+      <section className="px-4 md:px-20 py-24 md:py-40 flex justify-center border-t border-border">
+        <Typography 
+          variant="heading" 
+          className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
+        >
+          We don't build generic products. We engineer precise, enduring tools designed to empower focused work.
+        </Typography>
       </section>
 
       {/* Curved Loop Divider */}
-      <section className="overflow-hidden border-t border-border py-16 md:py-24">
+      <section className="overflow-hidden border-t border-border py-12 md:py-16">
         <CurvedLoop
           marqueeText="Building What Matters ✦ Timeless ✦ Intentional ✦ Exceptional ✦"
-          curveAmount={120}
+          curveAmount={80}
           speed={1}
         />
       </section>
 
-      {/* Steps / How it Works */}
-      <section className="px-4 md:px-20 py-32 border-t border-border">
-        <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
-          <Typography variant="heading" className="animate-fade-up text-4xl md:text-5xl">
-            How it works
-          </Typography>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {STEPS.map((step, i) => (
-              <div
-                key={step.index}
-                className="animate-fade-up flex flex-col gap-4"
-                style={{ animationDelay: `${0.1 + i * 0.15}s` }}
+      {/* Selected Works Section */}
+      <section className="px-4 md:px-20 py-24 md:py-32 border-t border-border">
+        <div className="max-w-[1200px] mx-auto flex flex-col gap-24">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <Typography variant="display" className="text-5xl md:text-6xl">
+              Selected Works
+            </Typography>
+            <Link href="/work" className={buttonVariants({ variant: "secondary" })}>
+              View All Projects
+            </Link>
+          </div>
+
+          <div className="flex flex-col gap-12 md:gap-24">
+            {PROJECTS.map((project, i) => (
+              <div 
+                key={project.id} 
+                className={`relative group flex flex-col gap-8 rounded-[2rem] overflow-hidden ${project.theme}`}
               >
-                <Typography variant="heading" className="text-5xl md:text-6xl text-border">
-                  {step.index}
-                </Typography>
-                <Typography variant="subheading" className="font-medium">
-                  {step.title}
-                </Typography>
-                <Typography variant="body" muted>
-                  {step.body}
-                </Typography>
+                {/* Project Image */}
+                <div className="relative w-full aspect-[4/3] md:aspect-[16/9] p-4 md:p-12">
+                  <div className="relative w-full h-full overflow-hidden rounded-xl">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className={`object-cover transition-transform duration-700 group-hover:scale-105 ${project.id === 'core-defenses' ? 'object-top' : 'object-center'}`}
+                    />
+                  </div>
+                </div>
+
+                {/* Project Info Panel */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
+                  <div className="flex flex-col max-w-xl gap-4">
+                    <Typography variant="heading" className="text-3xl md:text-4xl">
+                      {project.title}
+                    </Typography>
+                    <Typography variant="body" className={project.id === 'core-defenses' ? "text-neutral-300" : "text-muted"}>
+                      {project.subtitle}
+                    </Typography>
+                  </div>
+                  
+                  {project.external ? (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: 'primary' })} ${project.id === 'core-defenses' ? 'bg-white !text-black hover:bg-white/90' : ''}`}>
+                      View Live Site
+                    </a>
+                  ) : (
+                    <Link href={project.link} className={buttonVariants({ variant: "primary" })}>
+                      View Case Study
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -156,14 +111,14 @@ export default function Home() {
       <section className="px-4 md:px-20 py-32 border-t border-border bg-surface-elevated">
         <div className="animate-fade-up max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
           <Typography variant="heading" className="text-3xl md:text-4xl max-w-lg">
-            Want early access to FreeFlow?
+            Ready to build something exceptional?
           </Typography>
-          <a
-            href="mailto:officialsariv@gmail.com"
-            className={buttonVariants({ variant: "primary" })}
+          <Link
+            href="/contact"
+            className={buttonVariants({ variant: "primary", size: "large" })}
           >
             Get in touch
-          </a>
+          </Link>
         </div>
       </section>
     </main>
