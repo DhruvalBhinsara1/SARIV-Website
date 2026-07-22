@@ -161,10 +161,10 @@ export const MobileSidebar = ({
                 )}
               >
                 <div
-                  className="absolute right-4 top-4 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full"
+                  className="absolute right-4 top-4 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-all active:scale-95 group"
                   onClick={() => setOpen(false)}
                 >
-                  <X className="size-6" />
+                  <X className="size-6 transition-transform duration-300 group-hover:rotate-90" />
                 </div>
                 {children}
               </motion.div>
