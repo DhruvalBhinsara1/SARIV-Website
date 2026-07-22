@@ -4,7 +4,7 @@ import { Typography } from "@/components/ui/Typography"
 
 export interface SectionHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   eyebrow?: string
-  heading: string
+  heading: React.ReactNode
   supportingText?: string
   cta?: React.ReactNode
 }
@@ -24,7 +24,13 @@ export function SectionHeader({
           {eyebrow}
         </Typography>
       )}
-      <Typography variant="heading">{heading}</Typography>
+      {typeof heading === "string" ? (
+        <Typography variant="heading">{heading}</Typography>
+      ) : (
+        <div className="flex items-center">
+          {heading}
+        </div>
+      )}
       {supportingText && (
         <Typography variant="subheading" muted>
           {supportingText}

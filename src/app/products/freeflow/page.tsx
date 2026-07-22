@@ -16,9 +16,16 @@ export default function FreeFlowProductPage() {
           <Typography variant="caption" transform="uppercase" muted>
             Flagship Product
           </Typography>
-          <Typography variant="display" className="text-5xl md:text-7xl lg:text-8xl">
-            FreeFlow
-          </Typography>
+          <div className="relative h-16 md:h-20 lg:h-24 w-auto max-w-full -ml-2">
+            <Image 
+              src="/freeflow-logo.png"
+              alt="FreeFlow"
+              width={600}
+              height={150}
+              className="h-full w-auto object-contain object-left"
+              priority
+            />
+          </div>
         </div>
         
         <Typography variant="body" className="animate-fade-up text-xl md:text-2xl text-secondary max-w-2xl" style={{ animationDelay: "0.1s" }}>

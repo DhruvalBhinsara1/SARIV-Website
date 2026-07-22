@@ -21,7 +21,7 @@ export default function WorkPage() {
         <section className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.2s" }}>
           <SectionHeader
             eyebrow="01"
-            heading="FreeFlow"
+            heading={<Image src="/freeflow-logo.png" alt="FreeFlow" width={400} height={100} className="h-10 md:h-14 w-auto object-contain -ml-1" />}
             supportingText="A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning."
             cta={
               <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
