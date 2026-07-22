@@ -1,5 +1,8 @@
 import { Mark } from "./Mark";
 import Image from "next/image";
+import Link from "next/link";
+import { Typography } from "./ui/Typography";
+import { buttonVariants } from "./ui/Button";
 
 export function HeroScene() {
   return (
@@ -38,6 +41,27 @@ export function HeroScene() {
           Building <br className="md:hidden" />
           what matters.
         </h1>
+
+        <Typography
+          variant="body"
+          className="animate-fade-up mt-8 max-w-xl text-center text-white/85 text-lg md:text-xl"
+          style={{ animationDelay: "0.2s" }}
+        >
+          We design and build digital products that feel timeless, intentional, and technically
+          exceptional. We don&apos;t chase trends. We build products people remember.
+        </Typography>
+
+        <div className="animate-fade-up mt-8 flex gap-4" style={{ animationDelay: "0.3s" }}>
+          <Link href="/identity" className={buttonVariants({ variant: "primary" })}>
+            Identity System
+          </Link>
+          <a
+            href="mailto:officialsariv@gmail.com"
+            className={buttonVariants({ variant: "secondary", className: "border-transparent bg-white text-primary hover:bg-white/90" })}
+          >
+            Get in touch
+          </a>
+        </div>
       </div>
     </div>
   );
