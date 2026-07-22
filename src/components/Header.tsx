@@ -64,10 +64,10 @@ function HeaderContent() {
           }}
           className="group flex items-center gap-2 relative z-[10000]"
         >
-          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome || open ? "text-white" : "text-primary")} />
           <span className={cn("font-body text-xl font-bold uppercase tracking-widest [text-box:trim-both_cap_alphabetic]", isHome || open ? "text-white" : "text-primary")}>
             SARIV
           </span>
+          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome || open ? "text-white" : "text-primary")} />
         </Link>
       
         <div className="flex items-center gap-8">
