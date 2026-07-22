@@ -125,15 +125,15 @@ export const MobileSidebar = ({
           >
             <motion.span
               animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              className="block h-[2px] w-6 bg-current transition-transform duration-150 origin-center"
+              className="block h-[2px] w-6 bg-current transition-transform duration-75 origin-center"
             />
             <motion.span
               animate={open ? { opacity: 0 } : { opacity: 1 }}
-              className="block h-[2px] w-6 bg-current transition-opacity duration-150"
+              className="block h-[2px] w-6 bg-current transition-opacity duration-75"
             />
             <motion.span
               animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              className="block h-[2px] w-6 bg-current transition-transform duration-150 origin-center"
+              className="block h-[2px] w-6 bg-current transition-transform duration-75 origin-center"
             />
           </button>
         </div>
