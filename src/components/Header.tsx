@@ -24,15 +24,15 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 flex h-[72px] w-full items-center justify-between px-4 transition-all duration-300 md:px-20",
+        "fixed top-0 z-50 flex h-[72px] w-full items-center justify-between px-4 transition-all duration-300 md:px-20",
         isScrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
+          ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
     >
       <Link href="/" className="group flex items-center gap-4">
-        <Mark className="size-6 text-primary transition-transform duration-700 group-hover:rotate-180" />
-        <span className="font-body text-xl font-bold uppercase tracking-widest text-primary">
+        <Mark className="size-6 text-white transition-transform duration-700 group-hover:rotate-180" />
+        <span className="font-body text-xl font-bold uppercase tracking-widest text-white">
           Sariv
         </span>
       </Link>
@@ -43,14 +43,14 @@ export function Header() {
             <Link
               key={link.label}
               href={link.href}
-              className="nav-link relative font-body text-[15px] font-medium text-secondary transition-colors hover:text-primary"
+              className="nav-link relative font-body text-[15px] font-medium text-white/80 transition-colors hover:text-white"
             >
               {link.label}
             </Link>
           ))}
         </nav>
         <div className="hidden md:block">
-          <Button variant="primary" size="small">
+          <Button className="bg-white text-black hover:bg-white/90" size="small">
             Start Project
           </Button>
         </div>
