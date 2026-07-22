@@ -101,12 +101,12 @@ export default function Home() {
           />
         </div>
           
-        <div className="relative animate-fade-up w-full max-w-[1600px] aspect-[4/3] sm:aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5 group">
+        <div className="relative animate-fade-up w-full max-w-[1400px] aspect-[4/3] sm:aspect-[16/10] group">
           <Image 
             src="/freeflow-ui.png" 
             alt="FreeFlow App Interface" 
             fill
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+            className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]"
           />
         </div>
       </section>
