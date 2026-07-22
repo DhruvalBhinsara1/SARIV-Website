@@ -148,15 +148,15 @@ export const MobileSidebar = ({
             {open && (
               <motion.div
                 key="panel"
-                initial={{ x: "-100%" }}
+                initial={{ x: "100%" }}
                 animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
+                exit={{ x: "100%" }}
                 transition={{
                   duration: 0.3,
                   ease: "easeInOut",
                 }}
                 className={cn(
-                  "fixed h-[100dvh] w-[80vw] max-w-[320px] left-0 top-0 bg-background z-[9999] flex flex-col p-8 shadow-2xl",
+                  "fixed h-[100dvh] w-[80vw] max-w-[320px] right-0 top-0 bg-background z-[9999] flex flex-col p-8 shadow-2xl",
                   className
                 )}
               >
