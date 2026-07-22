@@ -3,6 +3,7 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
+import { SmoothScrolling } from "@/components/SmoothScrolling";
 import "./globals.css";
 
 const displayFont = Instrument_Serif({
@@ -60,9 +61,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-primary font-body">
         <ToastProvider>
-          <Header />
-          {children}
-          <Footer />
+          <SmoothScrolling>
+            <Header />
+            {children}
+            <Footer />
+          </SmoothScrolling>
           <ToastViewport />
         </ToastProvider>
       </body>

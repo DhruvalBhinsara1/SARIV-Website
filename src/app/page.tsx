@@ -86,12 +86,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Flagship Product Section */}
-      <section className="px-4 md:px-20 py-32 border-t border-border bg-surface">
-        <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
-          <SectionHeader
-            eyebrow="Our flagship"
-            heading="FreeFlow"
+      {/* Visual Section */}
+      <section className="px-4 md:px-20 py-12 md:py-32 flex flex-col gap-12 items-center">
+        <div className="max-w-[1200px] w-full">
+          <SectionHeader 
+            eyebrow="The Solution"
+            heading="Record once. Re-render instantly."
             supportingText="A native macOS app for recording beautiful product demos. Capture your screen, and FreeFlow automatically zooms into the action, re-renders a crisp synthetic cursor, and exports a themed video — a lightweight alternative to Screen Studio, Loom, and Arcade."
             cta={
               <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
@@ -99,15 +99,15 @@ export default function Home() {
               </Link>
             }
           />
+        </div>
           
-          <div className="relative animate-fade-up w-full aspect-[4/3] sm:aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5 group">
-            <Image 
-              src="/freeflow-ui.png" 
-              alt="FreeFlow App Interface" 
-              fill
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-            />
-          </div>
+        <div className="relative animate-fade-up w-full max-w-[1600px] aspect-[4/3] sm:aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 ring-1 ring-black/5 dark:ring-white/5 group">
+          <Image 
+            src="/freeflow-ui.png" 
+            alt="FreeFlow App Interface" 
+            fill
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+          />
         </div>
       </section>
 
