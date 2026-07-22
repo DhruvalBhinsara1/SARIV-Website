@@ -54,11 +54,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${displayFont.variable} ${inter.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
+      <html
+        lang="en"
+        className={`${displayFont.variable} ${inter.variable} h-full antialiased`}
+        suppressHydrationWarning
+      >
+        <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "@id": "https://sariv.systems/#website",
+                  "url": "https://sariv.systems/",
+                  "name": "SARIV",
+                  "description": "We design and build digital products that feel timeless, intentional, and technically exceptional.",
+                },
+                {
+                  "@type": "Organization",
+                  "@id": "https://sariv.systems/#organization",
+                  "name": "SARIV",
+                  "url": "https://sariv.systems/",
+                  "logo": "https://sariv.systems/icon.png",
+                  "sameAs": [
+                    "https://twitter.com/sariv",
+                    "https://linkedin.com/company/sariv"
+                  ]
+                }
+              ]
+            })
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-primary font-body">
         <ToastProvider>
           <SmoothScrolling>

@@ -40,6 +40,31 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
 
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "description": post.description,
+            "datePublished": post.date,
+            "author": {
+              "@type": "Organization",
+              "name": "SARIV",
+              "url": "https://sariv.systems"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "SARIV",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://sariv.systems/icon.png"
+              }
+            }
+          })
+        }}
+      />
       <div className="max-w-[800px] mx-auto px-4 md:px-8">
         <Link 
           href="/journal" 
