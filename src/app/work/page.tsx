@@ -19,20 +19,30 @@ export default function WorkPage() {
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 flex flex-col gap-32">
         {/* Project 1: FreeFlow */}
         <section className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.2s" }}>
-          <SectionHeader
-            eyebrow="01"
-            heading={<Image src="/freeflow-logo.png" alt="FreeFlow" width={400} height={100} className="h-10 md:h-14 w-auto object-contain -ml-1" />}
-            supportingText="A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning."
-            cta={
+          <div className="flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex max-w-[560px] flex-col items-start gap-6">
+              <Typography variant="caption" transform="uppercase" muted>
+                01
+              </Typography>
+              <Typography variant="subheading" muted className="text-justify">
+                A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.
+              </Typography>
               <Link href="/products/freeflow" className={buttonVariants({ variant: "primary" })}>
                 View Case Study
               </Link>
-            }
-          />
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-2xl bg-surface border border-border">
-            <Image 
-              src="/freeflow-ui.png" 
-              alt="FreeFlow Demo" 
+            </div>
+            <Image
+              src="/freeflow-logo.png"
+              alt="FreeFlow"
+              width={400}
+              height={100}
+              className="h-16 w-auto flex-shrink-0 object-contain md:h-24"
+            />
+          </div>
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10]">
+            <Image
+              src="/freeflow-ui.png"
+              alt="FreeFlow Demo"
               fill
               className="object-contain object-center"
             />

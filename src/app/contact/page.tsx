@@ -8,6 +8,7 @@ import { SmoothInput as Input } from "@/components/ui/SmoothInput";
 import { SmoothTextarea as Textarea } from "@/components/ui/SmoothTextarea";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Typography } from "@/components/ui/Typography";
 import { Toast, ToastTitle, ToastDescription, ToastClose } from "@/components/ui/Toast";
 
 const contactSchema = z.object({
@@ -70,9 +71,9 @@ export default function ContactPage() {
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">
       <div className="max-w-[720px] mx-auto px-4 md:px-8">
-        <SectionHeader 
-          heading="Start a Project"
-          supportingText="We partner with ambitious teams to engineer enduring digital experiences. Tell us about your objectives."
+        <SectionHeader
+          heading="Get in Touch"
+          supportingText="Questions, feedback, or just want to say hello? Send us a message and we'll get back to you."
           className="animate-fade-up mb-16"
         />
 
@@ -107,10 +108,10 @@ export default function ContactPage() {
           </div>
           
           <div className="space-y-3">
-            <label htmlFor="message" className="text-sm font-medium text-primary">Project Details</label>
-            <Textarea 
-              id="message" 
-              placeholder="What are we building?" 
+            <label htmlFor="message" className="text-sm font-medium text-primary">Message</label>
+            <Textarea
+              id="message"
+              placeholder="How can we help?"
               className="min-h-[160px]"
               {...register("message")}
             />
@@ -119,8 +120,11 @@ export default function ContactPage() {
 
           <div className="pt-4">
             <Button type="submit" variant="primary" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Submit Inquiry"}
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
+            <Typography variant="caption" muted className="mt-4 max-w-[480px]">
+              Have a project in mind? Visit the <a href="/start-project" className="underline underline-offset-4 hover:text-primary">Start a Project page</a> instead.
+            </Typography>
           </div>
         </form>
 

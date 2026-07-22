@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Mark } from "./Mark";
-import { Button } from "./ui/Button";
+import { buttonVariants } from "./ui/Button";
 import { SidebarProvider, useSidebar, MobileSidebar, SidebarLink } from "./ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Home, Briefcase, Fingerprint, Mail } from "lucide-react";
@@ -86,15 +86,15 @@ function HeaderContent() {
             ))}
           </nav>
           <div className="hidden md:block">
-            {isHome ? (
-              <Button className="bg-white text-black hover:bg-white/90" size="small">
-                Start Project
-              </Button>
-            ) : (
-              <Button variant="primary" size="small">
-                Start Project
-              </Button>
-            )}
+            <Link
+              href="/start-project"
+              className={cn(
+                buttonVariants({ size: "small" }),
+                isHome ? "bg-white text-black hover:bg-white/90" : ""
+              )}
+            >
+              Start Project
+            </Link>
           </div>
 
           {/* Mobile Sidebar Trigger & Menu */}
@@ -105,9 +105,9 @@ function HeaderContent() {
                     <SidebarLink key={idx} link={link} className="text-xl" />
                   ))}
                   <div className="mt-8 border-t border-border pt-8 flex">
-                    <Button variant="primary">
+                    <Link href="/start-project" className={buttonVariants({ variant: "primary" })}>
                       Start Project
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               </MobileSidebar>
