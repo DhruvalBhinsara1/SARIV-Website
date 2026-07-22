@@ -7,6 +7,7 @@ import { Button } from "./ui/Button";
 import { Sidebar, SidebarBody, MobileSidebar, SidebarLink } from "./ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Home, Briefcase, Fingerprint, Mail } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { label: "Work", href: "/work", icon: <Briefcase className="h-5 w-5 flex-shrink-0" /> },
@@ -16,6 +17,8 @@ const NAV_LINKS = [
 
 export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   React.useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -27,15 +30,18 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 z-50 flex w-full flex-col transition-all duration-300",
+        isHome ? "text-white" : "text-primary",
         isScrolled
-          ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
+          ? isHome
+            ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
+            : "border-b border-border bg-background/90 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="flex h-[72px] w-full items-center justify-between px-4 md:px-20">
         <Link href="/" className="group flex items-center gap-4 relative z-50">
-          <Mark className="size-6 text-white transition-transform duration-700 group-hover:rotate-180" />
-          <span className="font-body text-xl font-bold uppercase tracking-widest text-white">
+          <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome ? "text-white" : "text-primary")} />
+          <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome ? "text-white" : "text-primary")}>
             Sariv
           </span>
         </Link>
@@ -46,16 +52,25 @@ export function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="nav-link relative font-body text-[15px] font-medium text-white/80 transition-colors hover:text-white"
+                className={cn(
+                  "nav-link relative font-body text-[15px] font-medium transition-colors",
+                  isHome ? "text-white/80 hover:text-white" : "text-secondary hover:text-primary"
+                )}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
           <div className="hidden md:block">
-            <Button className="bg-white text-black hover:bg-white/90" size="small">
-              Start Project
-            </Button>
+            {isHome ? (
+              <Button className="bg-white text-black hover:bg-white/90" size="small">
+                Start Project
+              </Button>
+            ) : (
+              <Button variant="primary" size="small">
+                Start Project
+              </Button>
+            )}
           </div>
 
           {/* Mobile Sidebar Trigger & Menu */}

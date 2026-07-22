@@ -126,9 +126,9 @@ export const MobileSidebar = ({
         )}
         {...props}
       >
-        <div className="flex justify-end z-20 w-full">
+        <div className="flex justify-end z-20 w-full text-current">
           <Menu
-            className="text-white cursor-pointer"
+            className="cursor-pointer"
             onClick={() => setOpen(!open)}
           />
         </div>
