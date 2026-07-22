@@ -121,19 +121,26 @@ export const MobileSidebar = ({
         <div className="flex justify-end z-[10000] w-full text-current relative">
           <button
             onClick={() => setOpen(!open)}
-            className="relative z-[10000] flex flex-col justify-center items-center w-6 h-6 gap-[5px] text-current cursor-pointer"
+            className="relative z-[10000] flex flex-col justify-center items-center w-6 h-6 gap-[5px] text-current cursor-pointer outline-none focus:outline-none"
+            style={{ WebkitTapHighlightColor: "transparent" }}
           >
-            <motion.span
-              animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              className="block h-[2px] w-6 bg-current transition-transform duration-75 origin-center"
+            <span
+              className={cn(
+                "block h-[2px] w-6 bg-current origin-center transition-all duration-300 ease-out",
+                open ? "rotate-45 translate-y-[7px]" : ""
+              )}
             />
-            <motion.span
-              animate={open ? { opacity: 0 } : { opacity: 1 }}
-              className="block h-[2px] w-6 bg-current transition-opacity duration-75"
+            <span
+              className={cn(
+                "block h-[2px] w-6 bg-current transition-all duration-300 ease-out",
+                open ? "opacity-0" : "opacity-100"
+              )}
             />
-            <motion.span
-              animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              className="block h-[2px] w-6 bg-current transition-transform duration-75 origin-center"
+            <span
+              className={cn(
+                "block h-[2px] w-6 bg-current origin-center transition-all duration-300 ease-out",
+                open ? "-rotate-45 -translate-y-[7px]" : ""
+              )}
             />
           </button>
         </div>
