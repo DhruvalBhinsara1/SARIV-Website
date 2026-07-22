@@ -7,11 +7,11 @@ import { Triangle } from "lucide-react";
 export function Footer() {
   return (
     <footer className="relative w-full border-t border-border bg-background pt-24 mt-auto overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-20 grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-8 md:gap-8 pb-32">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-20 grid grid-cols-2 md:grid-cols-5 gap-y-8 md:gap-y-12 gap-x-8 md:gap-8 pb-24 md:pb-32">
         
         {/* Branding */}
-        <div className="flex flex-col gap-6 col-span-2 md:col-span-1">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-6 col-span-2 md:col-span-1 order-last md:order-first mt-4 md:mt-0">
+          <div className="hidden md:flex items-center gap-2">
             <Typography variant="subheading" className="font-bold tracking-widest uppercase [text-box:trim-both_cap_alphabetic]">
               SARIV
             </Typography>
