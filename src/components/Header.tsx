@@ -38,16 +38,22 @@ function HeaderContent() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-[10000] flex w-full flex-col transition-all duration-300",
-        isHome && !open ? "text-white" : "text-primary",
-        isScrolled
-          ? isHome
-            ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
-            : "border-b border-border bg-background/90 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+        "fixed top-0 z-[10000] flex w-full flex-col",
+        isHome && !open ? "text-white" : "text-primary"
       )}
     >
-      <div className="flex h-[72px] w-full items-center justify-between px-4 md:px-20">
+      {/* Background layer as a sibling to avoid Chrome backdrop-filter containing block bug */}
+      <div
+        className={cn(
+          "absolute inset-0 -z-10 h-[72px] w-full transition-all duration-300",
+          isScrolled
+            ? isHome
+              ? "border-b border-white/10 bg-black/20 backdrop-blur-md"
+              : "border-b border-border bg-background/90 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
+        )}
+      />
+      <div className="flex h-[72px] w-full items-center justify-between px-4 md:px-20 relative z-10">
         <Link href="/" className="group flex items-center gap-4 relative z-[10000]">
           <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome || open ? "text-white" : "text-primary")} />
           <span className={cn("font-body text-xl font-bold uppercase tracking-widest", isHome || open ? "text-white" : "text-primary")}>
