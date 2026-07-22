@@ -160,12 +160,15 @@ export const MobileSidebar = ({
                   className
                 )}
               >
-                <div
+                <motion.div
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
                   className="absolute right-4 top-4 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full transition-all active:scale-95 group"
                   onClick={() => setOpen(false)}
                 >
                   <X className="size-6 transition-transform duration-300 group-hover:rotate-90" />
-                </div>
+                </motion.div>
                 {children}
               </motion.div>
             )}
