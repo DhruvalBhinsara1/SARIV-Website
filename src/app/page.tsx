@@ -124,7 +124,7 @@ export default function Home() {
                   </Typography>
                 </div>
                 <CardTitle className="mt-4">{feature.title}</CardTitle>
-                <CardDescription className="mt-2">{feature.body}</CardDescription>
+                <CardDescription className="mt-2 text-justify">{feature.body}</CardDescription>
               </CardHeader>
             </Card>
           ))}
