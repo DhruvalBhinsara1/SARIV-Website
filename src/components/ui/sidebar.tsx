@@ -136,21 +136,33 @@ export const MobileSidebar = ({
           <AnimatePresence>
             {open && (
               <motion.div
-                initial={{ x: "-100%", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: "-100%", opacity: 0 }}
+                key="backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-sm"
+                onClick={() => setOpen(false)}
+              />
+            )}
+            {open && (
+              <motion.div
+                key="panel"
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
                 transition={{
                   duration: 0.3,
                   ease: "easeInOut",
                 }}
                 className={cn(
-                  "fixed h-[100dvh] w-screen inset-0 bg-background z-[9999] flex flex-col p-10",
+                  "fixed h-[100dvh] w-[80vw] max-w-[320px] left-0 top-0 bg-background z-[9999] flex flex-col p-8 shadow-2xl",
                   className
                 )}
               >
                 <div
-                  className="absolute right-6 top-6 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full"
-                  onClick={() => setOpen(!open)}
+                  className="absolute right-4 top-4 z-50 p-2 text-primary cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-full"
+                  onClick={() => setOpen(false)}
                 >
                   <X className="size-6" />
                 </div>
