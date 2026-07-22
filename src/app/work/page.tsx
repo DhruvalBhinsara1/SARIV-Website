@@ -19,7 +19,7 @@ export default function WorkPage() {
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 flex flex-col gap-32">
         {/* Project 1: FreeFlow */}
         <section className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.2s" }}>
-          <div className="flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col-reverse gap-6 md:flex-row md:items-start md:gap-16">
             <div className="flex max-w-[560px] flex-col items-start gap-6">
               <Typography variant="caption" transform="uppercase" muted>
                 01
@@ -36,7 +36,7 @@ export default function WorkPage() {
               alt="FreeFlow"
               width={400}
               height={100}
-              className="h-16 w-auto flex-shrink-0 object-contain md:h-24"
+              className="h-6 w-auto flex-shrink-0 object-contain md:h-8"
             />
           </div>
           <div className="relative w-full aspect-[4/3] sm:aspect-[16/10]">

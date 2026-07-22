@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
+import CurvedLoop from "@/components/ui/CurvedLoop";
 
 const FEATURES = [
   {
@@ -88,8 +89,8 @@ export default function Home() {
 
       {/* Visual Section */}
       <section className="px-4 md:px-20 py-12 md:py-32 flex flex-col gap-12 items-center">
-        <div className="max-w-[1200px] w-full">
-          <SectionHeader 
+        <div className="max-w-[1200px] w-full flex flex-col-reverse gap-8 md:flex-row md:items-start md:gap-16">
+          <SectionHeader
             eyebrow="The Solution"
             heading="Record once. Re-render instantly."
             supportingText="A native macOS app for recording beautiful product demos. Capture your screen, and FreeFlow automatically zooms into the action, re-renders a crisp synthetic cursor, and exports a themed video — a lightweight alternative to Screen Studio, Loom, and Arcade."
@@ -98,6 +99,13 @@ export default function Home() {
                 See how it works
               </Link>
             }
+          />
+          <Image
+            src="/freeflow-logo.png"
+            alt="FreeFlow"
+            width={400}
+            height={100}
+            className="h-6 w-auto flex-shrink-0 object-contain md:h-8"
           />
         </div>
           
@@ -129,6 +137,15 @@ export default function Home() {
             </Card>
           ))}
         </div>
+      </section>
+
+      {/* Curved Loop Divider */}
+      <section className="overflow-hidden border-t border-border py-16 md:py-24">
+        <CurvedLoop
+          marqueeText="Building What Matters ✦ Timeless ✦ Intentional ✦ Exceptional ✦"
+          curveAmount={120}
+          speed={1}
+        />
       </section>
 
       {/* Steps / How it Works */}
