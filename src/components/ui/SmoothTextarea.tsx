@@ -58,9 +58,20 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
     const caretY = useMotionValue(0);
     const caretOpacity = useMotionValue(0);
     const containerRef = useRef<HTMLDivElement>(null);
-    const fallbackInputRef = useRef<HTMLTextAreaElement>(null);
-    const inputRef = (forwardedRef as React.RefObject<HTMLTextAreaElement | null>) || fallbackInputRef;
+    const internalInputRef = useRef<HTMLTextAreaElement>(null);
     const prefersReducedMotion = useReducedMotion();
+
+    const setRefs = React.useCallback(
+      (node: HTMLTextAreaElement | null) => {
+        internalInputRef.current = node;
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef]
+    );
 
     const isControlled = value !== undefined;
     const inputValue = isControlled ? String(value) : internalValue;
@@ -107,14 +118,14 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
     caretOpacityRef.current = caretOpacity;
 
     useEffect(() => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       if (input && document.activeElement === input) {
         updateCaretRef.current(input);
       }
-    }, [inputValue, inputRef]);
+    }, [inputValue]);
 
     useEffect(() => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       const container = containerRef.current;
       if (!input || !container) return;
 
@@ -149,14 +160,14 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
         input.removeEventListener("scroll", updateCaretIfFocused);
         resizeObserver.disconnect();
       };
-    }, [inputRef]);
+    }, []);
 
     return (
       <div className={cn("relative w-full", wrapperClassName)}>
         <div ref={containerRef} className="relative p-0 overflow-hidden w-full h-full rounded-md">
           <textarea
             {...props}
-            ref={inputRef}
+            ref={setRefs}
             placeholder={placeholder}
             className={cn(
               "flex min-h-[160px] w-full rounded-md border border-border bg-surface px-4 py-3 text-base text-primary placeholder:text-muted focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-colors font-body resize-y relative z-10 bg-transparent",

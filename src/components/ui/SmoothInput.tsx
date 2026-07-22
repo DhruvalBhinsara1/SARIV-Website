@@ -20,10 +20,21 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
     const caretX = useMotionValue(0);
     const caretOpacity = useMotionValue(0);
     const containerRef = useRef<HTMLDivElement>(null);
-    const fallbackInputRef = useRef<HTMLInputElement>(null);
-    const inputRef = (forwardedRef as React.RefObject<HTMLInputElement | null>) || fallbackInputRef;
+    const internalInputRef = useRef<HTMLInputElement>(null);
     const measureRef = useRef<HTMLSpanElement>(null);
     const prefersReducedMotion = useReducedMotion();
+
+    const setRefs = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        internalInputRef.current = node;
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef]
+    );
 
     const isControlled = value !== undefined;
     const inputValue = isControlled ? String(value) : internalValue;
@@ -36,7 +47,7 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
     );
 
     const syncMeasureSpan = () => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       const measureSpan = measureRef.current;
       if (!input || !measureSpan) return;
 
@@ -60,7 +71,7 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
     };
 
     const measurePrefixWidth = (text: string) => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       const measureSpan = measureRef.current;
       if (!input || !measureSpan) return null;
 
@@ -142,14 +153,14 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
     caretOpacityRef.current = caretOpacity;
 
     useEffect(() => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       if (input && document.activeElement === input) {
         updateCaretRef.current(input);
       }
-    }, [inputValue, type, inputRef]);
+    }, [inputValue, type]);
 
     useEffect(() => {
-      const input = inputRef.current;
+      const input = internalInputRef.current;
       const container = containerRef.current;
       if (!input || !container) return;
 
@@ -184,14 +195,14 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
         input.removeEventListener("scroll", updateCaretIfFocused);
         resizeObserver.disconnect();
       };
-    }, [inputRef]);
+    }, []);
 
     return (
       <div className={cn("relative w-full", wrapperClassName)}>
         <div ref={containerRef} className="relative grid grid-cols-1 p-0" style={{ caretColor: "transparent" }}>
           <input
             {...props}
-            ref={inputRef}
+            ref={setRefs}
             type={type}
             placeholder={placeholder}
             className={cn(
