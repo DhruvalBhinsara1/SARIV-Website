@@ -29,7 +29,6 @@ export function Footer() {
           </Typography>
           <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Home</Link>
           <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Work</Link>
-          <Link href="/identity" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Identity</Link>
           <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Contact</Link>
         </div>
 
@@ -38,13 +37,13 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Socials
           </Typography>
-          <LinkPreview url="https://twitter.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+          <LinkPreview url="https://x.com/officialsariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             Twitter
           </LinkPreview>
           <LinkPreview url="https://linkedin.com/company/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             LinkedIn
           </LinkPreview>
-          <LinkPreview url="https://instagram.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+          <LinkPreview url="https://www.instagram.com/hellosariv/" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             Instagram
           </LinkPreview>
           <LinkPreview url="https://github.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">

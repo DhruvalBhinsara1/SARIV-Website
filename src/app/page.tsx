@@ -4,6 +4,7 @@ import { HeroScene } from "@/components/HeroScene";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const PROJECTS = [
   {
@@ -33,12 +34,15 @@ export default function Home() {
 
       {/* Manifesto Section */}
       <section className="px-4 md:px-20 py-24 md:py-40 flex justify-center border-t border-border">
-        <Typography 
-          variant="heading" 
-          className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
-        >
-          We don't build generic products. We engineer precise, enduring tools designed to empower focused work.
-        </Typography>
+        <ScrollReveal>
+          <Typography 
+            variant="heading" 
+            className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
+            data-cursor="text"
+          >
+            We don't build generic products. We engineer precise, enduring tools designed to empower focused work.
+          </Typography>
+        </ScrollReveal>
       </section>
 
       {/* Curved Loop Divider */}
@@ -52,54 +56,57 @@ export default function Home() {
 
       {/* Selected Works Section */}
       <section className="px-4 md:px-20 py-24 md:py-32">
-        <div className="max-w-[1200px] mx-auto flex flex-col gap-24">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <Typography variant="display" className="text-5xl md:text-6xl">
-              Selected Works
-            </Typography>
-            <Link href="/work" className={buttonVariants({ variant: "secondary" })}>
-              View All Projects
-            </Link>
-          </div>
+        <div className="flex flex-col max-w-7xl mx-auto w-full">
+          <ScrollReveal>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 md:mb-24">
+              <Typography variant="display" className="text-5xl md:text-7xl">
+                Selected Work
+              </Typography>
+              <Link href="/work" className={buttonVariants({ variant: "secondary" })}>
+                View All Projects
+              </Link>
+            </div>
+          </ScrollReveal>
 
           <div className="flex flex-col gap-12 md:gap-24">
             {PROJECTS.map((project, i) => (
-              <div 
-                key={project.id} 
-                className={`relative group flex flex-col gap-8 rounded-[2rem] overflow-hidden ${project.theme}`}
-              >
-                {/* Project Image */}
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/9]">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-center mix-blend-darken group-hover:scale-105'}`}
-                  />
-                </div>
-
-                {/* Project Info Panel */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
-                  <div className="flex flex-col max-w-xl gap-4">
-                    <Typography variant="heading" className="text-3xl md:text-4xl">
-                      {project.title}
-                    </Typography>
-                    <Typography variant="body" className={project.id === 'core-defenses' ? "text-neutral-300" : "text-muted"}>
-                      {project.subtitle}
-                    </Typography>
+              <ScrollReveal key={project.id}>
+                <div 
+                  className={`relative group flex flex-col gap-8 rounded-[2rem] overflow-hidden ${project.theme}`}
+                >
+                  {/* Project Image */}
+                  <div className="relative w-full aspect-[4/3] md:aspect-[16/9]">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-center mix-blend-darken group-hover:scale-105'}`}
+                    />
                   </div>
-                  
-                  {project.external ? (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: 'primary' })} ${project.id === 'core-defenses' ? 'bg-white !text-black hover:bg-white/90' : ''}`}>
-                      View Live Site
-                    </a>
-                  ) : (
-                    <Link href={project.link} className={buttonVariants({ variant: "primary" })}>
-                      View Case Study
-                    </Link>
-                  )}
+
+                  {/* Project Info Panel */}
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
+                    <div className="flex flex-col max-w-xl gap-4">
+                      <Typography variant="heading" className="text-3xl md:text-4xl">
+                        {project.title}
+                      </Typography>
+                      <Typography variant="body" className={`transition-colors duration-300 ${project.id === 'core-defenses' ? "text-neutral-300 hover:text-white" : "text-muted hover:text-primary"}`}>
+                        {project.subtitle}
+                      </Typography>
+                    </div>
+                    
+                    {project.external ? (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: 'primary' })} ${project.id === 'core-defenses' ? 'bg-white !text-black hover:bg-white/90' : ''}`}>
+                        View Live Site
+                      </a>
+                    ) : (
+                      <Link href={project.link} className={buttonVariants({ variant: "primary" })}>
+                        View Case Study
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -107,17 +114,19 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="px-4 md:px-20 py-32 border-t border-border bg-surface-elevated">
-        <div className="animate-fade-up max-w-[1200px] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <Typography variant="heading" className="text-3xl md:text-4xl max-w-lg">
-            Ready to build something exceptional?
-          </Typography>
-          <Link
-            href="/contact"
-            className={buttonVariants({ variant: "primary", size: "large" })}
-          >
-            Get in touch
-          </Link>
-        </div>
+        <ScrollReveal>
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-10">
+            <Typography variant="display" className="text-5xl md:text-7xl">
+              Let's build something exceptional.
+            </Typography>
+            <Typography variant="body" className="text-xl md:text-2xl text-muted max-w-2xl">
+              We partner with visionary companies to build digital products that define categories and stand the test of time.
+            </Typography>
+            <Link href="/contact" className={buttonVariants({ variant: "primary", size: "large" })}>
+              Start a Project
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
     </main>
   );

@@ -5,10 +5,13 @@ import { motion } from "framer-motion";
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, filter: "blur(4px)" }}
-      animate={{ opacity: 1, filter: "blur(0px)" }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col flex-1"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        ease: [0.22, 1, 0.36, 1],
+        duration: 0.8,
+      }}
+      className="flex flex-col min-h-[100dvh]"
     >
       {children}
     </motion.div>

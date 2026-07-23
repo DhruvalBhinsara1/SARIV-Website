@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
 import GradualBlur from "@/components/ui/GradualBlur";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const displayFont = Instrument_Serif({
@@ -81,8 +82,9 @@ export default function RootLayout({
                   "url": "https://sariv.systems/",
                   "logo": "https://sariv.systems/icon.png",
                   "sameAs": [
-                    "https://twitter.com/sariv",
-                    "https://linkedin.com/company/sariv"
+                    "https://x.com/officialsariv",
+                    "https://linkedin.com/company/sariv",
+                    "https://www.instagram.com/hellosariv/"
                   ]
                 }
               ]
@@ -111,6 +113,7 @@ export default function RootLayout({
           </SmoothScrolling>
           <ToastViewport />
         </ToastProvider>
+        <CustomCursor />
       </body>
     </html>
   );

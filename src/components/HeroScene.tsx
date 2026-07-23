@@ -3,15 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { Typography } from "./ui/Typography";
 import { buttonVariants } from "./ui/Button";
+import { Magnetic } from "./ui/Magnetic";
 
 export function HeroScene() {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center px-4 overflow-hidden pt-32 pb-20">
-      {/* Background Image */}
+      {/* Background Layering */}
       <div className="absolute inset-0 z-0">
+        {/* Layer 1: Base Image (acts as sky and patches holes) */}
         <Image
           src="/hero_image_upscale.png"
-          alt="Background Hero Image"
+          alt="Base Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        
+        {/* Layer 2: Giant Logo */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Mark className="w-[250px] md:w-[450px] h-auto text-white -translate-y-[15vh] animate-fade-up" style={{ animationDelay: "0.2s" }} />
+        </div>
+
+        {/* Layer 3: Mountains Foreground */}
+        <Image
+          src="/mountains.png"
+          alt="Mountains Foreground"
           fill
           className="object-cover"
           priority
@@ -30,12 +46,9 @@ export function HeroScene() {
       </div>
 
       {/* Background ambient gradient orb */}
-      <div className="absolute inset-0 gradient-orb opacity-50 animate-fade-in z-0" />
+      <div className="absolute inset-0 gradient-orb opacity-50 animate-fade-in z-0 pointer-events-none" />
       
-      <div className="relative z-10 flex flex-col items-center w-full">
-        <div className="mb-10 animate-fade-up">
-          <Mark className="size-20 md:size-28 text-white" />
-        </div>
+      <div className="relative z-10 flex flex-col items-center w-full mt-24">
         
         <h1 className="font-display font-light text-white text-[14vw] md:text-[96px] leading-[1.05] tracking-[-1.92px] text-center max-w-[900px] animate-fade-up" style={{ animationDelay: "0.1s" }}>
           Building <br className="md:hidden" />
@@ -52,15 +65,19 @@ export function HeroScene() {
         </Typography>
 
         <div className="animate-fade-up mt-8 flex gap-4" style={{ animationDelay: "0.3s" }}>
-          <Link href="/identity" className={buttonVariants({ variant: "primary" })}>
-            Identity System
-          </Link>
-          <a
-            href="mailto:officialsariv@gmail.com"
-            className={buttonVariants({ variant: "secondary", className: "border-transparent bg-white text-primary hover:bg-white/90" })}
-          >
-            Get in touch
-          </a>
+          <Magnetic strength={25}>
+            <Link href="/work" className={buttonVariants({ variant: "primary" })}>
+              View Work
+            </Link>
+          </Magnetic>
+          <Magnetic strength={25}>
+            <a
+              href="mailto:officialsariv@gmail.com"
+              className={buttonVariants({ variant: "secondary", className: "border-transparent bg-white text-primary hover:bg-white/90" })}
+            >
+              Get in touch
+            </a>
+          </Magnetic>
         </div>
       </div>
     </div>

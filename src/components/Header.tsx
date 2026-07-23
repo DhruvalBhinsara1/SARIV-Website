@@ -8,10 +8,10 @@ import { SidebarProvider, useSidebar, MobileSidebar, SidebarLink } from "./ui/si
 import { cn } from "@/lib/utils";
 import { Home, Briefcase, Fingerprint, Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 const NAV_LINKS = [
   { label: "Work", href: "/work", icon: <Briefcase className="h-5 w-5 flex-shrink-0" /> },
-  { label: "Identity", href: "/identity", icon: <Fingerprint className="h-5 w-5 flex-shrink-0" /> },
   { label: "Contact", href: "/contact", icon: <Mail className="h-5 w-5 flex-shrink-0" /> },
 ];
 
@@ -73,28 +73,31 @@ function HeaderContent() {
         <div className="flex items-center gap-8">
           <nav className="hidden items-center gap-10 md:flex">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={cn(
-                  "nav-link relative font-body text-[15px] font-medium transition-colors",
-                  isHome ? "text-white/80 hover:text-white" : "text-secondary hover:text-primary"
-                )}
-              >
-                {link.label}
-              </Link>
+              <Magnetic strength={15} key={link.label}>
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "nav-link relative font-body text-[15px] font-medium transition-colors block",
+                    isHome ? "text-white/80 hover:text-white" : "text-secondary hover:text-primary"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </Magnetic>
             ))}
           </nav>
           <div className="hidden md:block">
-            <Link
-              href="/start-project"
-              className={cn(
-                buttonVariants({ size: "small" }),
-                isHome ? "bg-white text-black hover:bg-white/90" : ""
-              )}
-            >
-              Start Project
-            </Link>
+            <Magnetic strength={20}>
+              <Link
+                href="/start-project"
+                className={cn(
+                  buttonVariants({ size: "small" }),
+                  isHome ? "bg-white text-black hover:bg-white/90" : ""
+                )}
+              >
+                Start Project
+              </Link>
+            </Magnetic>
           </div>
 
           {/* Mobile Sidebar Trigger & Menu */}
