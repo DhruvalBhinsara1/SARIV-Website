@@ -8,6 +8,7 @@ import { SmoothInput as Input } from "@/components/ui/SmoothInput";
 import { SmoothTextarea as Textarea } from "@/components/ui/SmoothTextarea";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Typography } from "@/components/ui/Typography";
 import { Toast, ToastTitle, ToastDescription, ToastClose } from "@/components/ui/Toast";
 
@@ -71,13 +72,16 @@ export default function ContactPage() {
   return (
     <main className="flex-1 w-full bg-background min-h-[100dvh] flex flex-col justify-center pt-24 pb-12">
       <div className="max-w-[720px] mx-auto px-4 md:px-8 w-full">
-        <SectionHeader
-          heading="Get in Touch"
-          supportingText="Questions, feedback, or just want to say hello? Send us a message and we'll get back to you."
-          className="animate-fade-up mb-10"
-        />
+        <ScrollReveal>
+          <SectionHeader
+            heading="Get in Touch"
+            supportingText="Questions, feedback, or just want to say hello? Send us a message and we'll get back to you."
+            className="mb-10"
+          />
+        </ScrollReveal>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="animate-fade-up flex flex-col gap-6" style={{ animationDelay: "0.1s" }}>
+        <ScrollReveal delay={0.1}>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           {/* Honeypot field - visually hidden but accessible to bots */}
           <div className="hidden" aria-hidden="true">
             <label htmlFor="bot_field">Don&apos;t fill this out if you&apos;re human:</label>
@@ -125,8 +129,9 @@ export default function ContactPage() {
             <Typography variant="caption" muted className="max-w-[480px]">
               Have a project in mind? Visit the <a href="/start-project" className="underline underline-offset-4 hover:text-primary">Start a Project page</a> instead.
             </Typography>
-          </div>
-        </form>
+            </div>
+          </form>
+        </ScrollReveal>
 
         <Toast open={showToast} onOpenChange={setShowToast}>
           <div className="grid gap-1">

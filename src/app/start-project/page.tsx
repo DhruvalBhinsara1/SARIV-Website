@@ -8,6 +8,7 @@ import { SmoothInput as Input } from "@/components/ui/SmoothInput";
 import { SmoothTextarea as Textarea } from "@/components/ui/SmoothTextarea";
 import { Button } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Typography } from "@/components/ui/Typography";
 import { Toast, ToastTitle, ToastDescription, ToastClose } from "@/components/ui/Toast";
 import {
@@ -92,14 +93,17 @@ export default function StartProjectPage() {
     <main className="flex-1 w-full bg-background pt-32 pb-24">
       {/* Hero */}
       <div className="max-w-[720px] mx-auto px-4 md:px-8">
-        <SectionHeader
-          eyebrow="Start a Project"
-          heading="Let's build something enduring."
-          supportingText="Tell us about your project — scope, budget, and timeline — and our team will follow up within one business day to plan next steps."
-          className="animate-fade-up mb-16"
-        />
+        <ScrollReveal>
+          <SectionHeader
+            eyebrow="Start a Project"
+            heading="Let's build something enduring."
+            supportingText="Tell us about your project — scope, budget, and timeline — and our team will follow up within one business day to plan next steps."
+            className="mb-16"
+          />
+        </ScrollReveal>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.1s" }}>
+        <ScrollReveal delay={0.1}>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
           {/* Honeypot field - visually hidden but accessible to bots */}
           <div className="hidden" aria-hidden="true">
             <label htmlFor="bot_field">Don&apos;t fill this out if you&apos;re human:</label>
@@ -206,15 +210,16 @@ export default function StartProjectPage() {
             {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
           </div>
 
-          <div className="flex flex-col items-start gap-4 pt-4">
-            <Button type="submit" variant="primary" size="large" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Submit Project Inquiry"}
-            </Button>
-            <Typography variant="caption" muted className="max-w-[480px]">
-              Looking for general support instead? Reach us via the <a href="/contact" className="underline underline-offset-4 hover:text-primary">Contact page</a>.
-            </Typography>
-          </div>
-        </form>
+            <div className="flex flex-col gap-4 mt-8 pt-8 border-t border-border">
+              <Button type="submit" disabled={isSubmitting} variant="primary" size="large" className="w-full sm:w-auto self-start">
+                {isSubmitting ? "Submitting..." : "Submit Inquiry"}
+              </Button>
+              <Typography variant="caption" muted className="max-w-[480px]">
+                Just want to say hello? Visit the <a href="/contact" className="underline underline-offset-4 hover:text-primary">Contact page</a> instead.
+              </Typography>
+            </div>
+          </form>
+        </ScrollReveal>
 
         <Toast open={showToast} onOpenChange={setShowToast}>
           <div className="grid gap-1">

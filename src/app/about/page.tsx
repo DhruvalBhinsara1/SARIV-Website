@@ -1,4 +1,5 @@
 import { Typography } from "@/components/ui/Typography";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Keyboard } from "@/components/ui/Keyboard";
 
 const PRINCIPLES = [
@@ -30,36 +31,41 @@ export default function AboutPage() {
       <div className="max-w-[720px] mx-auto px-4 md:px-8">
         
         {/* Header */}
-        <section className="mb-24 animate-fade-up">
-          <Typography variant="caption" transform="uppercase" className="text-secondary font-semibold mb-6 block">
-            About SARIV
-          </Typography>
-          <Typography variant="display" className="mb-8">
-            Building what matters.
-          </Typography>
-          <Typography variant="body" className="text-xl md:text-2xl leading-relaxed">
-            SARIV is an engineering and design collective focused on architecting timeless digital infrastructure. We refuse to chase industry trends, focusing instead on structural integrity, performance, and uncompromising aesthetic execution.
-          </Typography>
-        </section>
+        <ScrollReveal>
+          <section className="mb-24">
+            <Typography variant="caption" transform="uppercase" className="text-secondary font-semibold mb-6 block">
+              About SARIV
+            </Typography>
+            <Typography variant="display" className="mb-8">
+              Building what matters.
+            </Typography>
+            <Typography variant="body" className="text-xl md:text-2xl leading-relaxed">
+              SARIV is an engineering and design collective focused on architecting timeless digital infrastructure. We refuse to chase industry trends, focusing instead on structural integrity, performance, and uncompromising aesthetic execution.
+            </Typography>
+          </section>
+        </ScrollReveal>
 
         {/* Mission Statement */}
-        <section className="mb-32 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-          <Typography variant="subheading" className="mb-6">
-            The Mission
-          </Typography>
-          <Typography variant="body" className="mb-6">
-            Most software today is built to be disposable. It relies on unstable dependencies, fragile CSS, and &apos;move fast and break things&apos; methodologies that ultimately result in crushing technical debt.
-          </Typography>
-          <Typography variant="body">
-            Our mission is to build software that lasts. We treat frontend architecture with the same rigor and precision as backend systems programming. 
-          </Typography>
-        </section>
+        <ScrollReveal delay={0.1}>
+          <section className="mb-32">
+            <Typography variant="subheading" className="mb-6">
+              The Mission
+            </Typography>
+            <Typography variant="body" className="mb-6">
+              Most software today is built to be disposable. It relies on unstable dependencies, fragile CSS, and &apos;move fast and break things&apos; methodologies that ultimately result in crushing technical debt.
+            </Typography>
+            <Typography variant="body">
+              Our mission is to build software that lasts. We treat frontend architecture with the same rigor and precision as backend systems programming. 
+            </Typography>
+          </section>
+        </ScrollReveal>
 
         {/* Principles */}
-        <section className="animate-fade-up" style={{ animationDelay: "0.2s" }}>
-          <Typography variant="subheading" className="mb-12">
-            Engineering Principles
-          </Typography>
+        <ScrollReveal delay={0.2}>
+          <section>
+            <Typography variant="subheading" className="mb-12">
+              Engineering Principles
+            </Typography>
           
           <div className="flex flex-col gap-12">
             {PRINCIPLES.map((principle, i) => (
@@ -81,7 +87,8 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
       </div>
     </main>
