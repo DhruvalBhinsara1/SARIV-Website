@@ -8,6 +8,8 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { ArrowRight, Maximize2, MousePointer2, Lock, Zap } from "lucide-react";
 import { Pricing } from "@/components/blocks/pricing";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { headers } from "next/headers";
+import { getRegionForCountry, convertUsd } from "@/lib/currency";
 
 const demoPlans = [
   {
@@ -68,7 +70,15 @@ const demoPlans = [
   },
 ];
 
-export default function FreeFlowProductPage() {
+export default async function FreeFlowProductPage() {
+  const country = (await headers()).get("x-vercel-ip-country");
+  const region = getRegionForCountry(country);
+  const localizedPlans = demoPlans.map((plan) => ({
+    ...plan,
+    price: convertUsd(Number(plan.price), region.rate).toLocaleString(),
+    yearlyPrice: convertUsd(Number(plan.yearlyPrice), region.rate).toLocaleString(),
+  }));
+
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">
       {/* 1. Split Hero Section */}
@@ -141,9 +151,9 @@ export default function FreeFlowProductPage() {
           />
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[minmax(260px,auto)]">
           {/* Algorithmic Zooming */}
-          <ScrollReveal delay={0.1} className="lg:col-span-2 row-span-1">
+          <ScrollReveal delay={0.1} className="col-span-2 row-span-1">
             <div className="w-full h-full p-8 md:p-10 rounded-[2rem] bg-surface-elevated border border-border flex flex-col justify-between overflow-hidden relative group hover:border-primary/50 transition-colors">
               <div className="relative z-10 max-w-md">
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -162,13 +172,13 @@ export default function FreeFlowProductPage() {
 
           {/* Synthetic Cursor */}
           <ScrollReveal delay={0.2} className="col-span-1 row-span-1">
-            <div className="w-full h-full p-8 md:p-10 rounded-[2rem] bg-surface-elevated border border-border flex flex-col justify-between overflow-hidden relative group hover:border-primary/50 transition-colors">
+            <div className="w-full h-full p-5 md:p-10 rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border flex flex-col justify-between overflow-hidden relative group hover:border-primary/50 transition-colors">
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <MousePointer2 className="w-6 h-6" />
+                <div className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform">
+                  <MousePointer2 className="w-4 h-4 md:w-6 md:h-6" />
                 </div>
-                <Typography variant="heading" className="mb-3 text-xl">Synthetic Cursor</Typography>
-                <Typography variant="body" className="text-secondary hover:text-primary transition-colors duration-300 text-sm">
+                <Typography variant="heading" className="mb-1.5 md:mb-3 text-base md:text-xl">Synthetic Cursor</Typography>
+                <Typography variant="body" className="text-secondary hover:text-primary transition-colors duration-300 text-xs md:text-sm">
                   FreeFlow hides the native, pixelated macOS cursor and renders a scalable vector cursor in post-production for maximum clarity at any zoom level.
                 </Typography>
               </div>
@@ -177,13 +187,13 @@ export default function FreeFlowProductPage() {
 
           {/* Privacy First */}
           <ScrollReveal delay={0.3} className="col-span-1 row-span-1">
-            <div className="w-full h-full p-8 md:p-10 rounded-[2rem] bg-surface-elevated border border-border flex flex-col justify-between overflow-hidden relative group hover:border-primary/50 transition-colors">
+            <div className="w-full h-full p-5 md:p-10 rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border flex flex-col justify-between overflow-hidden relative group hover:border-primary/50 transition-colors">
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Lock className="w-6 h-6" />
+                <div className="w-9 h-9 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform">
+                  <Lock className="w-4 h-4 md:w-6 md:h-6" />
                 </div>
-                <Typography variant="heading" className="mb-3 text-xl">Privacy First</Typography>
-                <Typography variant="body" className="text-secondary hover:text-primary transition-colors duration-300 text-sm">
+                <Typography variant="heading" className="mb-1.5 md:mb-3 text-base md:text-xl">Privacy First</Typography>
+                <Typography variant="body" className="text-secondary hover:text-primary transition-colors duration-300 text-xs md:text-sm">
                   Everything happens locally. We use Apple&apos;s ScreenCaptureKit directly, ensuring your sensitive product data never leaves your machine.
                 </Typography>
               </div>
@@ -191,7 +201,7 @@ export default function FreeFlowProductPage() {
           </ScrollReveal>
 
           {/* Hardware Accelerated */}
-          <ScrollReveal delay={0.4} className="lg:col-span-2 row-span-1">
+          <ScrollReveal delay={0.4} className="col-span-2 row-span-1">
             <div className="w-full h-full p-8 md:p-10 rounded-[2rem] bg-primary text-surface flex flex-col justify-between overflow-hidden relative group">
               <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
               <div className="relative z-10 max-w-md">
@@ -214,10 +224,11 @@ export default function FreeFlowProductPage() {
       {/* 4. Pricing Section */}
       <section className="mb-32">
         <ScrollReveal>
-          <Pricing 
-            plans={demoPlans}
+          <Pricing
+            plans={localizedPlans}
             title="Simple, Transparent Pricing"
             description={"Choose the plan that works for you\nAll plans include access to our platform, lead generation tools, and dedicated support."}
+            currencySymbol={region.symbol}
           />
         </ScrollReveal>
       </section>

@@ -81,14 +81,14 @@ export default function Home() {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-center mix-blend-darken group-hover:scale-105'}`}
+                      className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-[30%_center] md:object-center mix-blend-darken group-hover:scale-105'}`}
                     />
                   </div>
 
                   {/* Project Info Panel */}
-                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
+                  <div className="flex flex-col items-start md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
                     <div className="flex flex-col max-w-xl gap-4">
-                      <Typography variant="heading" className="text-3xl md:text-4xl">
+                      <Typography variant="heading" className={`text-3xl md:text-4xl ${project.id === 'core-defenses' ? 'text-white' : ''}`}>
                         {project.title}
                       </Typography>
                       <Typography variant="body" className={`transition-colors duration-300 ${project.id === 'core-defenses' ? "text-neutral-300 hover:text-white" : "text-muted hover:text-primary"}`}>

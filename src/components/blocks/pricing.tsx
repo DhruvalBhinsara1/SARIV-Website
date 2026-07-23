@@ -25,9 +25,10 @@ export interface PricingProps {
   plans: PricingPlan[];
   title: string;
   description: string;
+  currencySymbol?: string;
 }
 
-export function Pricing({ plans, title, description }: PricingProps) {
+export function Pricing({ plans, title, description, currencySymbol = "$" }: PricingProps) {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
@@ -81,7 +82,7 @@ export function Pricing({ plans, title, description }: PricingProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex flex-col md:grid md:grid-cols-3 gap-6 md:gap-8">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
@@ -89,7 +90,7 @@ export function Pricing({ plans, title, description }: PricingProps) {
               whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: plan.isPopular ? 1.05 : 1 }}
               whileHover={{ y: -8, scale: plan.isPopular ? 1.08 : 1.02 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
+              transition={{
                 type: "spring",
                 stiffness: 100,
                 damping: 20,
@@ -99,8 +100,8 @@ export function Pricing({ plans, title, description }: PricingProps) {
               style={{ transformPerspective: 1000 }}
               className={cn(
                 "relative flex flex-col p-8 rounded-3xl border transition-colors duration-300",
-                plan.isPopular 
-                  ? "bg-primary text-surface border-primary shadow-[0_20px_50px_rgba(255,255,255,0.1)] z-10" 
+                plan.isPopular
+                  ? "bg-primary text-surface border-primary shadow-[0_20px_50px_rgba(255,255,255,0.1)] z-10"
                   : "bg-surface border-border hover:border-primary/50 hover:shadow-elevation"
               )}
             >
@@ -116,7 +117,7 @@ export function Pricing({ plans, title, description }: PricingProps) {
               
               <div className="mt-4 flex items-baseline gap-2 mb-2">
                 <span className="text-4xl md:text-5xl font-display tracking-tight font-medium flex overflow-hidden h-[1.2em]">
-                  $
+                  {currencySymbol}
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
                       key={isYearly ? "yearly" : "monthly"}
