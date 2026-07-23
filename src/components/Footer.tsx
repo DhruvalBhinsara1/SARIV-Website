@@ -28,6 +28,7 @@ export function Footer() {
             Pages
           </Typography>
           <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Home</Link>
+          <Link href="/about" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">About</Link>
           <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Work</Link>
           <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Contact</Link>
         </div>
