@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { SmoothInput as Input } from "@/components/ui/SmoothInput";
@@ -29,6 +29,7 @@ export default function ContactPage() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
@@ -91,21 +92,33 @@ export default function ContactPage() {
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 space-y-3">
               <label htmlFor="name" className="text-sm font-medium text-primary">Name</label>
-              <Input 
-                id="name" 
-                placeholder="Ada Lovelace" 
-                {...register("name")}
+              <Controller
+                control={control}
+                name="name"
+                render={({ field }) => (
+                  <Input 
+                    id="name" 
+                    placeholder="Ada Lovelace" 
+                    {...field}
+                  />
+                )}
               />
               {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
             </div>
             <div className="flex-1 space-y-3">
               <label htmlFor="email" className="text-sm font-medium text-primary">Email</label>
-              <Input 
-                id="email" 
-                type="text"
-                inputMode="email"
-                placeholder="ada@example.com" 
-                {...register("email")}
+              <Controller
+                control={control}
+                name="email"
+                render={({ field }) => (
+                  <Input 
+                    id="email" 
+                    type="text"
+                    inputMode="email"
+                    placeholder="ada@example.com" 
+                    {...field}
+                  />
+                )}
               />
               {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
             </div>
@@ -113,11 +126,17 @@ export default function ContactPage() {
           
           <div className="space-y-3">
             <label htmlFor="message" className="text-sm font-medium text-primary">Message</label>
-            <Textarea
-              id="message"
-              placeholder="How can we help?"
-              className="min-h-[160px]"
-              {...register("message")}
+            <Controller
+              control={control}
+              name="message"
+              render={({ field }) => (
+                <Textarea
+                  id="message"
+                  placeholder="How can we help?"
+                  className="min-h-[160px]"
+                  {...field}
+                />
+              )}
             />
             {errors.message && <p className="text-sm text-red-500">{errors.message.message}</p>}
           </div>

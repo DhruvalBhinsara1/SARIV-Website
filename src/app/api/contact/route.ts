@@ -8,6 +8,16 @@ const contactSchema = z.object({
   bot_field: z.string().max(0, "Invalid submission"), // Honeypot
 });
 
+import nodemailer from 'nodemailer';
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.SMTP_EMAIL,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -28,8 +38,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true });
     }
 
-    // In a real application, you would integrate Resend or SendGrid here
-    // Example: await resend.emails.send({ ... })
+    const { name, email, message } = result.data;
+
+    // Send the email
+    await transporter.sendMail({
+      from: process.env.SMTP_EMAIL,
+      to: process.env.SMTP_EMAIL,
+      subject: `New Contact Inquiry from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      html: `<p><strong>Name:</strong> ${name}</p>
+             <p><strong>Email:</strong> ${email}</p>
+             <p><strong>Message:</strong></p>
+             <p>${message.replace(/\n/g, '<br>')}</p>`,
+    });
 
     return NextResponse.json({ success: true });
     
