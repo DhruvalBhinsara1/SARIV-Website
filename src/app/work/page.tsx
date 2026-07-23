@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 const projects = [
   {
@@ -45,7 +46,8 @@ export default function WorkPage() {
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 flex flex-col gap-32">
         {projects.map((project, index) => (
-          <section key={project.number} className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+          <ScrollReveal key={project.number} delay={index === 0 ? 0.2 : 0}>
+            <section className="flex flex-col gap-8">
             <div className={`flex flex-col-reverse gap-6 md:items-start md:gap-16 ${index % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"}`}>
               <div className={`flex max-w-[560px] flex-col gap-6 ${index % 2 === 1 ? 'items-end text-right' : 'items-start text-left'}`}>
                 <Typography variant="caption" transform="uppercase" muted>
@@ -91,8 +93,9 @@ export default function WorkPage() {
                 fill
                 className={project.imageClass}
               />
-            </div>
-          </section>
+              </div>
+            </section>
+          </ScrollReveal>
         ))}
       </div>
     </main>

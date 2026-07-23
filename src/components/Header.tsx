@@ -26,19 +26,32 @@ export function Header() {
 function HeaderContent() {
   const { open } = useSidebar();
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isHidden, setIsHidden] = React.useState(false);
+  const lastScrollY = React.useRef(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
   React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 20);
+      
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !open) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [open]);
 
   return (
     <header
       className={cn(
-        "fixed top-0 z-[10000] flex w-full flex-col",
+        "fixed top-0 z-[10000] flex w-full flex-col transition-transform duration-500",
+        isHidden ? "-translate-y-full" : "translate-y-0",
         isHome && !open ? "text-white" : "text-primary"
       )}
     >
