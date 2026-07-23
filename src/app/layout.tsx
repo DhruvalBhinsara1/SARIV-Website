@@ -21,13 +21,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sariv.systems"),
+  metadataBase: new URL("https://sariv-web.vercel.app"),
   title: "SARIV | Building what matters",
   description: "We design and build digital products that feel timeless, intentional, and technically exceptional.",
   openGraph: {
     title: "SARIV | Building what matters",
     description: "We design and build digital products that feel timeless, intentional, and technically exceptional.",
-    url: "https://sariv.systems",
+    url: "https://sariv-web.vercel.app",
     siteName: "SARIV",
     locale: "en_US",
     type: "website",
@@ -47,6 +47,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "7iwDBZLTof0WGJjnX81RqcTC_aJ7YArUfYsfUF8so5M",
   },
 };
 
@@ -70,17 +73,17 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "WebSite",
-                  "@id": "https://sariv.systems/#website",
-                  "url": "https://sariv.systems/",
+                  "@id": "https://sariv-web.vercel.app/#website",
+                  "url": "https://sariv-web.vercel.app/",
                   "name": "SARIV",
                   "description": "We design and build digital products that feel timeless, intentional, and technically exceptional.",
                 },
                 {
                   "@type": "Organization",
-                  "@id": "https://sariv.systems/#organization",
+                  "@id": "https://sariv-web.vercel.app/#organization",
                   "name": "SARIV",
-                  "url": "https://sariv.systems/",
-                  "logo": "https://sariv.systems/icon.png",
+                  "url": "https://sariv-web.vercel.app/",
+                  "logo": "https://sariv-web.vercel.app/icon.png",
                   "sameAs": [
                     "https://x.com/officialsariv",
                     "https://linkedin.com/company/sariv",

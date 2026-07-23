@@ -52,14 +52,14 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
             "author": {
               "@type": "Organization",
               "name": "SARIV",
-              "url": "https://sariv.systems"
+              "url": "https://sariv-web.vercel.app"
             },
             "publisher": {
               "@type": "Organization",
               "name": "SARIV",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://sariv.systems/icon.png"
+                "url": "https://sariv-web.vercel.app/icon.png"
               }
             }
           })

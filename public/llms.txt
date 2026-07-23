@@ -1,0 +1,16 @@
+# SARIV
+
+> SARIV designs and builds digital products that feel timeless, intentional, and technically exceptional. We engineer precise, enduring tools rather than chase trends.
+
+SARIV is a small product studio. FreeFlow, our flagship product, is a native macOS app for recording auto-zooming, non-destructive product demos.
+
+## Pages
+
+- [Home](https://sariv-web.vercel.app/): Studio overview and philosophy
+- [Work](https://sariv-web.vercel.app/work): Case studies and shipped projects
+- [FreeFlow](https://sariv-web.vercel.app/products/freeflow): Native macOS screen recording app
+- [Identity System](https://sariv-web.vercel.app/identity): Design system, logomark, typography, and color tokens
+- [About](https://sariv-web.vercel.app/about): Engineering principles and studio philosophy
+- [Journal](https://sariv-web.vercel.app/journal): Writing on design and engineering
+- [Start a Project](https://sariv-web.vercel.app/start-project): Project inquiry form
+- [Contact](https://sariv-web.vercel.app/contact): General contact form
