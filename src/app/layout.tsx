@@ -6,6 +6,7 @@ import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
 import GradualBlur from "@/components/ui/GradualBlur";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const displayFont = Instrument_Serif({
@@ -117,6 +118,7 @@ export default function RootLayout({
           <ToastViewport />
         </ToastProvider>
         <CustomCursor />
+        <Analytics />
       </body>
     </html>
   );
