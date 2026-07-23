@@ -44,11 +44,19 @@ export function SmoothScrolling({ children }: { children: React.ReactNode }) {
 
   // Reset scroll position on route change
   useEffect(() => {
+    // Native reset
     window.scrollTo(0, 0);
-    const smoother = smootherRef.current || ScrollSmoother.get();
-    if (smoother) {
-      smoother.scrollTop(0);
-    }
+    
+    // Wait for the new page DOM to paint and establish its height
+    const timer = setTimeout(() => {
+      const smoother = smootherRef.current || ScrollSmoother.get();
+      if (smoother) {
+        smoother.scrollTop(0);
+        ScrollTrigger.refresh();
+      }
+    }, 50); // Small delay to prevent clamping to the footer
+
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   // Global robust ResizeObserver to automatically refresh ScrollTrigger

@@ -90,7 +90,7 @@ export default function WorkPage() {
                 Start a<br />Project
               </Typography>
             </div>
-            <Link href="/contact" className="relative z-10 mt-8 flex items-center justify-between bg-surface text-primary px-6 py-4 rounded-full font-medium group-hover:bg-surface/90 transition-colors shadow-sm">
+            <Link href="/start-project" className="relative z-10 mt-8 flex items-center justify-between bg-surface text-primary px-6 py-4 rounded-full font-medium group-hover:bg-surface/90 transition-colors shadow-sm">
               <span>Get in touch</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
