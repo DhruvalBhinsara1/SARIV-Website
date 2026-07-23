@@ -15,8 +15,8 @@ const projects = [
     external: false,
     logo: "/freeflow-logo.png",
     image: "/freeflow-ui.png",
-    imageAspect: "aspect-[4/3] sm:aspect-[16/10]",
-    imageClass: "object-contain object-center"
+    imageAspect: "aspect-[4/3] sm:aspect-[16/10] rounded-3xl overflow-hidden border border-border bg-surface",
+    imageClass: "object-cover object-top"
   },
   {
     number: "02",
