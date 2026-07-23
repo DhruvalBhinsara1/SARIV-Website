@@ -24,7 +24,7 @@ export function Header() {
 }
 
 function HeaderContent() {
-  const { open } = useSidebar();
+  const { open, setOpen } = useSidebar();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isHidden, setIsHidden] = React.useState(false);
   const lastScrollY = React.useRef(0);
@@ -121,7 +121,7 @@ function HeaderContent() {
                     <SidebarLink key={idx} link={link} className="text-xl" />
                   ))}
                   <div className="mt-8 border-t border-border pt-8 flex">
-                    <Link href="/start-project" className={buttonVariants({ variant: "primary" })}>
+                    <Link href="/start-project" onClick={() => setOpen(false)} className={buttonVariants({ variant: "primary" })}>
                       Start Project
                     </Link>
                   </div>

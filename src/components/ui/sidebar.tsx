@@ -152,7 +152,7 @@ export const MobileSidebar = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[9998] bg-black/40 backdrop-blur-md"
+              className="fixed left-0 top-0 z-[9998] h-[100dvh] w-screen bg-black/40 backdrop-blur-md"
               onClick={() => setOpen(false)}
             />
           )}
@@ -189,7 +189,7 @@ export const SidebarLink = ({
   className?: string;
   props?: LinkProps;
 }) => {
-  const { open, animate } = useSidebar();
+  const { open, animate, setOpen } = useSidebar();
   return (
     <Link
       href={link.href}
@@ -198,14 +198,7 @@ export const SidebarLink = ({
         className
       )}
       {...props}
-      onClick={() => {
-        // Automatically close on mobile when a link is clicked
-        const isMobile = window.innerWidth < 768;
-        if (isMobile) {
-          document.querySelector(".group\\/sidebar")?.closest("[data-sidebar-provider]");
-          // Best effort close is handled by standard navigation in Next.js, but we'll leave this structural.
-        }
-      }}
+      onClick={() => setOpen(false)}
     >
       {link.icon}
       <motion.span

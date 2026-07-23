@@ -20,10 +20,10 @@ export default function WorkPage() {
         </ScrollReveal>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-[360px]">
-        
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[minmax(0,auto)] md:auto-rows-[minmax(360px,auto)]">
+
         {/* FreeFlow - Large Tile */}
-        <ScrollReveal delay={0.1} className="lg:col-span-2 lg:row-span-2">
+        <ScrollReveal delay={0.1} className="col-span-2 lg:row-span-2">
           <Link href="/products/freeflow" className="block w-full h-full group">
             <div className="w-full h-full rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
               <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
@@ -51,9 +51,9 @@ export default function WorkPage() {
         </ScrollReveal>
 
         {/* Core Defenses - Square Tile */}
-        <ScrollReveal delay={0.2} className="col-span-1 row-span-1">
+        <ScrollReveal delay={0.2} className="aspect-[4/5] self-start lg:aspect-auto lg:self-stretch col-span-1 row-span-1">
           <a href="https://www.core-defenses.com/" target="_blank" rel="noopener noreferrer" className="block w-full h-full group">
-            <div className="w-full h-full rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
+            <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
               <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
                 <Image
                   src="/core-defenses.png"
@@ -63,14 +63,14 @@ export default function WorkPage() {
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-              <div className="relative z-20 mt-auto p-8 flex flex-col h-full justify-end">
-                <Typography variant="caption" transform="uppercase" className="text-white/70 mb-2 block font-medium tracking-widest">
+              <div className="relative z-20 mt-auto p-5 md:p-8 flex flex-col h-full justify-end">
+                <Typography variant="caption" transform="uppercase" className="text-white/70 mb-1 md:mb-2 block font-medium tracking-widest text-[10px] md:text-xs">
                   Client Project
                 </Typography>
-                <Typography variant="heading" className="text-white mb-3 text-2xl md:text-3xl">
+                <Typography variant="heading" className="text-white mb-1.5 md:mb-3 text-lg md:text-3xl">
                   Core Defenses
                 </Typography>
-                <Typography variant="body" className="text-white/80 text-sm line-clamp-3">
+                <Typography variant="body" className="text-white/80 text-xs md:text-sm line-clamp-2 md:line-clamp-3">
                   Architecting the digital presence for next-generation defense. A high-performance, cinematic marketing experience.
                 </Typography>
               </div>
@@ -79,20 +79,20 @@ export default function WorkPage() {
         </ScrollReveal>
 
         {/* Start Project - Typography Tile */}
-        <ScrollReveal delay={0.3} className="col-span-1 row-span-1">
-          <div className="w-full h-full rounded-[2rem] bg-primary text-surface p-8 md:p-10 flex flex-col justify-between relative overflow-hidden group shadow-elevation">
+        <ScrollReveal delay={0.3} className="aspect-[4/5] self-start lg:aspect-auto lg:self-stretch col-span-1 row-span-1">
+          <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-primary text-surface p-5 md:p-10 flex flex-col justify-between relative overflow-hidden group shadow-elevation">
             <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
             <div className="relative z-10">
-              <Typography variant="caption" transform="uppercase" className="text-surface/80 mb-4 block font-medium tracking-widest">
+              <Typography variant="caption" transform="uppercase" className="text-surface/80 mb-2 md:mb-4 block font-medium tracking-widest text-[10px] md:text-xs">
                 Available for Work
               </Typography>
-              <Typography variant="display" className="text-4xl xl:text-5xl leading-tight">
+              <Typography variant="display" className="text-surface text-2xl md:text-4xl xl:text-5xl leading-tight">
                 Start a<br />Project
               </Typography>
             </div>
-            <Link href="/start-project" className="relative z-10 mt-8 flex items-center justify-between bg-surface text-primary px-6 py-4 rounded-full font-medium group-hover:bg-surface/90 transition-colors shadow-sm">
+            <Link href="/start-project" className="relative z-10 mt-4 md:mt-8 flex items-center justify-between bg-surface text-primary px-4 md:px-6 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-base group-hover:bg-surface/90 transition-colors shadow-sm">
               <span>Get in touch</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </ScrollReveal>
