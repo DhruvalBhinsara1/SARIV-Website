@@ -1,4 +1,6 @@
-export function Mark({ className }: { className?: string }) {
+import * as React from "react";
+
+export function Mark({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 48 48"
@@ -6,6 +8,7 @@ export function Mark({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden="true"
+      {...props}
     >
       <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor" />
     </svg>

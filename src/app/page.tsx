@@ -117,14 +117,19 @@ export default function Home() {
         <ScrollReveal>
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-10">
             <Typography variant="display" className="text-5xl md:text-7xl">
-              Let's build something exceptional.
+              Let's connect.
             </Typography>
             <Typography variant="body" className="text-xl md:text-2xl text-muted max-w-2xl">
-              We partner with visionary companies to build digital products that define categories and stand the test of time.
+              Whether you have a visionary project in mind or just want to say hello, we'd love to hear from you.
             </Typography>
-            <Link href="/contact" className={buttonVariants({ variant: "primary", size: "large" })}>
-              Start a Project
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
+              <Link href="/contact?type=project" className={`${buttonVariants({ variant: "primary", size: "large" })} w-[200px]`}>
+                Start a Project
+              </Link>
+              <Link href="/contact?type=general" className={`${buttonVariants({ variant: "secondary", size: "large" })} w-[200px]`}>
+                Say Hello
+              </Link>
+            </div>
           </div>
         </ScrollReveal>
       </section>

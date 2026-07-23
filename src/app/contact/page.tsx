@@ -69,15 +69,15 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="flex-1 w-full bg-background pt-32 pb-24">
-      <div className="max-w-[720px] mx-auto px-4 md:px-8">
+    <main className="flex-1 w-full bg-background min-h-[100dvh] flex flex-col justify-center pt-24 pb-12">
+      <div className="max-w-[720px] mx-auto px-4 md:px-8 w-full">
         <SectionHeader
           heading="Get in Touch"
           supportingText="Questions, feedback, or just want to say hello? Send us a message and we'll get back to you."
-          className="animate-fade-up mb-16"
+          className="animate-fade-up mb-10"
         />
 
-        <form onSubmit={handleSubmit(onSubmit)} className="animate-fade-up flex flex-col gap-8" style={{ animationDelay: "0.1s" }}>
+        <form onSubmit={handleSubmit(onSubmit)} className="animate-fade-up flex flex-col gap-6" style={{ animationDelay: "0.1s" }}>
           {/* Honeypot field - visually hidden but accessible to bots */}
           <div className="hidden" aria-hidden="true">
             <label htmlFor="bot_field">Don&apos;t fill this out if you&apos;re human:</label>
