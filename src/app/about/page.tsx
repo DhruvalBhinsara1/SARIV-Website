@@ -254,11 +254,11 @@ export default function AboutPage() {
             <Typography variant="body" className="text-xl md:text-2xl text-muted max-w-2xl">
               Whether you have a visionary project in mind or just want to say hello, we&apos;d love to hear from you.
             </Typography>
-            <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
+            <div className="flex flex-row items-center gap-4 mt-6">
               <Magnetic strength={20}>
                 <Link
                   href="/start-project"
-                  className={`${buttonVariants({ variant: "primary", size: "large" })} w-[200px]`}
+                  className={buttonVariants({ variant: "primary", size: "large" })}
                 >
                   Start a Project
                 </Link>
@@ -266,7 +266,7 @@ export default function AboutPage() {
               <Magnetic strength={20}>
                 <Link
                   href="/contact"
-                  className={`${buttonVariants({ variant: "secondary", size: "large" })} w-[200px]`}
+                  className={buttonVariants({ variant: "secondary", size: "large" })}
                 >
                   Say Hello
                 </Link>
