@@ -71,12 +71,12 @@ export function HeroScene() {
             </Link>
           </Magnetic>
           <Magnetic strength={25}>
-            <a
-              href="mailto:officialsariv@gmail.com"
+            <Link
+              href="/contact"
               className={buttonVariants({ variant: "secondary", className: "border-transparent bg-white text-primary hover:bg-white/90" })}
             >
               Get in touch
-            </a>
+            </Link>
           </Magnetic>
         </div>
       </div>
