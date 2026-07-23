@@ -27,9 +27,9 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Pages
           </Typography>
-          <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Home</Link>
-          <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Work</Link>
-          <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Contact</Link>
+          <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Home</Link>
+          <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Work</Link>
+          <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Contact</Link>
         </div>
 
         {/* Socials */}
@@ -56,8 +56,8 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Legal
           </Typography>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Privacy Policy</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium">Terms of Service</a>
+          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Privacy Policy</a>
+          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Terms of Service</a>
         </div>
 
         {/* Contact */}
@@ -65,8 +65,8 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Contact
           </Typography>
-          <a href="mailto:officialsariv@gmail.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium">officialsariv@gmail.com</a>
-          <a href="tel:+919510517172" className="text-secondary hover:text-primary transition-colors text-sm font-medium">+91 9510517172</a>
+          <a href="mailto:officialsariv@gmail.com" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">officialsariv@gmail.com</a>
+          <a href="tel:+919510517172" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">+91 9510517172</a>
         </div>
       </div>
 

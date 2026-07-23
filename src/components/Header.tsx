@@ -90,7 +90,7 @@ function HeaderContent() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "nav-link relative font-body text-[15px] font-medium transition-colors block",
+                    "link-underline relative font-body text-[15px] font-medium transition-colors block",
                     isHome ? "text-white/80 hover:text-white" : "text-secondary hover:text-primary"
                   )}
                 >

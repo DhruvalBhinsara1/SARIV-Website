@@ -20,8 +20,8 @@ export function HeroScene() {
         />
         
         {/* Layer 2: Giant Logo */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <Mark className="w-[250px] md:w-[450px] h-auto text-white -translate-y-[15vh] animate-fade-up" style={{ animationDelay: "0.2s" }} />
+        <div className="absolute inset-0 flex items-start justify-end pointer-events-none pt-24 pr-12 md:pt-16 md:pr-40">
+          <Mark className="w-[250px] md:w-[450px] h-auto text-white opacity-80 animate-fade-up -translate-y-8" style={{ animationDelay: "0.2s" }} />
         </div>
 
         {/* Layer 3: Mountains Foreground */}

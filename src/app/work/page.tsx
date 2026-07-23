@@ -36,12 +36,16 @@ export default function WorkPage() {
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 mb-24">
-        <Typography variant="display" className="animate-fade-up">
-          Our Work
-        </Typography>
-        <Typography variant="body" className="animate-fade-up mt-8 max-w-2xl text-lg md:text-xl" style={{ animationDelay: "0.1s" }}>
-          We don&apos;t build generic products. We engineer precise, enduring tools designed to empower focused work. Here are our flagship projects.
-        </Typography>
+        <ScrollReveal>
+          <Typography variant="display">
+            Our Work
+          </Typography>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+          <Typography variant="body" className="mt-8 max-w-2xl text-lg md:text-xl">
+            We don&apos;t build generic products. We engineer precise, enduring tools designed to empower focused work. Here are our flagship projects.
+          </Typography>
+        </ScrollReveal>
       </div>
 
       <div className="max-w-[1200px] mx-auto px-4 md:px-20 flex flex-col gap-32">
@@ -91,7 +95,7 @@ export default function WorkPage() {
                 src={project.image}
                 alt={`Screenshot for ${project.number}`}
                 fill
-                className={project.imageClass}
+                className={`${project.imageClass} rounded-3xl`}
               />
               </div>
             </section>
