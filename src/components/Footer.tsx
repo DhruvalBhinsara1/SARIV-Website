@@ -46,7 +46,7 @@ export function Footer() {
           <LinkPreview url="https://www.instagram.com/hellosariv/" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             Instagram
           </LinkPreview>
-          <LinkPreview url="https://github.com/sariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
+          <LinkPreview url="https://github.com/officialsariv" className="text-secondary hover:text-primary transition-colors text-sm font-medium text-left no-underline w-fit">
             GitHub
           </LinkPreview>
         </div>
