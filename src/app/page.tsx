@@ -5,6 +5,7 @@ import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 const PROJECTS = [
   {
@@ -123,12 +124,16 @@ export default function Home() {
               Whether you have a visionary project in mind or just want to say hello, we'd love to hear from you.
             </Typography>
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-              <Link href="/start-project" className={`${buttonVariants({ variant: "primary", size: "large" })} w-[200px]`}>
-                Start a Project
-              </Link>
-              <Link href="/contact" className={`${buttonVariants({ variant: "secondary", size: "large" })} w-[200px]`}>
-                Say Hello
-              </Link>
+              <Magnetic strength={20}>
+                <Link href="/start-project" className={`${buttonVariants({ variant: "primary", size: "large" })} w-[200px]`}>
+                  Start a Project
+                </Link>
+              </Magnetic>
+              <Magnetic strength={20}>
+                <Link href="/contact" className={`${buttonVariants({ variant: "secondary", size: "large" })} w-[200px]`}>
+                  Say Hello
+                </Link>
+              </Magnetic>
             </div>
           </div>
         </ScrollReveal>

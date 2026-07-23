@@ -55,10 +55,26 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     background-color: var(--color-background);
     color: var(--color-primary);
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Premium Custom Text Selection */
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+  }
+  ::-moz-selection {
+    background-color: var(--color-primary);
+    color: var(--color-background);
   }
 
   *:focus-visible {
