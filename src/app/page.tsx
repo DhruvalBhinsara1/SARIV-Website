@@ -42,7 +42,7 @@ export default function Home() {
       </section>
 
       {/* Curved Loop Divider */}
-      <section className="overflow-hidden border-t border-border py-12 md:py-16">
+      <section className="overflow-hidden py-12 md:py-16">
         <CurvedLoop
           marqueeText="Building What Matters ✦ Timeless ✦ Intentional ✦ Exceptional ✦"
           curveAmount={80}
@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       {/* Selected Works Section */}
-      <section className="px-4 md:px-20 py-24 md:py-32 border-t border-border">
+      <section className="px-4 md:px-20 py-24 md:py-32">
         <div className="max-w-[1200px] mx-auto flex flex-col gap-24">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <Typography variant="display" className="text-5xl md:text-6xl">
@@ -69,15 +69,13 @@ export default function Home() {
                 className={`relative group flex flex-col gap-8 rounded-[2rem] overflow-hidden ${project.theme}`}
               >
                 {/* Project Image */}
-                <div className="relative w-full aspect-[4/3] md:aspect-[16/9] p-4 md:p-12">
-                  <div className="relative w-full h-full overflow-hidden rounded-xl">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className={`object-cover transition-transform duration-700 group-hover:scale-105 ${project.id === 'core-defenses' ? 'object-top' : 'object-center'}`}
-                    />
-                  </div>
+                <div className="relative w-full aspect-[4/3] md:aspect-[16/9]">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-center mix-blend-darken group-hover:scale-105'}`}
+                  />
                 </div>
 
                 {/* Project Info Panel */}

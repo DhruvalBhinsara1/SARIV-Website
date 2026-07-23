@@ -65,22 +65,47 @@ export default function CurvedLoop({
     // ponytail: WCAG 2.3.3, don't force continuous motion on users who opted out of it
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) return;
+
+    let lastScrollY = window.scrollY;
+    let targetOffset = parseFloat(textPathRef.current?.getAttribute("startOffset") || "0");
+    let currentRenderedOffset = targetOffset;
     let frame = 0;
+
     const step = () => {
       if (!dragRef.current && textPathRef.current) {
-        const delta = dirRef.current === "right" ? speed : -speed;
-        const currentOffset = parseFloat(textPathRef.current.getAttribute("startOffset") || "0");
-        let newOffset = currentOffset + delta;
+        const scrollY = window.scrollY;
+        const delta = scrollY - lastScrollY;
+        lastScrollY = scrollY;
+
+        // Add scroll delta to the target offset
+        const multiplier = dirRef.current === "right" ? speed * 0.8 : -speed * 0.8;
+        targetOffset += delta * multiplier;
+
+        // Smoothly interpolate current offset towards target offset (lerp)
+        currentRenderedOffset += (targetOffset - currentRenderedOffset) * 0.15; // 0.15 is the smoothness factor
 
         const wrapPoint = spacing;
-        if (newOffset <= -wrapPoint) newOffset += wrapPoint;
-        if (newOffset > 0) newOffset -= wrapPoint;
+        // Keep target and current within bounds to prevent precision loss over time
+        if (targetOffset <= -wrapPoint) {
+          targetOffset += wrapPoint;
+          currentRenderedOffset += wrapPoint;
+        }
+        if (targetOffset > 0) {
+          targetOffset -= wrapPoint;
+          currentRenderedOffset -= wrapPoint;
+        }
 
-        textPathRef.current.setAttribute("startOffset", newOffset + "px");
-        setOffset(newOffset);
+        textPathRef.current.setAttribute("startOffset", currentRenderedOffset + "px");
+      } else if (dragRef.current && textPathRef.current) {
+        // If dragging, instantly sync the target to the drag position
+        targetOffset = parseFloat(textPathRef.current.getAttribute("startOffset") || "0");
+        currentRenderedOffset = targetOffset;
+        lastScrollY = window.scrollY;
       }
+      
       frame = requestAnimationFrame(step);
     };
+
     frame = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frame);
   }, [spacing, speed, ready]);
