@@ -65,28 +65,22 @@ const PROCESS = [
 
 const TIMELINE = [
   {
-    year: "2024",
+    year: "May 2026",
     event: "SARIV Founded",
     description:
-      "Started as an independent studio with one belief: software should outlast the teams that build it.",
+      "Founded on a random Wednesday in May. One person, one belief: build software that deserves to exist.",
   },
   {
-    year: "2024",
-    event: "First Clients",
+    year: "May 2026",
+    event: "First Client",
     description:
-      "Worked with early clients to build their digital presence. Core Defenses was among the first.",
+      "Landed our first client within weeks of starting. Core Defenses — a digital presence for next-generation defense.",
   },
   {
-    year: "2025",
-    event: "FreeFlow Launched",
+    year: "Jul 2026",
+    event: "FreeFlow — In Progress",
     description:
-      "Shipped our first internal product — a native macOS screen recorder built for creators who refuse to compromise.",
-  },
-  {
-    year: "Now",
-    event: "Growing Ecosystem",
-    description:
-      "More products in development. More problems worth solving.",
+      "Deep in development on FreeFlow — a native macOS screen recorder built for creators who refuse to compromise on quality.",
   },
   {
     year: "Next",
@@ -295,7 +289,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 5. TIMELINE ─────────────────────────────────────── */}
-      <section className="bg-surface-elevated border-t border-border py-28 md:py-40">
+      <section className="bg-white border-t border-neutral-200 py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
             <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
@@ -314,7 +308,7 @@ export default function AboutPage() {
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div className="relative grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 md:gap-16 pb-16 last:pb-0">
                   {/* Dot */}
-                  <div className="absolute left-[-17px] md:left-[140px] top-1.5 w-[13px] h-[13px] rounded-full bg-primary ring-4 ring-surface-elevated z-10" />
+                  <div className="absolute left-[-17px] md:left-[140px] top-1.5 w-[13px] h-[13px] rounded-full bg-primary ring-4 ring-white z-10" />
                   {/* Year */}
                   <div className="hidden md:flex items-start pt-0.5">
                     <span className="font-mono text-muted text-sm tracking-widest">{item.year}</span>
@@ -344,93 +338,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 6. BEHIND SARIV ─────────────────────────────────── */}
-      <section className="py-28 md:py-40 border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <ScrollReveal>
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-16">
-              Behind SARIV
-            </span>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-16 md:gap-24 items-start">
-            {/* Avatar */}
-            <ScrollReveal>
-              <div className="relative max-w-sm">
-                <div
-                  className="w-full aspect-square rounded-3xl overflow-hidden flex items-center justify-center"
-                  style={{ background: "linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%)" }}
-                >
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse 80% 60% at 20% 30%, rgba(220,239,244,0.15) 0%, transparent 60%)",
-                    }}
-                  />
-                  <span className="relative font-display text-white/90 text-[100px] leading-none select-none">
-                    D
-                  </span>
-                </div>
-                <div className="absolute -bottom-5 -right-5 w-20 h-20 rounded-2xl bg-primary flex items-center justify-center shadow-elevation">
-                  <Mark className="w-9 h-9 text-white" />
-                </div>
-              </div>
-            </ScrollReveal>
-
-            {/* Text */}
-            <ScrollReveal delay={0.15}>
-              <div className="flex flex-col gap-6 md:pt-2">
-                <Typography variant="heading" className="text-3xl md:text-4xl lg:text-5xl leading-tight">
-                  Dhruval Bhinsara
-                </Typography>
-                <span className="font-body text-muted text-xs font-semibold uppercase tracking-[0.2em]">
-                  Founder &amp; Engineer
-                </span>
-                <div className="w-10 h-px bg-border my-2" />
-                <Typography variant="body" muted className="text-[17px]">
-                  SARIV is led by Dhruval Bhinsara — a software engineer focused on building thoughtful digital products.
-                </Typography>
-                <Typography variant="body" muted className="text-[17px]">
-                  What began as independent client work evolved into a studio dedicated to a single idea: software built with intention lasts longer, performs better, and means more to the people who use it.
-                </Typography>
-                <Typography variant="body" muted className="text-[17px]">
-                  Being a small studio isn&apos;t a limitation. It&apos;s a deliberate choice — it means every project gets the full attention of someone who genuinely cares about it.
-                </Typography>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
       {/* ── 7. WHAT WE BUILD ────────────────────────────────── */}
-      <section className="bg-surface-elevated border-t border-border py-28 md:py-40">
+      <section className="bg-[#090909] border-t border-white/10 py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
+            <span className="font-body text-white/35 uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
               What We Build
             </span>
-            <Typography variant="heading" className="text-3xl md:text-4xl mb-16 md:mb-20 max-w-sm leading-tight">
+            <h2 className="font-display font-normal text-white text-3xl md:text-4xl mb-16 md:mb-20 max-w-sm leading-tight">
               Outcomes, not deliverables.
-            </Typography>
+            </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
             {WHAT_WE_BUILD.map((item, i) => (
               <ScrollReveal key={item.category} delay={i * 0.1}>
-                <div className="bg-surface rounded-2xl border border-border p-8 md:p-10 flex flex-col gap-6 h-full hover:shadow-elevation hover:border-primary/20 transition-all duration-500 group">
+                <div className="bg-[#111111] p-10 md:p-12 flex flex-col gap-6 h-full group hover:bg-white/[0.04] transition-colors duration-500">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-muted text-xs tracking-widest">{item.number}</span>
-                    <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center group-hover:border-primary/30 transition-colors">
-                      <ArrowRight className="w-3 h-3 text-muted" />
+                    <span className="font-mono text-white/20 text-xs tracking-widest">{item.number}</span>
+                    <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
+                      <ArrowRight className="w-3 h-3 text-white/30" />
                     </div>
                   </div>
-                  <Typography variant="subheading" className="text-xl md:text-2xl">
+                  <h3 className="font-display font-normal text-white text-xl md:text-2xl">
                     {item.category}
-                  </Typography>
-                  <Typography variant="body" muted className="text-[15px] leading-relaxed">
+                  </h3>
+                  <p className="font-body text-white/50 text-[15px] leading-relaxed">
                     {item.description}
-                  </Typography>
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
@@ -439,7 +374,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 8. WHAT WE BELIEVE ──────────────────────────────── */}
-      <section className="border-t border-border py-28 md:py-40">
+      <section className="bg-white border-t border-neutral-200 py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
             <ScrollReveal>
