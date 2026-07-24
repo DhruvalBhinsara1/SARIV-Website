@@ -124,64 +124,60 @@ export default function AboutPage() {
     <main className="flex-1 w-full bg-background">
 
       {/* ── 1. HERO ──────────────────────────────────────────── */}
-      <section className="relative w-full min-h-screen flex items-end overflow-hidden bg-[#090909]">
-        {/* Atmospheric glows */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 70% 60% at 10% 90%, rgba(220,239,244,0.09) 0%, transparent 70%)",
-            }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 50% 40% at 90% 20%, rgba(245,228,219,0.06) 0%, transparent 70%)",
-            }}
-          />
-        </div>
+      <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-background">
         {/* Grain */}
-        <div className="absolute inset-0 z-0 opacity-25 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
-        {/* Watermark */}
-        <div className="absolute bottom-0 right-0 pointer-events-none select-none z-0 overflow-hidden">
-          <span className="text-[22vw] font-bold leading-[0.8] tracking-tighter text-white/[0.04] block translate-x-[5%]">
+        <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
+
+        {/* Watermark — matches footer exactly */}
+        <div className="absolute bottom-0 left-0 right-0 z-0 overflow-hidden pointer-events-none select-none flex justify-end">
+          <span className="text-[22vw] font-bold leading-[0.82] tracking-tighter text-neutral-200 pr-[1vw]">
             SARIV
           </span>
         </div>
 
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 pt-48 pb-24 w-full">
+
+        {/* Content */}
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 w-full py-40">
           <ScrollReveal>
-            <div className="flex items-center gap-3 mb-10">
-              <Mark className="w-5 h-5 text-white/50" />
-              <span className="font-body text-white/40 uppercase tracking-[0.2em] text-xs font-semibold">
+            <div className="flex items-center gap-3 mb-12">
+              <Mark className="w-4 h-4 text-secondary" />
+              <span className="font-body text-secondary uppercase tracking-[0.25em] text-[11px] font-semibold">
                 About SARIV
               </span>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <h1 className="font-display font-normal text-white text-[clamp(48px,7vw,100px)] leading-[0.95] tracking-[-0.02em] max-w-4xl mb-8">
+            <h1 className="font-display font-normal text-primary text-[clamp(44px,6.5vw,96px)] leading-[0.93] tracking-[-0.025em] max-w-4xl mb-10">
               We build products that deserve to exist.
             </h1>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <p className="font-body text-white/55 text-lg md:text-xl max-w-xl leading-relaxed mb-12">
-              SARIV is an independent software studio focused on creating products that solve meaningful problems — not software built for the sake of shipping.
+            <p className="font-body text-secondary text-lg md:text-xl max-w-lg leading-relaxed mb-14">
+              An independent software studio focused on creating products that solve meaningful problems — not software built for the sake of shipping.
             </p>
           </ScrollReveal>
 
           <ScrollReveal delay={0.3}>
-            <Magnetic strength={15}>
-              <Link href="/work" className={buttonVariants({ variant: "primary", size: "large" })}>
-                See Our Work
+            <div className="flex items-center gap-6">
+              <Magnetic strength={15}>
+                <Link href="/work" className={buttonVariants({ variant: "primary", size: "large" })}>
+                  See Our Work
+                </Link>
+              </Magnetic>
+              <Link
+                href="/contact"
+                className="font-body text-secondary hover:text-primary transition-colors text-sm font-medium underline underline-offset-4"
+              >
+                or say hello →
               </Link>
-            </Magnetic>
+            </div>
           </ScrollReveal>
         </div>
+
       </section>
+
 
       {/* ── 2. WHY SARIV EXISTS ──────────────────────────────── */}
       <section className="border-t border-border py-28 md:py-40">
@@ -216,29 +212,29 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 3. PRINCIPLES ───────────────────────────────────── */}
-      <section className="bg-[#090909] py-28 md:py-40">
+      {/* ── 3. PRINCIPLES ─────────────────────────────────────── */}
+      <section className="bg-surface-elevated py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <span className="font-body text-white/35 uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
+            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
               Our Principles
             </span>
-            <h2 className="font-display font-normal text-white text-[clamp(32px,5vw,60px)] leading-[1.05] mb-16 md:mb-20 max-w-lg">
+            <h2 className="font-display font-normal text-primary text-[clamp(32px,5vw,60px)] leading-[1.05] mb-16 md:mb-20 max-w-lg">
               Four beliefs we refuse to compromise on.
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {PRINCIPLES.map((p, i) => (
               <ScrollReveal key={p.title} delay={i * 0.08}>
-                <div className="bg-[#090909] p-10 md:p-14 flex flex-col gap-6 group hover:bg-white/[0.03] transition-colors duration-500 h-full">
-                  <span className="font-mono text-white/20 text-sm tracking-widest">
+                <div className="bg-surface rounded-2xl border border-border p-10 md:p-12 flex flex-col gap-6 group hover:shadow-elevation hover:border-primary/20 transition-all duration-500 h-full">
+                  <span className="font-mono text-muted text-sm tracking-widest">
                     0{i + 1}
                   </span>
-                  <h3 className="font-display font-normal text-white text-2xl md:text-3xl">
+                  <h3 className="font-display font-normal text-primary text-2xl md:text-3xl">
                     {p.title}
                   </h3>
-                  <p className="font-body text-white/50 text-[16px] leading-relaxed max-w-sm">
+                  <p className="font-body text-secondary text-[16px] leading-relaxed max-w-sm">
                     {p.description}
                   </p>
                 </div>
@@ -339,31 +335,31 @@ export default function AboutPage() {
       </section>
 
       {/* ── 7. WHAT WE BUILD ────────────────────────────────── */}
-      <section className="bg-[#090909] border-t border-white/10 py-28 md:py-40">
+      <section className="bg-surface-elevated border-t border-border py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <span className="font-body text-white/35 uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
+            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
               What We Build
             </span>
-            <h2 className="font-display font-normal text-white text-3xl md:text-4xl mb-16 md:mb-20 max-w-sm leading-tight">
+            <Typography variant="heading" className="text-3xl md:text-4xl mb-16 md:mb-20 max-w-sm leading-tight">
               Outcomes, not deliverables.
-            </h2>
+            </Typography>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {WHAT_WE_BUILD.map((item, i) => (
               <ScrollReveal key={item.category} delay={i * 0.1}>
-                <div className="bg-[#111111] p-10 md:p-12 flex flex-col gap-6 h-full group hover:bg-white/[0.04] transition-colors duration-500">
+                <div className="bg-surface rounded-2xl border border-border p-10 md:p-12 flex flex-col gap-6 h-full group hover:shadow-elevation hover:border-primary/20 transition-all duration-500">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-white/20 text-xs tracking-widest">{item.number}</span>
-                    <div className="w-7 h-7 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
-                      <ArrowRight className="w-3 h-3 text-white/30" />
+                    <span className="font-mono text-muted text-xs tracking-widest">{item.number}</span>
+                    <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center group-hover:border-primary/30 transition-colors">
+                      <ArrowRight className="w-3 h-3 text-muted" />
                     </div>
                   </div>
-                  <h3 className="font-display font-normal text-white text-xl md:text-2xl">
+                  <h3 className="font-display font-normal text-primary text-xl md:text-2xl">
                     {item.category}
                   </h3>
-                  <p className="font-body text-white/50 text-[15px] leading-relaxed">
+                  <p className="font-body text-secondary text-[15px] leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -406,25 +402,16 @@ export default function AboutPage() {
       </section>
 
       {/* ── 9. CTA ──────────────────────────────────────────── */}
-      <section className="relative py-32 md:py-48 overflow-hidden bg-[#090909] border-t border-white/10">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 50% at 50% 110%, rgba(220,239,244,0.12) 0%, transparent 70%)",
-          }}
-        />
-
+      <section className="relative py-32 md:py-48 overflow-hidden bg-surface-elevated border-t border-border">
         <ScrollReveal>
           <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 flex flex-col items-start gap-8">
-            <span className="font-body text-white/35 uppercase tracking-[0.2em] text-xs font-semibold">
+            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold">
               Start a Conversation
             </span>
-            <h2 className="font-display font-normal text-white text-[clamp(36px,6vw,88px)] leading-[0.95] tracking-[-0.02em] max-w-3xl">
+            <h2 className="font-display font-normal text-primary text-[clamp(36px,6vw,88px)] leading-[0.95] tracking-[-0.02em] max-w-3xl">
               Ready to build something that matters?
             </h2>
-            <p className="font-body text-white/50 text-lg md:text-xl max-w-xl leading-relaxed">
+            <p className="font-body text-secondary text-lg md:text-xl max-w-xl leading-relaxed">
               Whether you&apos;re launching something new or improving something that already exists, we&apos;d love to hear what you&apos;re building.
             </p>
             <div className="flex items-center gap-6 mt-4">
@@ -436,7 +423,7 @@ export default function AboutPage() {
               <Magnetic strength={15}>
                 <Link
                   href="/work"
-                  className="inline-flex items-center gap-2 font-body font-medium text-white/60 hover:text-white transition-colors text-base"
+                  className="inline-flex items-center gap-2 font-body font-medium text-secondary hover:text-primary transition-colors text-base"
                 >
                   View Our Work
                   <ArrowRight className="w-4 h-4" />
@@ -446,6 +433,7 @@ export default function AboutPage() {
           </div>
         </ScrollReveal>
       </section>
+
 
     </main>
   );
