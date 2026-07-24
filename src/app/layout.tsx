@@ -6,6 +6,7 @@ import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
 import GradualBlur from "@/components/ui/GradualBlur";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { BackToTop } from "@/components/ui/BackToTop";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -118,6 +119,7 @@ export default function RootLayout({
           <ToastViewport />
         </ToastProvider>
         <CustomCursor />
+        <BackToTop />
         <Analytics />
       </body>
     </html>
