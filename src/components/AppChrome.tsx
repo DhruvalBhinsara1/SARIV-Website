@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import React, { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
@@ -13,6 +14,21 @@ import { Chatbot } from "@/components/ui/Chatbot";
 // marketing site's header, footer, smooth-scroll wrapper, or chat widget.
 export function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Secret Admin Login Shortcut: Cmd/Ctrl + Shift + A
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        router.push('/admin/login');
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [router]);
+
   if (pathname?.startsWith("/admin") && pathname !== "/admin/login") {
     return <>{children}</>;
   }
