@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { HeroScene } from "@/components/HeroScene";
 import { Typography } from "@/components/ui/Typography";
@@ -6,8 +5,9 @@ import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { SelectedWorkScroll, type WorkProject } from "@/components/ui/SelectedWorkScroll";
 
-const PROJECTS = [
+const PROJECTS: WorkProject[] = [
   {
     id: "freeflow",
     title: "FreeFlow",
@@ -15,7 +15,6 @@ const PROJECTS = [
     image: "/freeflow-ui.png",
     link: "/products/freeflow",
     external: false,
-    theme: "bg-[#F4F4F2]" // Light mode aesthetic
   },
   {
     id: "core-defenses",
@@ -24,7 +23,7 @@ const PROJECTS = [
     image: "/core-defenses.png",
     link: "https://www.core-defenses.com/",
     external: true,
-    theme: "bg-[#111111] text-white" // Dark mode aesthetic to contrast
+    align: "right",
   }
 ];
 
@@ -57,7 +56,7 @@ export default function Home() {
 
       {/* Selected Works Section */}
       <section className="px-4 md:px-20 py-24 md:py-32">
-        <div className="flex flex-col max-w-7xl mx-auto w-full">
+        <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 md:mb-24">
               <Typography variant="display" className="text-5xl md:text-7xl">
@@ -69,47 +68,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="flex flex-col gap-12 md:gap-24">
-            {PROJECTS.map((project, i) => (
-              <ScrollReveal key={project.id}>
-                <div 
-                  className={`relative group flex flex-col gap-8 rounded-[2rem] overflow-hidden ${project.theme}`}
-                >
-                  {/* Project Image */}
-                  <div className="relative w-full aspect-[4/3] md:aspect-[16/9]">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className={`object-cover transition-transform duration-700 ${project.id === 'core-defenses' ? 'object-top group-hover:scale-105' : 'object-[30%_center] md:object-center mix-blend-darken group-hover:scale-105'}`}
-                    />
-                  </div>
-
-                  {/* Project Info Panel */}
-                  <div className="flex flex-col items-start md:flex-row md:items-end justify-between gap-8 p-8 md:p-12 z-10 bg-inherit relative">
-                    <div className="flex flex-col max-w-xl gap-4">
-                      <Typography variant="heading" className={`text-3xl md:text-4xl ${project.id === 'core-defenses' ? 'text-white' : ''}`}>
-                        {project.title}
-                      </Typography>
-                      <Typography variant="body" className={`transition-colors duration-300 ${project.id === 'core-defenses' ? "text-neutral-300 hover:text-white" : "text-muted hover:text-primary"}`}>
-                        {project.subtitle}
-                      </Typography>
-                    </div>
-                    
-                    {project.external ? (
-                      <a href={project.link} target="_blank" rel="noopener noreferrer" className={`${buttonVariants({ variant: 'primary' })} ${project.id === 'core-defenses' ? 'bg-white !text-black hover:bg-white/90' : ''}`}>
-                        View Live Site
-                      </a>
-                    ) : (
-                      <Link href={project.link} className={buttonVariants({ variant: "primary" })}>
-                        View Case Study
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+          <SelectedWorkScroll projects={PROJECTS} />
         </div>
       </section>
 
