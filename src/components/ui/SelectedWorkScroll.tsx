@@ -20,30 +20,60 @@ export type WorkProject = {
 };
 
 // ─── Desktop float slot config ────────────────────────────────────────────────
-// Each slot has a unique image. py = total Y drift over the full scroll.
+// Each slot has a unique image + a link to its project.
+// py = total Y drift (px) over the full scroll distance.
+// projIdx = which project this slot represents (for link + highlight).
 const DESKTOP_SLOTS = [
-  { left: "2%",  top: "6%",  width: "30vw", rot: -5, py: -80,  src: "/freeflow-ui.png",       label: "FreeFlow"      },
-  { left: "60%", top: "3%",  width: "28vw", rot:  4, py: -110, src: "/core-defenses.png",     label: "Core Defenses" },
-  { left: "1%",  top: "54%", width: "22vw", rot:  3, py: -45,  src: "/nexabrew.jpeg",          label: "NexaBrew"      },
-  { left: "68%", top: "56%", width: "18vw", rot: -3, py: -35,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS"  },
+  { left: "1%",  top: "4%",  width: "34vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
+  { left: "58%", top: "2%",  width: "32vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
+  { left: "0%",  top: "52%", width: "26vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
+  { left: "66%", top: "54%", width: "22vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;
 
-// Which project index each slot "belongs to" (drives highlight on scroll)
-const SLOT_PROJECT = [0, 1, 2, 2] as const;
-
 // ─── Mobile static card config ────────────────────────────────────────────────
-// Images sit in the top ~30% and bottom ~30% of the viewport.
-// The center band (~30%-68%) is reserved for text — no overlap.
-// All widths ≤ 38vw so nothing bleeds off-screen.
+// Top pair sits in 2%–28% vertical band, bottom pair in 66%–92%.
+// Centre band (28%–66%) is reserved for text — no overlap.
+// widths are 42–44vw — big but never exceeding right edge.
 const MOBILE_CARDS = [
-  { left: "3%",  top: "3%",  width: "38vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",       zIndex: 10 },
-  { left: "55%", top: "5%",  width: "36vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses",  zIndex: 9  },
-  { left: "2%",  top: "70%", width: "36vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",       zIndex: 10 },
-  { left: "54%", top: "72%", width: "34vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",   zIndex: 9  },
+  { left: "2%",  top: "2%",  width: "44vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
+  { left: "50%", top: "4%",  width: "42vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1, zIndex: 9  },
+  { left: "1%",  top: "68%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
+  { left: "50%", top: "70%", width: "40vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2, zIndex: 9  },
 ] as const;
 
 const p2 = (n: number) => String(n).padStart(2, "0");
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+// ─── Linked image card ────────────────────────────────────────────────────────
+function LinkedCard({
+  src, alt, link, external, sizes, rounded = "rounded-2xl",
+  aspect = "16 / 10", shadow = true, children,
+}: {
+  src: string; alt: string; link: string; external?: boolean;
+  sizes: string; rounded?: string; aspect?: string; shadow?: boolean;
+  children?: React.ReactNode;
+}) {
+  const Tag = external ? "a" : Link;
+  const extraProps = external
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
+  return (
+    <Tag
+      href={link}
+      {...extraProps}
+      className={`block relative w-full ${rounded} overflow-hidden group/card`}
+      style={{
+        aspectRatio: aspect,
+        ...(shadow ? { boxShadow: "0 16px 48px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)" } : {}),
+      }}
+    >
+      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition-transform duration-500 group-hover/card:scale-105" />
+      {/* Subtle hover overlay */}
+      <div className="absolute inset-0 bg-black/0 group-hover/card:bg-black/10 transition-colors duration-300" />
+      {children}
+    </Tag>
+  );
+}
 
 export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
   const outerRef   = useRef<HTMLDivElement>(null);
@@ -56,7 +86,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
   const anchorRef  = useRef<HTMLAnchorElement>(null);
   const activeRef  = useRef(0);
 
-  // ── Switch active project (desktop only) ─────────────────────────────────
+  // ── Switch active project on scroll ──────────────────────────────────────
   function switchProject(index: number) {
     if (index === activeRef.current) return;
     activeRef.current = index;
@@ -90,15 +120,15 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         : (a.removeAttribute("target"), a.removeAttribute("rel"));
     }
 
-    // Highlight active slots — opacity only, NO blur
+    // Highlight — opacity only, no blur
     floatRefs.current.forEach((el, i) => {
       if (!el) return;
-      const isActive = SLOT_PROJECT[i as keyof typeof SLOT_PROJECT] === index;
+      const isActive = DESKTOP_SLOTS[i].projIdx === index;
       gsap.killTweensOf(el);
       gsap.to(el, {
-        opacity: isActive ? 1 : 0.14,
-        scale:   isActive ? 1 : 0.93,
-        duration: 0.6, ease: "power2.inOut",
+        opacity: isActive ? 1 : 0.15,
+        scale:   isActive ? 1 : 0.94,
+        duration: 0.55, ease: "power2.inOut",
       });
     });
 
@@ -109,6 +139,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
     });
   }
 
+  // ── GSAP: desktop pin-scroll ─────────────────────────────────────────────
   useGSAP(() => {
     const outer = outerRef.current;
     const inner = innerRef.current;
@@ -120,14 +151,15 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
       "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
       () => {
         const N = projects.length;
-        const scrollBudget = window.innerHeight * (N + 0.6);
+        // Tighter budget: ~0.8 screen per project instead of 1.2
+        const scrollBudget = window.innerHeight * (N * 0.8 + 0.4);
 
         const pinST = ScrollTrigger.create({
           trigger: outer,
           pin: inner,
           start: "top top",
           end: () => `+=${scrollBudget}`,
-          scrub: 1.3,
+          scrub: 0.9,
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate(self) {
@@ -140,18 +172,17 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
           },
         });
 
-        // Entrance: float cards arrive from below
+        // Entrance
         gsap.fromTo(
           floatRefs.current.filter(Boolean),
-          { y: 60, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
-            opacity: (i: number) =>
-              SLOT_PROJECT[i as keyof typeof SLOT_PROJECT] === 0 ? 1 : 0.14,
-            stagger: 0.12,
-            duration: 1.1,
+            opacity: (i: number) => DESKTOP_SLOTS[i].projIdx === 0 ? 1 : 0.15,
+            stagger: 0.1,
+            duration: 0.9,
             ease: "power3.out",
-            scrollTrigger: { trigger: outer, start: "top 78%" },
+            scrollTrigger: { trigger: outer, start: "top 80%" },
           }
         );
 
@@ -167,47 +198,55 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
   return (
     <div ref={outerRef}>
 
-      {/* ══ DESKTOP: sticky full-viewport Mobbin-style ═══════════════════════ */}
+      {/* ══ DESKTOP ═══════════════════════════════════════════════════════════ */}
       <div
         ref={innerRef}
         className="hidden lg:block relative w-full bg-background overflow-hidden select-none"
         style={{ height: "100svh" }}
       >
-        {/* Floating images */}
-        {DESKTOP_SLOTS.map((slot, i) => (
-          <div
-            key={i}
-            ref={el => { floatRefs.current[i] = el; }}
-            className="absolute will-change-transform pointer-events-none"
-            style={{ left: slot.left, top: slot.top, width: slot.width, rotate: `${slot.rot}deg`, opacity: 0, zIndex: i < projects.length ? 10 : 6 }}
-          >
+        {/* Floating linked image cards */}
+        {DESKTOP_SLOTS.map((slot, i) => {
+          const proj = projects[clamp(slot.projIdx, 0, projects.length - 1)];
+          return (
             <div
-              className="relative w-full rounded-2xl overflow-hidden"
-              style={{ aspectRatio: "16 / 10", boxShadow: "0 20px 56px rgba(0,0,0,0.12), 0 4px 14px rgba(0,0,0,0.07)" }}
+              key={i}
+              ref={el => { floatRefs.current[i] = el; }}
+              className="absolute will-change-transform"
+              style={{
+                left: slot.left, top: slot.top, width: slot.width,
+                rotate: `${slot.rot}deg`, opacity: 0,
+                zIndex: slot.projIdx < projects.length ? 10 : 6,
+              }}
             >
-              <Image src={slot.src} alt={slot.label} fill sizes="35vw" className="object-cover" priority={i === 0} />
+              <LinkedCard
+                src={slot.src}
+                alt={slot.label}
+                link={proj.link}
+                external={proj.external}
+                sizes="35vw"
+              />
+              <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-2 px-1">{slot.label}</p>
             </div>
-            <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-2 px-1">{slot.label}</p>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Center content */}
         <div
           className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none"
           style={{ padding: "0 min(22%, 300px)" }}
         >
-          <p className="text-[10px] font-mono text-muted/50 tracking-[0.3em] uppercase mb-6">Scroll to explore</p>
-          <span ref={counterRef} className="text-[11px] font-mono text-muted tracking-[0.35em] uppercase mb-5 block">
+          <p className="text-[10px] font-mono text-muted/50 tracking-[0.3em] uppercase mb-5">Scroll to explore</p>
+          <span ref={counterRef} className="text-[11px] font-mono text-muted tracking-[0.35em] uppercase mb-4 block">
             {p2(1)} / {p2(projects.length)}
           </span>
           <h2
             ref={titleRef}
-            className="font-display text-primary leading-none tracking-tight mb-5"
+            className="font-display text-primary leading-none tracking-tight mb-4"
             style={{ fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)" }}
           >
             {p0.title}
           </h2>
-          <p ref={subRef} className="text-muted text-sm leading-relaxed mb-8 line-clamp-3" style={{ maxWidth: "26ch" }}>
+          <p ref={subRef} className="text-muted text-sm leading-relaxed mb-7 line-clamp-3" style={{ maxWidth: "26ch" }}>
             {p0.subtitle}
           </p>
           <div className="pointer-events-auto">
@@ -231,8 +270,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               ref={el => { dotRefs.current[i] = el; }}
               className="rounded-full transition-all duration-300"
               style={{
-                width:      "6px",
-                height:     "6px",
+                width: "6px", height: "6px",
                 background: i === 0 ? "var(--color-primary)" : "var(--color-border)",
                 transform:  i === 0 ? "scale(1.6)" : "scale(1)",
               }}
@@ -241,55 +279,46 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         </div>
       </div>
 
-      {/* ══ MOBILE: desktop-vibe static scattered layout, no scroll ══════════
-          Four project images scattered at fixed corners, centre text overlay.
-          All images at full opacity — no blur, no dimming.
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* ══ MOBILE: static scattered — like desktop but no scroll ════════════
+          Four linked image cards at corners, project names + CTA in centre.
+          All images at full opacity, no blur, no dimming.
+      ════════════════════════════════════════════════════════════════════════ */}
       <div
         className="lg:hidden relative overflow-hidden bg-background"
         style={{ height: "100svh" }}
       >
-        {/* Scattered project image cards */}
-        {MOBILE_CARDS.map((card, i) => (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              left:    card.left,
-              top:     card.top,
-              width:   card.width,
-              rotate:  `${card.rot}deg`,
-              zIndex:  card.zIndex,
-            }}
-          >
+        {/* Scattered linked image cards */}
+        {MOBILE_CARDS.map((card, i) => {
+          const proj = projects[clamp(card.projIdx, 0, projects.length - 1)];
+          return (
             <div
-              className="relative w-full rounded-xl overflow-hidden"
+              key={i}
+              className="absolute"
               style={{
-                aspectRatio: "16 / 10",
-                boxShadow: "0 10px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
+                left: card.left, top: card.top, width: card.width,
+                rotate: `${card.rot}deg`, zIndex: card.zIndex,
               }}
             >
-              <Image
+              <LinkedCard
                 src={card.src}
                 alt={card.label}
-                fill
-                sizes="40vw"
-                className="object-cover"
-                priority={i < 2}
+                link={proj.link}
+                external={proj.external}
+                sizes="45vw"
+                rounded="rounded-xl"
               />
             </div>
-          </div>
-        ))}
+          );
+        })}
 
-        {/* Centre overlay — project list + CTA */}
+        {/* Centre overlay — project titles + CTA */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none px-6">
-          <p className="text-[9px] font-mono text-muted/70 tracking-[0.3em] uppercase mb-4">
+          <p className="text-[9px] font-mono text-muted/70 tracking-[0.3em] uppercase mb-3">
             Our Projects
           </p>
 
-          {/* List of project names */}
-          <div className="flex flex-col items-center gap-1 mb-6">
-            {projects.map((proj, i) => (
+          <div className="flex flex-col items-center gap-0.5 mb-5">
+            {projects.map((proj) => (
               <h2
                 key={proj.id}
                 className="font-display text-primary leading-tight"
@@ -300,7 +329,6 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
             ))}
           </div>
 
-          {/* Subtle link */}
           <div className="pointer-events-auto">
             <Link
               href="/work"

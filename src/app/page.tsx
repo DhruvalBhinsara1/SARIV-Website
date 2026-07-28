@@ -64,11 +64,11 @@ export default function Home() {
       </section>
 
       {/* Selected Works Section */}
-      <section className="pt-24 md:pt-32 pb-0">
+      <section className="pt-12 md:pt-16 pb-0">
         {/* Header row — constrained width */}
         <div className="px-4 md:px-20 max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 md:mb-20">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
               <Typography variant="display" className="text-5xl md:text-7xl">
                 Selected Work
               </Typography>
