@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Typography } from "@/components/ui/Typography";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { JourneyScroll } from "@/components/ui/JourneyScroll";
 import { buttonVariants } from "@/components/ui/Button";
 import { Mark } from "@/components/Mark";
 import { ArrowRight } from "lucide-react";
@@ -285,54 +286,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── 5. TIMELINE ─────────────────────────────────────── */}
-      <section className="bg-white border-t border-neutral-200 py-28 md:py-40">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <ScrollReveal>
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
-              The Journey
-            </span>
-            <Typography variant="heading" className="text-3xl md:text-4xl mb-16 md:mb-20">
-              Where we&apos;ve been.
-            </Typography>
-          </ScrollReveal>
-
-          <div className="relative flex flex-col pl-8 md:pl-0">
-            {/* Vertical connecting line */}
-            <div className="absolute left-[11px] md:left-[147px] top-2 bottom-2 w-px bg-border" />
-
-            {TIMELINE.map((item, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="relative grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4 md:gap-16 pb-16 last:pb-0">
-                  {/* Dot */}
-                  <div className="absolute left-[-17px] md:left-[140px] top-1.5 w-[13px] h-[13px] rounded-full bg-primary ring-4 ring-white z-10" />
-                  {/* Year */}
-                  <div className="hidden md:flex items-start pt-0.5">
-                    <span className="font-mono text-muted text-sm tracking-widest">{item.year}</span>
-                  </div>
-                  {/* Content */}
-                  <div className="flex flex-col gap-2">
-                    <span className="font-mono text-muted text-xs tracking-widest md:hidden">{item.year}</span>
-                    <h3 className="font-display font-normal text-primary text-xl md:text-2xl">
-                      {item.event}
-                    </h3>
-                    <p className="font-body text-secondary text-[15px] leading-relaxed max-w-lg">
-                      {item.description}
-                    </p>
-                    {item.isCTA && (
-                      <Link
-                        href="/contact"
-                        className="mt-2 inline-flex items-center gap-2 text-sm font-medium font-body text-primary underline underline-offset-4 hover:text-secondary transition-colors w-fit"
-                      >
-                        Let&apos;s talk <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <JourneyScroll items={TIMELINE} />
 
       {/* ── 7. WHAT WE BUILD ────────────────────────────────── */}
       <section className="bg-surface-elevated border-t border-border py-28 md:py-40">

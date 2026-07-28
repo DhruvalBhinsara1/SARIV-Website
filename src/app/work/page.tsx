@@ -6,21 +6,21 @@ import { ArrowRight } from "lucide-react";
 
 export default function WorkPage() {
   return (
-    <main className="flex-1 w-full bg-background pt-32 pb-24">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 mb-24">
+    <main className="flex-1 w-full bg-background pt-24 pb-8 md:h-screen md:flex md:flex-col md:justify-center">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 mb-8 md:mb-10 shrink-0">
         <ScrollReveal>
-          <Typography variant="display">
+          <Typography variant="heading" className="text-4xl md:text-5xl">
             Our Work
           </Typography>
         </ScrollReveal>
         <ScrollReveal delay={0.1}>
-          <Typography variant="body" className="mt-8 max-w-2xl text-lg md:text-xl">
+          <Typography variant="body" className="mt-4 max-w-2xl text-base md:text-lg">
             We don&apos;t build generic products. We engineer precise, enduring tools designed to empower focused work. Here are our flagship projects.
           </Typography>
         </ScrollReveal>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[minmax(0,auto)] md:auto-rows-[minmax(360px,auto)]">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 w-full grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[minmax(0,auto)] md:auto-rows-[minmax(220px,auto)]">
 
         {/* FreeFlow - Large Tile */}
         <ScrollReveal delay={0.1} className="col-span-2 lg:row-span-2">

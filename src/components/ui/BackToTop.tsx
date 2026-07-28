@@ -20,7 +20,7 @@ export function BackToTop() {
       onClick={scrollToTop}
       aria-label="Back to top"
       className={cn(
-        "fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-11 h-11 rounded-full",
+        "fixed bottom-[104px] right-8 z-[9998] flex items-center justify-center w-11 h-11 rounded-full",
         "border border-border bg-background/80 backdrop-blur-md",
         "text-primary shadow-elevation",
         "transition-all duration-500 ease-out",
