@@ -9,38 +9,54 @@ import { Typography } from "./ui/Typography";
 import { buttonVariants } from "./ui/Button";
 import { Magnetic } from "./ui/Magnetic";
 
-const SCENES = [
+const BASE_SCENES = [
+  // mountains.png has a Mark-shaped cutout — needs the sky image behind it to fill that hole.
+  // Always first: kept fixed as the opening scene, the rest shuffle around it.
+  { src: "/mountains.png", alt: "Mountain range at golden hour", base: "/hero_image_upscale.png" },
   { src: "/trees.png", alt: "Sunlit forest canopy" },
   { src: "/valcano.png", alt: "Erupting volcano at dusk" },
   { src: "/earth.png", alt: "Earth viewed from orbit" },
-  // mountains.png has a Mark-shaped cutout — needs the sky image behind it to fill that hole.
-  { src: "/mountains.png", alt: "Mountain range at golden hour", base: "/hero_image_upscale.png" },
 ];
 
-// ponytail: fixed rotation, no user control requested — bump this if "a few minutes" needs tuning.
-const ROTATE_INTERVAL_MS = 3 * 60 * 1000;
+const ROTATE_INTERVAL_MS = 10 * 1000;
+
+function shuffleRest<T>(scenes: T[]): T[] {
+  const [first, ...rest] = scenes;
+  for (let i = rest.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rest[i], rest[j]] = [rest[j], rest[i]];
+  }
+  return [first, ...rest];
+}
 
 export function HeroScene() {
+  const [scenes, setScenes] = useState(BASE_SCENES);
   const [activeScene, setActiveScene] = useState(0);
+
+  // Shuffle client-side only, after hydration — randomizing during the
+  // initial render would mismatch the server-rendered order.
+  useEffect(() => {
+    setScenes((s) => shuffleRest(s));
+  }, []);
 
   // Keyed on activeScene so a manual prev/next/dot pick restarts the countdown
   // instead of auto-advancing a moment later.
   useEffect(() => {
     const id = setTimeout(() => {
-      setActiveScene((i) => (i + 1) % SCENES.length);
+      setActiveScene((i) => (i + 1) % scenes.length);
     }, ROTATE_INTERVAL_MS);
     return () => clearTimeout(id);
-  }, [activeScene]);
+  }, [activeScene, scenes.length]);
 
-  const prevScene = () => setActiveScene((i) => (i - 1 + SCENES.length) % SCENES.length);
-  const nextScene = () => setActiveScene((i) => (i + 1) % SCENES.length);
+  const prevScene = () => setActiveScene((i) => (i - 1 + scenes.length) % scenes.length);
+  const nextScene = () => setActiveScene((i) => (i + 1) % scenes.length);
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center px-4 overflow-hidden pt-32 pb-20">
       {/* Background Layering */}
       <div className="absolute inset-0 z-0">
         {/* Layer 1: Rotating hero scene, crossfaded */}
-        {SCENES.map((scene, i) => (
+        {scenes.map((scene, i) => (
           <div
             key={scene.src}
             className={`absolute inset-0 transition-opacity duration-500 ease-out ${
@@ -127,7 +143,7 @@ export function HeroScene() {
             <ChevronLeft className="w-4 h-4" />
           </button>
           <div className="flex items-center gap-2">
-            {SCENES.map((scene, i) => (
+            {scenes.map((scene, i) => (
               <button
                 key={scene.src}
                 onClick={() => setActiveScene(i)}
