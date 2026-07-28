@@ -99,7 +99,7 @@ export function AdminJournalClient({ initialPosts }: { initialPosts: any[] }) {
                 <td className="py-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Link href={`/admin/journal/${post.id}`}>
-                      <Button variant="outline" size="small">Edit</Button>
+                      <Button variant="secondary" size="small">Edit</Button>
                     </Link>
                     <Button 
                       variant="ghost" 

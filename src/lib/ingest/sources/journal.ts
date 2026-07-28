@@ -4,7 +4,8 @@ import type { DocumentSource, SourceDocument } from "@/lib/ingest/types";
 export const journalSource: DocumentSource = {
   name: "journal",
   async load(): Promise<SourceDocument[]> {
-    return getJournalPosts().map((post) => ({
+    const posts = await getJournalPosts();
+    return posts.map((post) => ({
       id: `journal:${post.slug}`,
       title: post.title,
       url: `/journal/${post.slug}`,

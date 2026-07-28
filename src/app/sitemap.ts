@@ -14,13 +14,14 @@ const STATIC_ROUTES = [
   "/products/freeflow",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries = STATIC_ROUTES.map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
   }));
 
-  const journalEntries = getJournalPosts().map((post) => ({
+  const posts = await getJournalPosts();
+  const journalEntries = posts.map((post) => ({
     url: `${BASE_URL}/journal/${post.slug}`,
     lastModified: post.date ? new Date(post.date) : new Date(),
   }));

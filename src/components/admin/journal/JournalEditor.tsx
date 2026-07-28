@@ -184,7 +184,7 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
                     onChange={handleImageUpload} 
                   />
                   <Button 
-                    variant="outline" 
+                    variant="secondary" 
                     size="small" 
                     icon={<ImageIcon className="w-4 h-4" />}
                     onClick={() => fileInputRef.current?.click()}
