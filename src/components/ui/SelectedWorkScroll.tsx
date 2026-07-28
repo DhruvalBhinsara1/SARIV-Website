@@ -22,22 +22,24 @@ export type WorkProject = {
 // ─── Desktop float slot config ────────────────────────────────────────────────
 // Each slot has a unique image. py = total Y drift over the full scroll.
 const DESKTOP_SLOTS = [
-  { left: "2%",  top: "6%",  width: "33vw", rot: -5, py: -90,  src: "/freeflow-ui.png",      label: "FreeFlow"      },
-  { left: "59%", top: "3%",  width: "30vw", rot:  4, py: -130, src: "/core-defenses.png",    label: "Core Defenses" },
-  { left: "0%",  top: "58%", width: "25vw", rot:  3, py: -55,  src: "/nexabrew.jpeg",         label: "NexaBrew"      },
-  { left: "67%", top: "61%", width: "20vw", rot: -3, py: -45,  src: "/nexabrew-dashboard.jpg",label: "NexaBrew POS"  },
+  { left: "2%",  top: "6%",  width: "30vw", rot: -5, py: -80,  src: "/freeflow-ui.png",       label: "FreeFlow"      },
+  { left: "60%", top: "3%",  width: "28vw", rot:  4, py: -110, src: "/core-defenses.png",     label: "Core Defenses" },
+  { left: "1%",  top: "54%", width: "22vw", rot:  3, py: -45,  src: "/nexabrew.jpeg",          label: "NexaBrew"      },
+  { left: "68%", top: "56%", width: "18vw", rot: -3, py: -35,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS"  },
 ] as const;
 
 // Which project index each slot "belongs to" (drives highlight on scroll)
 const SLOT_PROJECT = [0, 1, 2, 2] as const;
 
 // ─── Mobile static card config ────────────────────────────────────────────────
-// Scattered positions (% of viewport), no scroll interaction, no blur
+// Images sit in the top ~30% and bottom ~30% of the viewport.
+// The center band (~30%-68%) is reserved for text — no overlap.
+// All widths ≤ 38vw so nothing bleeds off-screen.
 const MOBILE_CARDS = [
-  { left: "2%",  top: "7%",  width: "53vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",       zIndex: 10 },
-  { left: "47%", top: "4%",  width: "50vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses",  zIndex: 9  },
-  { left: "1%",  top: "56%", width: "47vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",       zIndex: 10 },
-  { left: "48%", top: "58%", width: "46vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",   zIndex: 9  },
+  { left: "3%",  top: "3%",  width: "38vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",       zIndex: 10 },
+  { left: "55%", top: "5%",  width: "36vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses",  zIndex: 9  },
+  { left: "2%",  top: "70%", width: "36vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",       zIndex: 10 },
+  { left: "54%", top: "72%", width: "34vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",   zIndex: 9  },
 ] as const;
 
 const p2 = (n: number) => String(n).padStart(2, "0");
@@ -264,21 +266,18 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               className="relative w-full rounded-xl overflow-hidden"
               style={{
                 aspectRatio: "16 / 10",
-                boxShadow: "0 12px 36px rgba(0,0,0,0.13), 0 3px 10px rgba(0,0,0,0.07)",
+                boxShadow: "0 10px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)",
               }}
             >
               <Image
                 src={card.src}
                 alt={card.label}
                 fill
-                sizes="55vw"
+                sizes="40vw"
                 className="object-cover"
                 priority={i < 2}
               />
             </div>
-            <p className="text-[8px] font-mono text-muted tracking-widest uppercase mt-1.5 px-0.5">
-              {card.label}
-            </p>
           </div>
         ))}
 
