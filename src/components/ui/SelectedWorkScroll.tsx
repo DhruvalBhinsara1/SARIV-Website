@@ -26,20 +26,11 @@ export type WorkProject = {
 const DESKTOP_SLOTS = [
   { left: "4%",  top: "4%",  width: "32vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
   { left: "58%", top: "2%",  width: "30vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
-  { left: "3%",  top: "52%", width: "24vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
-  { left: "66%", top: "54%", width: "20vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
+  { left: "8%", top: "48%", width: "28vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
+  { left: "62%", top: "56%", width: "25vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;
 
-// ─── Mobile static card config ────────────────────────────────────────────────
-// Top pair sits in 4%–32% vertical band, bottom pair in 62%–90%.
-// Centre band (32%–62%) is reserved for text — no overlap.
-// widths are 42–44vw — big but never exceeding right edge.
-const MOBILE_CARDS = [
-  { left: "5%",  top: "4%",  width: "42vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
-  { left: "50%", top: "6%",  width: "42vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1, zIndex: 9  },
-  { left: "4%",  top: "62%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
-  { left: "50%", top: "64%", width: "40vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2, zIndex: 9  },
-] as const;
+
 
 const p2 = (n: number) => String(n).padStart(2, "0");
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
@@ -61,10 +52,9 @@ function LinkedCard({
     <Tag
       href={link}
       {...extraProps}
-      className={`block relative w-full ${rounded} overflow-hidden group/card`}
+      className={`block relative w-full ${rounded} overflow-hidden group/card ${shadow ? 'shadow-2xl shadow-black/25' : ''}`}
       style={{
         aspectRatio: aspect,
-        ...(shadow ? { boxShadow: "0 16px 48px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)" } : {}),
       }}
     >
       <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition-transform duration-500 group-hover/card:scale-105" />
@@ -84,6 +74,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
   const titleRef   = useRef<HTMLHeadingElement>(null);
   const subRef     = useRef<HTMLParagraphElement>(null);
   const anchorRef  = useRef<HTMLAnchorElement>(null);
+  const anchorTextRef = useRef<HTMLSpanElement>(null);
   const activeRef  = useRef(0);
 
   // ── Switch active project on scroll ──────────────────────────────────────
@@ -119,12 +110,30 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         ? (a.setAttribute("target", "_blank"), a.setAttribute("rel", "noopener noreferrer"))
         : (a.removeAttribute("target"), a.removeAttribute("rel"));
     }
+    
+    if (anchorTextRef.current) {
+      const targetText = proj.external ? "Live Site" : "View Case Study";
+      if (anchorTextRef.current.textContent !== targetText) {
+        gsap.to(anchorTextRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete() {
+            if (anchorTextRef.current) anchorTextRef.current.textContent = targetText;
+            gsap.to(anchorTextRef.current, { opacity: 1, duration: 0.36 });
+          }
+        });
+      }
+    }
 
-    // Highlight — opacity only, no blur
+    // Highlight — opacity only, no blur, and pop active cards to the front for depth!
     floatRefs.current.forEach((el, i) => {
       if (!el) return;
       const isActive = DESKTOP_SLOTS[i].projIdx === index;
       gsap.killTweensOf(el);
+      
+      // Depth effect: active image pops in front of the z-20 text
+      gsap.set(el, { zIndex: isActive ? 30 : 10 });
+      
       gsap.to(el, {
         opacity: isActive ? 1 : 0.15,
         scale:   isActive ? 1 : 0.94,
@@ -139,10 +148,25 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
     });
   }
 
-  // ── GSAP: desktop pin-scroll ─────────────────────────────────────────────
+  // ── GSAP: desktop pin-scroll & floating animations ──────────────────────
   useGSAP(() => {
     const outer = outerRef.current;
     const inner = innerRef.current;
+    
+    // Continuous random floating for all images (mobile & desktop)
+    gsap.utils.toArray(".floating-img").forEach((el: any) => {
+      gsap.to(el, {
+        y: -10 - Math.random() * 10,
+        x: (Math.random() - 0.5) * 8,
+        rotation: (Math.random() - 0.5) * 3,
+        duration: 3 + Math.random() * 2,
+        yoyo: true,
+        repeat: -1,
+        ease: "sine.inOut",
+        delay: -Math.random() * 5, // start at random points in the animation
+      });
+    });
+
     if (!outer || !inner) return;
 
     const mm = gsap.matchMedia();
@@ -203,7 +227,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
       {/* ══ DESKTOP ═══════════════════════════════════════════════════════════ */}
       <div
         ref={innerRef}
-        className="hidden lg:block relative w-full h-full bg-background overflow-hidden select-none"
+        className="hidden lg:block relative w-full h-full bg-background select-none"
       >
         {/* Floating linked image cards */}
         {DESKTOP_SLOTS.map((slot, i) => {
@@ -219,13 +243,16 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                 zIndex: slot.projIdx < projects.length ? 10 : 6,
               }}
             >
-              <LinkedCard
-                src={slot.src}
-                alt={slot.label}
-                link={proj.link}
-                external={proj.external}
-                sizes="35vw"
-              />
+              <div className="floating-img w-full h-full">
+                <LinkedCard
+                  src={slot.src}
+                  alt={slot.label}
+                  link={proj.link}
+                  external={proj.external}
+                  sizes="35vw"
+                  rounded="rounded-lg"
+                />
+              </div>
               <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-2 px-1">{slot.label}</p>
             </div>
           );
@@ -257,7 +284,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               {...(p0.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="group inline-flex items-center gap-2.5 border border-primary/35 text-primary text-sm font-medium px-7 py-3.5 rounded-full hover:bg-primary hover:text-surface transition-all duration-300"
             >
-              {p0.external ? "View Live Site" : "View Case Study"}
+              <span ref={anchorTextRef}>{p0.external ? "Live Site" : "View Case Study"}</span>
               <span className="inline-block group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
           </div>
@@ -280,64 +307,86 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         </div>
       </div>
 
-      {/* ══ MOBILE: static scattered — like desktop but no scroll ════════════
-          Four linked image cards at corners, project names + CTA in centre.
-          All images at full opacity, no blur, no dimming.
+      {/* ══ MOBILE: static scattered flex layout ════════════
+          Uses flex-col justify-between to guarantee no overlap.
+          Images are rotated and margined to look scattered.
       ════════════════════════════════════════════════════════════════════════ */}
-      <div
-        className="lg:hidden relative overflow-hidden bg-background w-full h-full"
-      >
-        {/* Scattered linked image cards */}
-        {MOBILE_CARDS.map((card, i) => {
-          const proj = projects[clamp(card.projIdx, 0, projects.length - 1)];
-          return (
-            <div
-              key={i}
-              className="absolute"
-              style={{
-                left: card.left, top: card.top, width: card.width,
-                rotate: `${card.rot}deg`, zIndex: card.zIndex,
-              }}
-            >
+      <div className="lg:hidden w-full h-full flex flex-col justify-between py-4 pb-8 z-10">
+        
+        {/* Top Pair */}
+        <div className="flex justify-between items-start px-2">
+          {/* Top Left */}
+          <div className="w-[44%] -rotate-3 origin-top-left z-10">
+            <div className="floating-img w-full h-full">
               <LinkedCard
-                src={card.src}
-                alt={card.label}
-                link={proj.link}
-                external={proj.external}
+                src="/freeflow-ui.png"
+                alt="FreeFlow"
+                link={projects[0]?.link || "#"}
+                external={projects[0]?.external}
                 sizes="45vw"
                 rounded="rounded-xl"
               />
             </div>
-          );
-        })}
+          </div>
+          {/* Top Right */}
+          <div className="w-[42%] rotate-3 origin-top-right mt-6 z-10">
+            <div className="floating-img w-full h-full">
+              <LinkedCard
+                src="/core-defenses.png"
+                alt="Core Defenses"
+                link={projects[1]?.link || "#"}
+                external={projects[1]?.external}
+                sizes="45vw"
+                rounded="rounded-xl"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Centre overlay — project titles + CTA */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none px-6">
-          <p className="text-[9px] font-mono text-muted/70 tracking-[0.3em] uppercase mb-3">
-            Our Projects
-          </p>
-
-          <div className="flex flex-col w-full gap-0.5 mb-5">
+        <div className="flex flex-col items-center justify-center text-center px-6 relative z-20 my-auto py-4">
+          <div className="flex flex-col w-full gap-1 mb-2">
             {projects.map((proj, i) => (
               <h2
                 key={proj.id}
                 className={`font-display text-primary leading-tight ${
-                  i % 2 === 0 ? "self-start text-left pl-2" : "self-end text-right pr-2"
+                  i % 2 === 0 ? "self-start text-left pl-4" : "self-end text-right pr-4"
                 }`}
-                style={{ fontSize: "clamp(1.5rem, 7vw, 2.2rem)" }}
+                style={{ fontSize: "clamp(1.75rem, 8vw, 2.5rem)" }}
               >
                 {proj.title}
               </h2>
             ))}
           </div>
+        </div>
 
-          <div className="pointer-events-auto">
-            <Link
-              href="/work"
-              className="inline-flex items-center gap-2 text-primary/70 text-xs font-medium border border-primary/25 px-5 py-2.5 rounded-full hover:bg-primary hover:text-surface hover:border-primary transition-all duration-300"
-            >
-              View All Projects →
-            </Link>
+        {/* Bottom Pair */}
+        <div className="flex justify-between items-end px-2">
+          {/* Bottom Left */}
+          <div className="w-[42%] rotate-3 origin-bottom-left mb-4 z-10">
+            <div className="floating-img w-full h-full">
+              <LinkedCard
+                src="/nexabrew.jpeg"
+                alt="NexaBrew"
+                link={projects[2]?.link || "#"}
+                external={projects[2]?.external}
+                sizes="45vw"
+                rounded="rounded-xl"
+              />
+            </div>
+          </div>
+          {/* Bottom Right */}
+          <div className="w-[40%] -rotate-2 origin-bottom-right z-10">
+            <div className="floating-img w-full h-full">
+              <LinkedCard
+                src="/nexabrew-dashboard.jpg"
+                alt="NexaBrew POS"
+                link={projects[2]?.link || "#"}
+                external={projects[2]?.external}
+                sizes="45vw"
+                rounded="rounded-xl"
+              />
+            </div>
           </div>
         </div>
       </div>
