@@ -65,7 +65,7 @@ export default function Home() {
 
       {/* Selected Works Section */}
       <section className="pt-24 md:pt-32 pb-0">
-        {/* Header row — constrained */}
+        {/* Header row — constrained width */}
         <div className="px-4 md:px-20 max-w-[1400px] mx-auto">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 md:mb-20">
@@ -79,10 +79,8 @@ export default function Home() {
           </ScrollReveal>
         </div>
 
-        {/* Full-bleed scroll track */}
-        <div className="pl-4 md:pl-20">
-          <SelectedWorkScroll projects={PROJECTS} />
-        </div>
+        {/* Full-bleed interactive section — no padding, component owns layout */}
+        <SelectedWorkScroll projects={PROJECTS} />
       </section>
 
       {/* CTA Section */}
