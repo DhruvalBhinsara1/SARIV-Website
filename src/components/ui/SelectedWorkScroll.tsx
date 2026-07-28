@@ -31,14 +31,14 @@ const DESKTOP_SLOTS = [
 ] as const;
 
 // ─── Mobile static card config ────────────────────────────────────────────────
-// Top pair sits in 2%–28% vertical band, bottom pair in 66%–92%.
-// Centre band (28%–66%) is reserved for text — no overlap.
+// Top pair sits in 4%–32% vertical band, bottom pair in 62%–90%.
+// Centre band (32%–62%) is reserved for text — no overlap.
 // widths are 42–44vw — big but never exceeding right edge.
 const MOBILE_CARDS = [
-  { left: "5%",  top: "2%",  width: "42vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
-  { left: "50%", top: "4%",  width: "42vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1, zIndex: 9  },
-  { left: "4%",  top: "68%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
-  { left: "50%", top: "70%", width: "40vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2, zIndex: 9  },
+  { left: "5%",  top: "4%",  width: "42vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
+  { left: "50%", top: "6%",  width: "42vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1, zIndex: 9  },
+  { left: "4%",  top: "62%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
+  { left: "50%", top: "64%", width: "40vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2, zIndex: 9  },
 ] as const;
 
 const p2 = (n: number) => String(n).padStart(2, "0");
@@ -153,10 +153,12 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         const N = projects.length;
         // Tighter budget: ~0.8 screen per project instead of 1.2
         const scrollBudget = window.innerHeight * (N * 0.8 + 0.4);
+        
+        const section = document.getElementById("selected-work-section");
 
         const pinST = ScrollTrigger.create({
-          trigger: outer,
-          pin: inner,
+          trigger: section || outer,
+          pin: section || inner,
           start: "top top",
           end: () => `+=${scrollBudget}`,
           scrub: 0.9,
@@ -196,13 +198,12 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
   const p0 = projects[0];
 
   return (
-    <div ref={outerRef}>
+    <div ref={outerRef} className="w-full h-full">
 
       {/* ══ DESKTOP ═══════════════════════════════════════════════════════════ */}
       <div
         ref={innerRef}
-        className="hidden lg:block relative w-full bg-background overflow-hidden select-none"
-        style={{ height: "100svh" }}
+        className="hidden lg:block relative w-full h-full bg-background overflow-hidden select-none"
       >
         {/* Floating linked image cards */}
         {DESKTOP_SLOTS.map((slot, i) => {
@@ -284,8 +285,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
           All images at full opacity, no blur, no dimming.
       ════════════════════════════════════════════════════════════════════════ */}
       <div
-        className="lg:hidden relative overflow-hidden bg-background"
-        style={{ height: "100svh" }}
+        className="lg:hidden relative overflow-hidden bg-background w-full h-full"
       >
         {/* Scattered linked image cards */}
         {MOBILE_CARDS.map((card, i) => {

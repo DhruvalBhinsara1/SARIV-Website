@@ -64,9 +64,9 @@ export default function Home() {
       </section>
 
       {/* Selected Works Section */}
-      <section className="pt-12 md:pt-16 pb-0">
+      <section id="selected-work-section" className="pt-12 md:pt-16 pb-0 h-[100svh] flex flex-col overflow-hidden">
         {/* Header row — constrained width */}
-        <div className="px-4 md:px-20 max-w-[1400px] mx-auto">
+        <div className="px-4 md:px-20 max-w-[1400px] mx-auto w-full shrink-0">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
               <Typography variant="display" className="text-5xl md:text-7xl">
@@ -79,8 +79,10 @@ export default function Home() {
           </ScrollReveal>
         </div>
 
-        {/* Full-bleed interactive section — no padding, component owns layout */}
-        <SelectedWorkScroll projects={PROJECTS} />
+        {/* Full-bleed interactive section */}
+        <div className="flex-1 min-h-0 relative">
+          <SelectedWorkScroll projects={PROJECTS} />
+        </div>
       </section>
 
       {/* CTA Section */}
