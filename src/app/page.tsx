@@ -64,10 +64,11 @@ export default function Home() {
       </section>
 
       {/* Selected Works Section */}
-      <section className="px-4 md:px-20 py-24 md:py-32">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-24 md:pt-32 pb-0">
+        {/* Header row — constrained */}
+        <div className="px-4 md:px-20 max-w-[1400px] mx-auto">
           <ScrollReveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 md:mb-24">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 md:mb-20">
               <Typography variant="display" className="text-5xl md:text-7xl">
                 Selected Work
               </Typography>
@@ -76,7 +77,10 @@ export default function Home() {
               </Link>
             </div>
           </ScrollReveal>
+        </div>
 
+        {/* Full-bleed scroll track */}
+        <div className="pl-4 md:pl-20">
           <SelectedWorkScroll projects={PROJECTS} />
         </div>
       </section>
