@@ -13,7 +13,7 @@ import { Chatbot } from "@/components/ui/Chatbot";
 // marketing site's header, footer, smooth-scroll wrapper, or chat widget.
 export function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  if (pathname?.startsWith("/admin")) {
+  if (pathname?.startsWith("/admin") && pathname !== "/admin/login") {
     return <>{children}</>;
   }
 
