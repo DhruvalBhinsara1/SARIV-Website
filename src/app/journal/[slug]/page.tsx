@@ -5,16 +5,11 @@ import ReactMarkdown from "react-markdown";
 import { getJournalPostBySlug, getJournalPosts } from "@/lib/journal";
 import { Typography } from "@/components/ui/Typography";
 
-export async function generateStaticParams() {
-  const posts = getJournalPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+// generateStaticParams is removed because the CMS is now dynamic (Supabase-backed)
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getJournalPostBySlug(slug);
+  const post = await getJournalPostBySlug(slug);
 
   if (!post) return {};
 
@@ -32,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function JournalPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getJournalPostBySlug(slug);
+  const post = await getJournalPostBySlug(slug);
 
   if (!post) {
     notFound();

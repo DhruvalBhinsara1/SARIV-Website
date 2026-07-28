@@ -8,8 +8,8 @@ export default async function JournalIndexPage({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { category: activeCategory = "All" } = await searchParams;
-  const allPosts = getJournalPosts();
-  const categories = getJournalCategories();
+  const allPosts = await getJournalPosts();
+  const categories = await getJournalCategories();
 
   return (
     <main className="flex-1 w-full bg-background pt-32 pb-24">

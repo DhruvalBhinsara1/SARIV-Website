@@ -6,13 +6,14 @@ import { Mark } from "./Mark";
 import { buttonVariants } from "./ui/Button";
 import { SidebarProvider, useSidebar, MobileSidebar, SidebarLink } from "./ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Home, Briefcase, Info, Mail } from "lucide-react";
+import { Home, Briefcase, Info, Mail, PenTool } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { Magnetic } from "@/components/ui/Magnetic";
 
 const NAV_LINKS = [
   { label: "Home", href: "/", icon: <Home className="h-5 w-5 flex-shrink-0" /> },
   { label: "Work", href: "/work", icon: <Briefcase className="h-5 w-5 flex-shrink-0" /> },
+  { label: "Journal", href: "/journal", icon: <PenTool className="h-5 w-5 flex-shrink-0" /> },
   { label: "About", href: "/about", icon: <Info className="h-5 w-5 flex-shrink-0" /> },
   { label: "Contact", href: "/contact", icon: <Mail className="h-5 w-5 flex-shrink-0" /> },
 ];

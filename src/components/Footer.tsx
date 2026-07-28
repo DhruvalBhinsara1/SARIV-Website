@@ -30,6 +30,7 @@ export function Footer() {
           <Link href="/" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Home</Link>
           <Link href="/about" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">About</Link>
           <Link href="/work" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Work</Link>
+          <Link href="/journal" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Journal</Link>
           <Link href="/contact" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Contact</Link>
         </div>
 
@@ -57,8 +58,8 @@ export function Footer() {
           <Typography variant="caption" className="font-semibold text-primary mb-2">
             Legal
           </Typography>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Privacy Policy</a>
-          <a href="#" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Terms of Service</a>
+          <Link href="/privacy-policy" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Privacy Policy</Link>
+          <Link href="/terms-of-service" className="text-secondary hover:text-primary transition-colors text-sm font-medium link-underline w-fit">Terms of Service</Link>
         </div>
 
         {/* Contact */}

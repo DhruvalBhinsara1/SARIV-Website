@@ -9,7 +9,8 @@ import {
   Search,
   MessageSquare,
   LogOut,
-  MoreHorizontal
+  MoreHorizontal,
+  PenTool
 } from "lucide-react";
 import { Mark } from "@/components/Mark";
 
@@ -20,10 +21,11 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { icon: <Activity className="w-5 h-5" />, name: "Usage", path: "#usage" },
-  { icon: <Database className="w-5 h-5" />, name: "Reindex", path: "#reindex" },
-  { icon: <Search className="w-5 h-5" />, name: "Debug Retrieval", path: "#retrieval" },
-  { icon: <MessageSquare className="w-5 h-5" />, name: "Conversations", path: "#conversations" },
+  { icon: <Activity className="w-5 h-5" />, name: "Usage", path: "/admin#usage" },
+  { icon: <Database className="w-5 h-5" />, name: "Reindex", path: "/admin#reindex" },
+  { icon: <Search className="w-5 h-5" />, name: "Debug Retrieval", path: "/admin#retrieval" },
+  { icon: <MessageSquare className="w-5 h-5" />, name: "Conversations", path: "/admin#conversations" },
+  { icon: <PenTool className="w-5 h-5" />, name: "Journal", path: "/admin/journal" },
 ];
 
 const AppSidebar: React.FC = () => {
@@ -40,8 +42,12 @@ const AppSidebar: React.FC = () => {
   }, []);
 
   const isActive = useCallback((path: string) => {
-    return hash === path || (hash === "" && path === "#usage");
-  }, [hash]);
+    if (path.startsWith("/admin#")) {
+      const targetHash = path.replace("/admin", "");
+      return pathname === "/admin" && (hash === targetHash || (hash === "" && targetHash === "#usage"));
+    }
+    return pathname.startsWith(path);
+  }, [pathname, hash]);
 
   const renderMenuItems = (items: NavItem[]) => (
     <ul className="flex flex-col gap-2">
