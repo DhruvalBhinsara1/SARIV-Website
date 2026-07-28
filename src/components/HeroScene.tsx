@@ -54,7 +54,10 @@ export function HeroScene() {
   return (
     <div 
       className="relative w-full flex items-center justify-center px-4 overflow-hidden pt-40 pb-20"
-      style={{ minHeight: '115vh', marginTop: '-7.5vh' }}
+      style={{ 
+        minHeight: 'calc(100vh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px))', 
+        marginTop: 'calc(-1 * env(safe-area-inset-top, 0px))' 
+      }}
     >
       {/* Background Layering */}
       <div className="absolute inset-0 z-0">
