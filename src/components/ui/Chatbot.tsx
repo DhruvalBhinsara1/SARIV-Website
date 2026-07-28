@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageCircle, X, ArrowUp } from "lucide-react";
 import { Mark } from "@/components/Mark";
 import { buttonVariants } from "@/components/ui/Button";
-import { SmoothInput } from "@/components/ui/SmoothInput";
+import { SmoothTextarea } from "@/components/ui/SmoothTextarea";
 import { cn } from "@/lib/utils";
 
 type ChatMessage = { id: string; role: "user" | "assistant"; text: string };
@@ -27,7 +27,18 @@ export function Chatbot() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const reduceMotion = useReducedMotion();
+
+  // Auto-grow the textarea with the message instead of scrolling text sideways.
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+  }, [input]);
 
   useEffect(() => {
     listRef.current?.scrollTo({
@@ -35,6 +46,17 @@ export function Chatbot() {
       behavior: reduceMotion ? "auto" : "smooth",
     });
   }, [messages, isTyping, reduceMotion]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function handlePointerDown(e: PointerEvent) {
+      const target = e.target as Node;
+      if (panelRef.current?.contains(target) || launcherRef.current?.contains(target)) return;
+      setIsOpen(false);
+    }
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [isOpen]);
 
   function sendMessage() {
     const text = input.trim();
@@ -58,10 +80,11 @@ export function Chatbot() {
   return (
     <>
       <button
+        ref={launcherRef}
         onClick={() => setIsOpen((v) => !v)}
         aria-label={isOpen ? "Close chat" : "Open chat with the SARIV assistant"}
         aria-expanded={isOpen}
-        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-primary text-surface shadow-elevation transition-transform duration-500 ease-out hover:-translate-y-1 hover:shadow-lg"
+        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-white text-black mix-blend-difference transition-transform duration-500 ease-out hover:-translate-y-1"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -80,6 +103,7 @@ export function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={panelRef}
             role="dialog"
             aria-label="SARIV assistant"
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.97 }}
@@ -95,9 +119,6 @@ export function Chatbot() {
               <div className="flex-1 min-w-0">
                 <p className="font-body text-sm font-semibold text-primary leading-tight">
                   SARIV Assistant
-                </p>
-                <p className="font-mono text-[11px] text-muted tracking-widest uppercase">
-                  In development
                 </p>
               </div>
               <button
@@ -136,15 +157,17 @@ export function Chatbot() {
               )}
             </div>
 
-            <form onSubmit={handleSubmit} className="flex items-center gap-2 px-4 py-4 border-t border-border shrink-0">
-              <SmoothInput
+            <form onSubmit={handleSubmit} className="flex items-end gap-2 px-4 py-4 border-t border-border shrink-0">
+              <SmoothTextarea
+                ref={textareaRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about our work, process, or pricing…"
+                placeholder="Ask a question…"
                 aria-label="Message"
-                className="h-11 rounded-full text-sm"
+                rows={1}
+                className="min-h-[44px] max-h-[120px] text-sm resize-none py-2.5"
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
                   }

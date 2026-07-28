@@ -21,3 +21,17 @@
   letter-spacing: 0.01em;
   line-height: 1;
 }
+
+/* Same viewBox width regardless of screen size, so a flat font-size shows the
+   same word count everywhere — shrink it on wider screens to fit more text. */
+@media (min-width: 1024px) {
+  .curved-loop-svg {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .curved-loop-svg {
+    font-size: 2rem;
+  }
+}
