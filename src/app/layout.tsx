@@ -1,13 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { ToastProvider, ToastViewport } from "@/components/ui/Toast";
-import { SmoothScrolling } from "@/components/SmoothScrolling";
-import GradualBlur from "@/components/ui/GradualBlur";
-import { CustomCursor } from "@/components/ui/CustomCursor";
-import { BackToTop } from "@/components/ui/BackToTop";
-import { Chatbot } from "@/components/ui/Chatbot";
+import { AppChrome } from "@/components/AppChrome";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
@@ -106,28 +100,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-primary font-body">
         <ToastProvider>
-          <Header />
-          <SmoothScrolling>
-            {children}
-            <div className="relative">
-              <Footer />
-              {/* ponytail: anchored to the document's true end (not the viewport), so it can never cover live content further up the page */}
-              <GradualBlur
-                className="hidden md:block"
-                position="bottom"
-                target="parent"
-                height="6rem"
-                strength={2}
-                divCount={5}
-                opacity={1}
-              />
-            </div>
-          </SmoothScrolling>
+          <AppChrome>{children}</AppChrome>
           <ToastViewport />
         </ToastProvider>
-        <CustomCursor />
-        <BackToTop />
-        <Chatbot />
         <Analytics />
       </body>
     </html>

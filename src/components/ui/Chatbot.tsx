@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { MessageCircle, X, ArrowUp } from "lucide-react";
+import { MessageCircle, X, ArrowUp, Square } from "lucide-react";
 import { Mark } from "@/components/Mark";
 import { buttonVariants } from "@/components/ui/Button";
 import { SmoothTextarea } from "@/components/ui/SmoothTextarea";
@@ -16,16 +16,17 @@ const GREETING: ChatMessage = {
   text: "Hi — I'm the SARIV assistant. Ask me about our work, process, or products.",
 };
 
-// ponytail: canned reply until the RAG backend is wired up — swap handleSubmit's
-// setTimeout for a real API call, keep the message-list shape the same.
-const STUB_REPLY =
-  "I don't have real answers yet — the team is wiring up my knowledge base. In the meantime, try the Contact page.";
+const ERROR_REPLY =
+  "Something went wrong on my end. Please try again, or reach out through the Contact page.";
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [streamingId, setStreamingId] = useState<string | null>(null);
+  const conversationIdRef = useRef<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
@@ -58,18 +59,65 @@ export function Chatbot() {
     return () => document.removeEventListener("pointerdown", handlePointerDown);
   }, [isOpen]);
 
-  function sendMessage() {
+  async function sendMessage() {
     const text = input.trim();
-    if (!text || isTyping) return;
+    if (!text || isTyping || streamingId) return;
 
     setMessages((m) => [...m, { id: crypto.randomUUID(), role: "user", text }]);
     setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId: conversationIdRef.current ?? undefined, message: text }),
+        signal: controller.signal,
+      });
+      if (!res.ok || !res.body) throw new Error("chat request failed");
+
+      const newConversationId = res.headers.get("X-Conversation-Id");
+      if (newConversationId) conversationIdRef.current = newConversationId;
+
+      const assistantId = crypto.randomUUID();
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let receivedAny = false;
+
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        if (!receivedAny) {
+          receivedAny = true;
+          setIsTyping(false);
+          setStreamingId(assistantId);
+          setMessages((m) => [...m, { id: assistantId, role: "assistant", text: chunk }]);
+        } else {
+          setMessages((m) =>
+            m.map((msg) => (msg.id === assistantId ? { ...msg, text: msg.text + chunk } : msg))
+          );
+        }
+      }
+
+      if (!receivedAny) throw new Error("empty stream");
+    } catch (err) {
+      // A deliberate stop shouldn't erase whatever partial reply already streamed in.
+      if ((err as Error).name !== "AbortError") {
+        setMessages((m) => [...m, { id: crypto.randomUUID(), role: "assistant", text: ERROR_REPLY }]);
+      }
+    } finally {
       setIsTyping(false);
-      setMessages((m) => [...m, { id: crypto.randomUUID(), role: "assistant", text: STUB_REPLY }]);
-    }, 900);
+      setStreamingId(null);
+      abortRef.current = null;
+    }
+  }
+
+  function stopGenerating() {
+    abortRef.current?.abort();
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -84,7 +132,7 @@ export function Chatbot() {
         onClick={() => setIsOpen((v) => !v)}
         aria-label={isOpen ? "Close chat" : "Open chat with the SARIV assistant"}
         aria-expanded={isOpen}
-        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-white text-black mix-blend-difference transition-transform duration-500 ease-out hover:-translate-y-1"
+        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-black text-white shadow-elevation transition-transform duration-500 ease-out hover:-translate-y-1"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -173,14 +221,25 @@ export function Chatbot() {
                   }
                 }}
               />
-              <button
-                type="submit"
-                disabled={!input.trim() || isTyping}
-                aria-label="Send message"
-                className={cn(buttonVariants({ variant: "primary" }), "h-10 w-10 p-0 shrink-0")}
-              >
-                <ArrowUp className="w-4 h-4" />
-              </button>
+              {isTyping || streamingId ? (
+                <button
+                  type="button"
+                  onClick={stopGenerating}
+                  aria-label="Stop generating"
+                  className={cn(buttonVariants({ variant: "primary" }), "h-10 w-10 p-0 shrink-0")}
+                >
+                  <Square className="w-3 h-3" fill="currentColor" />
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={!input.trim()}
+                  aria-label="Send message"
+                  className={cn(buttonVariants({ variant: "primary" }), "h-10 w-10 p-0 shrink-0")}
+                >
+                  <ArrowUp className="w-4 h-4" />
+                </button>
+              )}
             </form>
           </motion.div>
         )}

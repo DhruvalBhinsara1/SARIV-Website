@@ -10,9 +10,11 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "db:migrate": "set -a && . ./.env.local && set +a && for f in src/db/migrations/*.sql; do echo \"applying $f\"; psql \"$DATABASE_URL_UNPOOLED\" -v ON_ERROR_STOP=1 -f \"$f\"; done"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^4.0.23",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.4.0",
     "@radix-ui/react-accordion": "^1.2.17",
@@ -28,6 +30,8 @@
     "@radix-ui/react-toast": "^1.2.20",
     "@tabler/icons-react": "^3.45.0",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/postgres": "^0.10.0",
+    "ai": "^7.0.41",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",

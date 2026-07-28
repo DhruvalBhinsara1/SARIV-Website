@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/export-banner"],
+      disallow: ["/export-banner", "/admin"],
     },
     sitemap: "https://sariv-web.vercel.app/sitemap.xml",
   };
