@@ -29,6 +29,7 @@ function HeaderContent() {
   const { open, setOpen } = useSidebar();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isHidden, setIsHidden] = React.useState(false);
+  const [isPastHero, setIsPastHero] = React.useState(false);
   const lastScrollY = React.useRef(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -37,6 +38,7 @@ function HeaderContent() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
+      setIsPastHero(currentScrollY > (window.innerHeight * 0.8)); // Past most of the hero section
       
       if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !open) {
         setIsHidden(true);
@@ -46,8 +48,32 @@ function HeaderContent() {
       lastScrollY.current = currentScrollY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [open]);
+
+  // Dynamically update Safari's top/bottom bars via theme-color and body background
+  React.useEffect(() => {
+    const targetColor = isHome && !isPastHero ? "#0f1014" : "#FAF9F7";
+    
+    // Update body background (fixes the bottom URL bar strip on iOS Safari)
+    document.body.style.backgroundColor = targetColor;
+
+    // Update or create theme-color meta tag (fixes the top status bar strip on iOS Safari)
+    let metaThemeColor = document.querySelector("meta[name='theme-color']");
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement("meta");
+      metaThemeColor.setAttribute("name", "theme-color");
+      document.head.appendChild(metaThemeColor);
+    }
+    metaThemeColor.setAttribute("content", targetColor);
+    
+    return () => {
+      // Cleanup on unmount (e.g. navigating away)
+      document.body.style.backgroundColor = "";
+    };
+  }, [isHome, isPastHero]);
 
   return (
     <header

@@ -52,7 +52,7 @@ export function HeroScene() {
   const nextScene = () => setActiveScene((i) => (i + 1) % scenes.length);
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center px-4 overflow-hidden pt-32 pb-20">
+    <div className="relative min-h-[100svh] w-full flex items-center justify-center px-4 overflow-hidden pt-32 pb-20 bg-[#0f1014]">
       {/* Background Layering */}
       <div className="absolute inset-0 z-0">
         {/* Layer 1: Rotating hero scene, crossfaded */}
