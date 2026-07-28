@@ -24,7 +24,16 @@ const PROJECTS: WorkProject[] = [
     link: "https://www.core-defenses.com/",
     external: true,
     align: "right",
-  }
+  },
+  {
+    id: "nexabrew",
+    title: "NexaBrew",
+    subtitle: "A real-time cafe POS and management system built for the floor — order-taking, kitchen display, table tracking, and live reporting in one place.",
+    image: "/nexabrew.jpeg",
+    link: "https://nexabrew.vercel.app",
+    external: true,
+    align: "left",
+  },
 ];
 
 export default function Home() {
