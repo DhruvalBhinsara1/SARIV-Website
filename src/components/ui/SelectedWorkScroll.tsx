@@ -24,10 +24,10 @@ export type WorkProject = {
 // py = total Y drift (px) over the full scroll distance.
 // projIdx = which project this slot represents (for link + highlight).
 const DESKTOP_SLOTS = [
-  { left: "1%",  top: "4%",  width: "34vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
-  { left: "58%", top: "2%",  width: "32vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
-  { left: "0%",  top: "52%", width: "26vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
-  { left: "66%", top: "54%", width: "22vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
+  { left: "4%",  top: "4%",  width: "32vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
+  { left: "58%", top: "2%",  width: "30vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
+  { left: "3%",  top: "52%", width: "24vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
+  { left: "66%", top: "54%", width: "20vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;
 
 // ─── Mobile static card config ────────────────────────────────────────────────
@@ -35,9 +35,9 @@ const DESKTOP_SLOTS = [
 // Centre band (28%–66%) is reserved for text — no overlap.
 // widths are 42–44vw — big but never exceeding right edge.
 const MOBILE_CARDS = [
-  { left: "2%",  top: "2%",  width: "44vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
+  { left: "5%",  top: "2%",  width: "42vw", rot: -4, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0, zIndex: 10 },
   { left: "50%", top: "4%",  width: "42vw", rot:  3, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1, zIndex: 9  },
-  { left: "1%",  top: "68%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
+  { left: "4%",  top: "68%", width: "42vw", rot:  3, src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2, zIndex: 10 },
   { left: "50%", top: "70%", width: "40vw", rot: -3, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2, zIndex: 9  },
 ] as const;
 
@@ -317,12 +317,14 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
             Our Projects
           </p>
 
-          <div className="flex flex-col items-center gap-0.5 mb-5">
-            {projects.map((proj) => (
+          <div className="flex flex-col w-full gap-0.5 mb-5">
+            {projects.map((proj, i) => (
               <h2
                 key={proj.id}
-                className="font-display text-primary leading-tight"
-                style={{ fontSize: "clamp(2rem, 9vw, 3rem)" }}
+                className={`font-display text-primary leading-tight ${
+                  i % 2 === 0 ? "self-start text-left pl-2" : "self-end text-right pr-2"
+                }`}
+                style={{ fontSize: "clamp(1.5rem, 7vw, 2.2rem)" }}
               >
                 {proj.title}
               </h2>
