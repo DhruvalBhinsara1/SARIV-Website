@@ -25,7 +25,7 @@ export type WorkProject = {
 // projIdx = which project this slot represents (for link + highlight).
 const DESKTOP_SLOTS = [
   { left: "4%",  top: "4%",  width: "32vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
-  { left: "58%", top: "2%",  width: "30vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
+  { left: "55%", top: "15%",  width: "30vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
   { left: "8%", top: "48%", width: "28vw", rot:  3, py: -40,  src: "/nexabrew.png",          label: "NexaBrew",      projIdx: 2 },
   { left: "62%", top: "56%", width: "25vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;

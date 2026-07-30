@@ -39,7 +39,18 @@ function HeaderContent() {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
       
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !open) {
+      let isInsideWorkSection = false;
+      const workSection = document.getElementById("selected-work-section");
+      if (workSection) {
+        const rect = workSection.getBoundingClientRect();
+        // Check if the section is covering the top of the viewport
+        if (rect.top <= 80 && rect.bottom >= 80) {
+          isInsideWorkSection = true;
+        }
+      }
+      
+      // Hide if scrolling down, OR if we are inside the fullscreen work section
+      if ((currentScrollY > lastScrollY.current && currentScrollY > 100 && !open) || isInsideWorkSection) {
         setIsHidden(true);
       } else {
         setIsHidden(false);
