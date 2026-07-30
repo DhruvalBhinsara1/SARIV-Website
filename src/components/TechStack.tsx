@@ -54,12 +54,12 @@ export function TechStack() {
     damping: 50,
     stiffness: 400
   });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 3], {
     clamp: false
   });
 
-  // Base speed (pixels per millisecond)
-  const baseVelocity = -20;
+  // Base speed (percentage per second)
+  const baseVelocity = -1.5;
   const directionFactor = useRef<number>(1);
 
   useAnimationFrame((t, delta) => {
