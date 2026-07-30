@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import freeflowUi from "../../../../public/freeflow-ui.png";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
@@ -124,13 +125,12 @@ export default async function FreeFlowProductPage() {
           {/* Right Column: Floating Image */}
           <div className="flex-[1.2] w-full mt-8 lg:mt-0">
             <ScrollReveal delay={0.4}>
-              <div className="relative w-full aspect-[4/3] bg-surface-elevated border border-border rounded-2xl overflow-hidden p-2 shadow-elevation transition-transform duration-700">
-                <div className="relative w-full h-full rounded-xl overflow-hidden border border-border/50 bg-[#0a0a0a]">
+              <div className="relative w-full bg-surface-elevated border border-border rounded-2xl overflow-hidden p-2 shadow-elevation transition-transform duration-700">
+                <div className="relative w-full rounded-xl overflow-hidden border border-border/50 bg-[#0a0a0a]">
                   <Image 
-                    src="/freeflow-ui.png" 
+                    src={freeflowUi}
                     alt="FreeFlow Demo Interface" 
-                    fill
-                    className="object-cover object-left-top"
+                    className="w-full h-auto"
                     priority
                   />
                 </div>
