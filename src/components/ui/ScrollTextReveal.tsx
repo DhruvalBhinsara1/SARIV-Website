@@ -16,16 +16,16 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
   // Track scroll over the entire 150vh container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // Track from when the top of the container hits the top of the viewport
-    // until the bottom of the container hits the bottom of the viewport
-    offset: ["start start", "end end"]
+    // Start tracking when the top of the container enters the bottom 25% of the viewport.
+    // End tracking when the bottom of the container hits the bottom of the viewport.
+    offset: ["start 75%", "end end"]
   });
 
   const words = text.split(" ");
 
-  // The entire text block fades out at the very end of the scroll (80% to 100%)
-  const blockOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
-  const blockY = useTransform(scrollYProgress, [0.8, 1], [0, -50]);
+  // The entire text block fades out at the very end of the scroll (85% to 100%)
+  const blockOpacity = useTransform(scrollYProgress, [0.85, 1], [1, 0]);
+  const blockY = useTransform(scrollYProgress, [0.85, 1], [0, -50]);
 
   return (
     // Tall container creates scrollable space (150vh means 50vh of extra scrolling)
@@ -42,10 +42,10 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
             data-cursor="text"
           >
             {words.map((word, i) => {
-              // Word fade in happens during 0% -> 60% of the total container scroll
+              // Word fade in happens during 0% -> 40% of the total container scroll
+              // (This means it fully reveals *before* it finishes pinning)
               const transitionLength = 0.15; 
-              // start ranges from 0 to (0.6 - 0.15 = 0.45)
-              const start = (i / Math.max(1, words.length - 1)) * (0.6 - transitionLength);
+              const start = (i / Math.max(1, words.length - 1)) * (0.4 - transitionLength);
               const end = start + transitionLength;
               
               return (
