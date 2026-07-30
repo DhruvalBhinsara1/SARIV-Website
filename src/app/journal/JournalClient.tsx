@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Pagination } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
 
@@ -211,12 +212,18 @@ export function JournalClient({ initialCategory, categories, allPosts }: Journal
                 );
               }}
               className={cn(
-                "font-mono text-[11px] tracking-widest uppercase transition-colors cursor-pointer",
+                "relative font-mono text-[11px] tracking-widest uppercase transition-colors cursor-pointer pb-1.5",
                 isActive ? "text-primary" : "text-muted hover:text-secondary"
               )}
             >
               {category}
-              {isActive && <span className="block h-px bg-primary mt-1.5" />}
+              {isActive && (
+                <motion.div
+                  layoutId="journal-category-underline"
+                  className="absolute bottom-0 left-0 right-0 h-px bg-primary"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
             </button>
           );
         })}
