@@ -16,8 +16,9 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     // Start tracking when the container enters the bottom 80% of the viewport.
-    // End tracking when the container reaches the top 40% of the viewport.
-    offset: ["start 80%", "end 40%"]
+    // End tracking when the TOP of the container reaches the top 35% of the viewport.
+    // This ensures it finishes coloring completely while the text is still in view.
+    offset: ["start 80%", "start 35%"]
   });
 
   const words = text.split(" ");
@@ -56,7 +57,7 @@ function Word({ children, progress, range }: { children: string, progress: Motio
   const opacity = useTransform(progress, range, [0.15, 1]);
   
   return (
-    <motion.span style={{ opacity }} className="inline-block transition-opacity duration-150">
+    <motion.span style={{ opacity }} className="inline-block">
       {children}
     </motion.span>
   );
