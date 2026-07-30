@@ -11,7 +11,14 @@ type Post = {
   description: string;
   date: string;
   category: string;
+  content?: string;
 };
+
+function extractFirstImage(markdown?: string): string | null {
+  if (!markdown) return null;
+  const match = markdown.match(/!\[.*?\]\((.*?)\)/);
+  return match ? match[1] : null;
+}
 
 type JournalClientProps = {
   initialCategory: string;
@@ -43,9 +50,10 @@ function Meta({ post, className }: { post: Post; className?: string }) {
 
 // ── Lead story — full-bleed editorial opener, typography-first ──────────────
 function LeadStory({ post }: { post: Post }) {
+  const imageUrl = extractFirstImage(post.content);
   return (
     <Link href={`/journal/${post.slug}`} className="group block border-b border-border pb-16 md:pb-24">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] md:items-end gap-6 md:gap-16">
+      <div className={cn("grid grid-cols-1 gap-8 md:gap-16 items-center", imageUrl ? "md:grid-cols-[1.2fr_1fr]" : "md:grid-cols-[1fr_auto] md:items-end")}>
         <div className="max-w-3xl">
           <Meta post={post} className="mb-8" />
           <h2 className="font-display font-normal text-primary text-[clamp(34px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em] mb-6">
@@ -53,13 +61,24 @@ function LeadStory({ post }: { post: Post }) {
               {post.title}
             </span>
           </h2>
-          <p className="font-body text-secondary text-lg md:text-xl leading-relaxed max-w-xl">
+          <p className={cn("font-body text-secondary text-lg md:text-xl leading-relaxed max-w-xl", imageUrl && "mb-8")}>
             {post.description}
           </p>
+          {imageUrl && (
+            <span className="font-mono text-[10px] tracking-widest uppercase text-muted whitespace-nowrap">
+              {readingTime(post.description)}
+            </span>
+          )}
         </div>
-        <span className="font-mono text-[10px] tracking-widest uppercase text-muted whitespace-nowrap">
-          {readingTime(post.description)}
-        </span>
+        {imageUrl ? (
+          <div className="w-full aspect-video md:aspect-[4/3] overflow-hidden rounded-2xl border border-border shadow-sm">
+            <img src={imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+        ) : (
+          <span className="font-mono text-[10px] tracking-widest uppercase text-muted whitespace-nowrap">
+            {readingTime(post.description)}
+          </span>
+        )}
       </div>
     </Link>
   );
@@ -67,10 +86,11 @@ function LeadStory({ post }: { post: Post }) {
 
 // ── Wide story — horizontal, index-numbered, quiet ─────────────────────────
 function WideStory({ post, index }: { post: Post; index: number }) {
+  const imageUrl = extractFirstImage(post.content);
   return (
     <Link
       href={`/journal/${post.slug}`}
-      className="group grid grid-cols-1 md:grid-cols-[64px_1fr_1fr] gap-4 md:gap-12 items-start border-b border-border py-10 md:py-12"
+      className="group grid grid-cols-1 md:grid-cols-[64px_1fr_1.5fr] lg:grid-cols-[64px_1fr_1fr_auto] gap-4 md:gap-8 lg:gap-12 items-start border-b border-border py-10 md:py-12"
     >
       <span className="font-mono text-xs text-muted tracking-widest pt-2">
         {String(index).padStart(2, "0")}
@@ -84,6 +104,11 @@ function WideStory({ post, index }: { post: Post; index: number }) {
       <p className="font-body text-secondary text-[15px] leading-relaxed md:pt-8 max-w-md">
         {post.description}
       </p>
+      {imageUrl && (
+        <div className="hidden lg:block w-32 h-32 overflow-hidden rounded-xl shrink-0 mt-2">
+           <img src={imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        </div>
+      )}
     </Link>
   );
 }
@@ -92,6 +117,7 @@ function WideStory({ post, index }: { post: Post; index: number }) {
 const TINTS = ["bg-mist-blue", "bg-warm-sand", "bg-pale-lavender", "bg-fog-green", "bg-soft-peach"];
 
 function TallStory({ post, tint }: { post: Post; tint: string }) {
+  const imageUrl = extractFirstImage(post.content);
   return (
     <Link
       href={`/journal/${post.slug}`}
@@ -100,19 +126,24 @@ function TallStory({ post, tint }: { post: Post; tint: string }) {
         tint
       )}
     >
-      <Meta post={post} />
       <div>
+        {imageUrl && (
+          <div className="w-full aspect-[4/3] overflow-hidden rounded-xl mb-8 bg-black/5">
+            <img src={imageUrl} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          </div>
+        )}
+        <Meta post={post} className="mb-6" />
         <h3 className="font-display font-normal text-primary text-2xl md:text-[28px] leading-[1.15] mb-4">
           {post.title}
         </h3>
         <p className="font-body text-secondary text-sm leading-relaxed line-clamp-3">
           {post.description}
         </p>
-        <span className="font-mono text-[10px] tracking-widest uppercase text-primary mt-6 inline-flex items-center gap-2">
-          Read
-          <span className="group-hover:translate-x-1 transition-transform">→</span>
-        </span>
       </div>
+      <span className="font-mono text-[10px] tracking-widest uppercase text-primary mt-8 inline-flex items-center gap-2">
+        Read
+        <span className="group-hover:translate-x-1 transition-transform">→</span>
+      </span>
     </Link>
   );
 }

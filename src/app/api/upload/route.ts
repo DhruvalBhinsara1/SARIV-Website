@@ -14,26 +14,16 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     
-    // Create a unique filename
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const filename = `${uniqueSuffix}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
+    // Since this is deployed to Vercel (serverless), writing to the local filesystem
+    // will not persist for static serving. To fix the broken images without requiring
+    // an external Blob store, we encode the image directly as a base64 Data URI.
     
-    // Save to public/uploads
-    // Note: In a real Vercel deployment, this local file won't persist.
-    // We would use Vercel Blob here eventually.
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    const mimeType = file.type || 'image/png';
+    const base64Data = buffer.toString('base64');
+    const dataUri = `data:${mimeType};base64,${base64Data}`;
     
-    // Ensure dir exists
-    const fs = await import('fs');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const filepath = path.join(uploadDir, filename);
-    await writeFile(filepath, buffer);
-    
-    // Return the public URL
-    return NextResponse.json({ url: `/uploads/${filename}` });
+    // Return the base64 URL to be embedded in the markdown
+    return NextResponse.json({ url: dataUri });
   } catch (error: any) {
     console.error("Error uploading file:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Typography } from "@/components/ui/Typography";
-import { ArrowLeft, Save, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, Save, Image as ImageIcon, Eye, Edit2 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 export type JournalPostDraft = {
   id?: string;
@@ -38,6 +39,7 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [mode, setMode] = useState<"write" | "preview">("write");
 
   const handleSave = async () => {
     setLoading(true);
@@ -174,7 +176,25 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
             
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-medium text-primary">Content (Markdown)</label>
+                <div className="flex items-center gap-4">
+                  <label className="text-sm font-medium text-primary">Content</label>
+                  <div className="flex bg-surface-elevated rounded-lg p-1">
+                    <button 
+                      onClick={() => setMode("write")} 
+                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors flex items-center gap-2 ${mode === "write" ? "bg-surface shadow-sm text-primary" : "text-muted hover:text-primary"}`}
+                    >
+                      <Edit2 className="w-3 h-3" />
+                      Write
+                    </button>
+                    <button 
+                      onClick={() => setMode("preview")} 
+                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors flex items-center gap-2 ${mode === "preview" ? "bg-surface shadow-sm text-primary" : "text-muted hover:text-primary"}`}
+                    >
+                      <Eye className="w-3 h-3" />
+                      Preview
+                    </button>
+                  </div>
+                </div>
                 <div>
                   <input 
                     type="file" 
@@ -183,24 +203,68 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
                     className="hidden" 
                     onChange={handleImageUpload} 
                   />
-                  <Button 
-                    variant="secondary" 
-                    size="small" 
-                    icon={<ImageIcon className="w-4 h-4" />}
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploadingImage}
-                  >
-                    {uploadingImage ? "Uploading..." : "Insert Image"}
-                  </Button>
+                  {mode === "write" && (
+                    <Button 
+                      variant="secondary" 
+                      size="small" 
+                      icon={<ImageIcon className="w-4 h-4" />}
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploadingImage}
+                    >
+                      {uploadingImage ? "Uploading..." : "Insert Image"}
+                    </Button>
+                  )}
                 </div>
               </div>
-              <textarea
-                ref={contentTextareaRef}
-                value={post.content}
-                onChange={(e) => setPost({...post, content: e.target.value})}
-                placeholder="Write your post in Markdown here..."
-                className="w-full min-h-[500px] p-4 rounded-xl bg-background border border-border text-primary font-mono text-sm resize-y focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
+              
+              {mode === "write" ? (
+                <textarea
+                  ref={contentTextareaRef}
+                  value={post.content}
+                  onChange={(e) => setPost({...post, content: e.target.value})}
+                  placeholder="Write your post in Markdown here..."
+                  className="w-full min-h-[500px] p-4 rounded-xl bg-background border border-border text-primary font-mono text-sm resize-y focus:outline-none focus:ring-2 focus:ring-primary/20"
+                />
+              ) : (
+                <div className="w-full min-h-[500px] p-6 rounded-xl bg-background border border-border overflow-y-auto">
+                  <ReactMarkdown
+                    components={{
+                      h1: ({ node, ...props }) => <Typography variant="heading" className="mt-8 mb-6 text-3xl" {...props} />,
+                      h2: ({ node, ...props }) => <Typography variant="heading" className="mt-8 mb-6 text-2xl" {...props} />,
+                      h3: ({ node, ...props }) => <Typography variant="subheading" className="mt-6 mb-4 font-bold" {...props} />,
+                      p: ({ node, ...props }) => <Typography variant="body" className="mb-6 leading-relaxed" {...props} />,
+                      a: ({ node, ...props }) => <a className="text-secondary hover:underline underline-offset-4" {...props} />,
+                      ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-6 space-y-2 text-muted-foreground" {...props} />,
+                      li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
+                      blockquote: ({ node, ...props }) => (
+                        <blockquote className="border-l-4 border-secondary pl-6 italic my-8 text-muted-foreground" {...props} />
+                      ),
+                      code: ({ node, className, children, ...props }) => {
+                        const match = /language-(\w+)/.exec(className || "");
+                        const isInline = !match && !className;
+                        return isInline ? (
+                          <code className="bg-surface-elevated px-1.5 py-0.5 rounded-md text-sm font-mono text-primary" {...props}>
+                            {children}
+                          </code>
+                        ) : (
+                          <div className="rounded-xl overflow-hidden my-6 border border-border shadow-sm">
+                            <pre className="bg-surface-elevated p-6 overflow-x-auto text-sm font-mono leading-relaxed">
+                              <code className={className} {...props}>
+                                {children}
+                              </code>
+                            </pre>
+                          </div>
+                        );
+                      },
+                      img: ({ node, ...props }) => (
+                        <img className="rounded-xl border border-border my-8 w-full object-cover" {...props} />
+                      )
+                    }}
+                  >
+                    {post.content || "*Nothing to preview yet...*"}
+                  </ReactMarkdown>
+                </div>
+              )}
             </div>
           </div>
         </div>

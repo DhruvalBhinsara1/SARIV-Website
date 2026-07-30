@@ -111,6 +111,9 @@ export default async function JournalPostPage({ params }: { params: Promise<{ sl
                   </div>
                 );
               },
+              img: ({ node, ...props }) => (
+                <img className="rounded-xl border border-border my-8 w-full object-cover shadow-elevation" {...props} />
+              )
             }}
           >
             {post.content}

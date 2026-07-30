@@ -52,7 +52,7 @@ export async function PUT(
         published = ${published},
         date = ${date},
         updated_at = timezone('utc'::text, now())
-      WHERE id = ${id}
+      WHERE id = ${id}::uuid
       RETURNING *
     `;
 
@@ -74,7 +74,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     
-    const result = await sql`DELETE FROM journal_posts WHERE id = ${id} RETURNING id`;
+    const result = await sql`DELETE FROM journal_posts WHERE id = ${id}::uuid RETURNING id`;
     
     if (result.rowCount === 0) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
