@@ -56,8 +56,16 @@ function LeadStory({ post }: { post: Post }) {
       <div className={cn("grid grid-cols-1 gap-8 md:gap-16 items-center", imageUrl ? "md:grid-cols-[1.2fr_1fr]" : "md:grid-cols-[1fr_auto] md:items-end")}>
         <div className="max-w-3xl">
           <Meta post={post} className="mb-8" />
-          <h2 className="font-display font-normal text-primary text-[clamp(34px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em] mb-6 group-hover:text-secondary transition-colors">
-            {post.title}
+          <h2 className="font-display font-normal text-primary text-[clamp(34px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em] mb-6">
+            <span
+              className="bg-no-repeat bg-left-bottom transition-[background-size] duration-500 ease-out group-hover:[background-size:100%_100%]"
+              style={{
+                backgroundImage: "linear-gradient(transparent 65%, hsl(var(--foreground) / 0.1) 65%)",
+                backgroundSize: "0% 100%",
+              }}
+            >
+              {post.title}
+            </span>
           </h2>
           <p className={cn("font-body text-secondary text-lg md:text-xl leading-relaxed max-w-xl", imageUrl && "mb-8")}>
             {post.description}
