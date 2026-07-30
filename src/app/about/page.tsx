@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 z-0 overflow-hidden pointer-events-none select-none flex justify-end">
-          <span className="text-[22vw] font-bold leading-[0.82] tracking-tighter text-neutral-200 pr-[1vw]">
+          <span className="text-[25vw] font-bold leading-[0.75] tracking-tighter text-neutral-200 translate-y-[8%] translate-x-[2%]">
             SARIV
           </span>
         </div>
