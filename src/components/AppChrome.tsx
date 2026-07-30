@@ -6,7 +6,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SmoothScrolling } from "@/components/SmoothScrolling";
 import GradualBlur from "@/components/ui/GradualBlur";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { Chatbot } from "@/components/ui/Chatbot";
 
@@ -52,7 +51,6 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           />
         </div>
       </SmoothScrolling>
-      <CustomCursor />
       <BackToTop />
       <Chatbot />
     </>
