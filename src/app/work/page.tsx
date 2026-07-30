@@ -51,7 +51,7 @@ const PROJECTS: Project[] = [
     caption: "Order terminal — counter and kitchen, always in sync",
     image: "/nexabrew.png",
     imageWidth: 3024,
-    imageHeight: 1964,
+    imageHeight: 1730,
     link: "https://nexabrew.vercel.app",
     external: true,
     ctaLabel: "Visit live site",

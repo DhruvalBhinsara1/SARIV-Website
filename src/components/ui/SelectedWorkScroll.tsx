@@ -26,7 +26,7 @@ export type WorkProject = {
 const DESKTOP_SLOTS = [
   { left: "4%",  top: "4%",  width: "32vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
   { left: "58%", top: "2%",  width: "30vw", rot:  4, py: -100, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
-  { left: "8%", top: "48%", width: "28vw", rot:  3, py: -40,  src: "/nexabrew.jpeg",          label: "NexaBrew",      projIdx: 2 },
+  { left: "8%", top: "48%", width: "28vw", rot:  3, py: -40,  src: "/nexabrew.png",          label: "NexaBrew",      projIdx: 2 },
   { left: "62%", top: "56%", width: "25vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;
 
@@ -366,7 +366,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
           <div className="w-[42%] rotate-3 origin-bottom-left mb-4 z-10">
             <div className="floating-img w-full h-full">
               <LinkedCard
-                src="/nexabrew.jpeg"
+                src="/nexabrew.png"
                 alt="NexaBrew"
                 link={projects[2]?.link || "#"}
                 external={projects[2]?.external}
