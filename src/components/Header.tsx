@@ -99,8 +99,8 @@ function HeaderContent() {
           <Mark className={cn("size-6 transition-transform duration-700 group-hover:rotate-180", isHome || open ? "text-white" : "text-primary")} />
         </Link>
       
-        <div className="flex items-center gap-8">
-          <nav className="hidden items-center gap-10 md:flex">
+        <div className="flex items-center gap-6">
+          <nav className="hidden items-center gap-8 md:flex mr-4">
             {NAV_LINKS.map((link) => (
               <Magnetic strength={15} key={link.label}>
                 <Link
@@ -115,7 +115,7 @@ function HeaderContent() {
               </Magnetic>
             ))}
           </nav>
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             <Magnetic strength={20}>
               <Link
                 href="/start-project"
@@ -130,14 +130,14 @@ function HeaderContent() {
           </div>
 
           {/* Mobile Sidebar Trigger & Menu */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-3">
             <MobileSidebar>
                 <div className="flex flex-col gap-6">
                   {NAV_LINKS.map((link, idx) => (
                     <SidebarLink key={idx} link={link} className="text-xl" />
                   ))}
                   <div className="mt-8 border-t border-border pt-8 flex">
-                    <Link href="/start-project" onClick={() => setOpen(false)} className={buttonVariants({ variant: "primary" })}>
+                    <Link href="/start-project" onClick={() => setOpen(false)} className={buttonVariants({ variant: "primary", className: "w-full" })}>
                       Start Project
                     </Link>
                   </div>

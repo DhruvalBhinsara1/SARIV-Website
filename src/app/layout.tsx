@@ -98,7 +98,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-primary font-body">
+      <body className="min-h-full flex flex-col bg-background text-primary font-body transition-colors duration-300">
         <ToastProvider>
           <AppChrome>{children}</AppChrome>
           <ToastViewport />

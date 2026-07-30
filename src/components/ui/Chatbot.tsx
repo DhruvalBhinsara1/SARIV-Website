@@ -132,7 +132,7 @@ export function Chatbot() {
         onClick={() => setIsOpen((v) => !v)}
         aria-label={isOpen ? "Close chat" : "Open chat with the SARIV assistant"}
         aria-expanded={isOpen}
-        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-black text-white shadow-elevation transition-transform duration-500 ease-out hover:-translate-y-1"
+        className="fixed bottom-8 right-8 z-[9998] flex items-center justify-center w-14 h-14 rounded-full bg-primary text-surface shadow-elevation transition-transform duration-500 ease-out hover:-translate-y-1"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span

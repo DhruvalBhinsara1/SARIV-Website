@@ -61,7 +61,7 @@ function LeadStory({ post }: { post: Post }) {
             <span
               className="bg-no-repeat bg-left-bottom [background-size:0%_100%] transition-[background-size] duration-500 ease-out group-hover:[background-size:100%_100%]"
               style={{
-                backgroundImage: "linear-gradient(transparent 60%, rgba(253, 224, 71, 0.8) 60%)",
+                backgroundImage: "linear-gradient(transparent 60%, var(--color-highlight) 60%)",
               }}
             >
               {post.title}

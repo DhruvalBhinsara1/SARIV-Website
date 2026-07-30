@@ -21,7 +21,7 @@ export function BackToTop() {
       aria-label="Back to top"
       className={cn(
         "fixed bottom-[104px] right-8 z-[9998] flex items-center justify-center w-11 h-11 rounded-full",
-        "border border-border bg-background/80 backdrop-blur-md",
+        "border border-border bg-surface-elevated/90 backdrop-blur-md",
         "text-primary shadow-elevation",
         "transition-all duration-500 ease-out",
         "hover:-translate-y-1 hover:shadow-lg hover:border-primary/30",
