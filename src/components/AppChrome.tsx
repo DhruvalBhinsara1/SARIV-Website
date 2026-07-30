@@ -39,12 +39,23 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
         {children}
         <div className="relative">
           <Footer />
-          {/* ponytail: anchored to the document's true end (not the viewport), so it can never cover live content further up the page */}
+          {/* Desktop blur - strictly preserved as original */}
           <GradualBlur
+            className="hidden md:block"
             position="bottom"
             target="parent"
-            height="5vw"
+            height="6rem"
             strength={2}
+            divCount={5}
+            opacity={1}
+          />
+          {/* Mobile blur - softer strength prevents banding on small heights, shorter height makes it start lower */}
+          <GradualBlur
+            className="block md:hidden"
+            position="bottom"
+            target="parent"
+            height="1.5rem"
+            strength={0.5}
             divCount={5}
             opacity={1}
           />
