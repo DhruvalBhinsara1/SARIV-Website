@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Typography } from "@/components/ui/Typography";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { JourneyScroll } from "@/components/ui/JourneyScroll";
@@ -11,56 +10,49 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About — SARIV",
   description:
-    "We build products that deserve to exist. SARIV is an independent software studio focused on creating products that solve meaningful problems — not software built for the sake of shipping.",
+    "SARIV is an independent software studio. We take on a small number of products a year and build them properly.",
 };
 
 const PRINCIPLES = [
   {
-    title: "Build What Matters",
+    title: "Build what matters",
     description:
-      "We choose problems worth solving over features worth marketing. If it doesn't serve a real need, we don't build it.",
+      "We'd rather solve one problem completely than five of them halfway. If a feature doesn't earn its place, it doesn't ship.",
   },
   {
-    title: "Design Before Development",
+    title: "Design before development",
     description:
-      "Great software begins with clarity, not code. We think deeply before we write a single line.",
+      "Most software problems are thinking problems wearing a technical costume. We work them out before we open an editor.",
   },
   {
-    title: "Simplicity Wins",
+    title: "Simplicity wins",
     description:
-      "The best interfaces disappear. Good software shouldn't demand attention — it should quietly help people achieve what they came to do.",
+      "The best software gets out of the way. If someone has to learn our interface before they can use it, we designed it wrong.",
   },
   {
-    title: "Long-Term Thinking",
+    title: "Build it to last",
     description:
-      "Products should grow without being rebuilt every year. We engineer for longevity, not just the launch.",
+      "Anyone can ship something that works this quarter. We're interested in the version that still works in three years.",
   },
 ];
 
 const PROCESS = [
   {
-    number: "01",
     step: "Problem",
     description:
-      "Understand the real challenge — not the surface request, but what's actually getting in the way.",
+      "The brief is rarely the problem. We start by finding out what's actually in the way.",
   },
   {
-    number: "02",
     step: "Direction",
-    description:
-      "Define the simplest solution. Complexity is easy. Clarity is the work.",
+    description: "Then we find the simplest thing that solves it. Complexity is easy; clarity is the work.",
   },
   {
-    number: "03",
     step: "Craft",
-    description:
-      "Design and engineer with obsessive attention to detail. Every pixel. Every interaction. Every edge case.",
+    description: "Then we build it properly — the empty states, the error cases, the slow-connection path.",
   },
   {
-    number: "04",
     step: "Refine",
-    description:
-      "Measure, improve, repeat. Shipping is a beginning, not an end.",
+    description: "Then we keep going. Launch is where the real feedback starts, not where the work stops.",
   },
 ];
 
@@ -92,52 +84,33 @@ const TIMELINE = [
   },
 ];
 
-const WHAT_WE_BUILD = [
+const CAPABILITIES = [
   {
-    number: "01",
-    category: "Software Products",
-    description:
-      "Complete digital experiences built from the ground up. Apps, platforms, and tools that people actually want to use.",
+    category: "Software products",
+    description: "End-to-end products. Apps, platforms, and tools built from nothing to launch.",
   },
   {
-    number: "02",
-    category: "Internal Platforms",
-    description:
-      "Tools that help businesses operate better — faster workflows, cleaner data, fewer workarounds.",
+    category: "Internal platforms",
+    description: "The unglamorous systems a business actually runs on. Faster workflows, cleaner data.",
   },
   {
-    number: "03",
-    category: "AI Experiences",
-    description:
-      "Practical AI integrated where it genuinely helps. Not AI for the press release — AI that removes friction.",
+    category: "AI, where it earns it",
+    description: "Practical AI in the places it removes real friction. Not AI for the announcement.",
   },
-];
-
-const BELIEFS = [
-  "Clarity over complexity.",
-  "Quality over quantity.",
-  "Longevity over trends.",
-  "Products over projects.",
 ];
 
 export default function AboutPage() {
   return (
     <main className="flex-1 w-full bg-background">
-
-      {/* ── 1. HERO ──────────────────────────────────────────── */}
+      {/* ── 1. OPENING STATEMENT ───────────────────────────────── */}
       <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-background">
-        {/* Grain */}
         <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
-
-        {/* Watermark — matches footer exactly */}
         <div className="absolute bottom-0 left-0 right-0 z-0 overflow-hidden pointer-events-none select-none flex justify-end">
           <span className="text-[22vw] font-bold leading-[0.82] tracking-tighter text-neutral-200 pr-[1vw]">
             SARIV
           </span>
         </div>
 
-
-        {/* Content */}
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 w-full py-40">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-12">
@@ -156,7 +129,8 @@ export default function AboutPage() {
 
           <ScrollReveal delay={0.2}>
             <p className="font-body text-secondary text-lg md:text-xl max-w-lg leading-relaxed mb-14">
-              An independent software studio focused on creating products that solve meaningful problems — not software built for the sake of shipping.
+              An independent software studio. We take on a small number of products a year so that
+              each one gets built properly.
             </p>
           </ScrollReveal>
 
@@ -176,67 +150,116 @@ export default function AboutPage() {
             </div>
           </ScrollReveal>
         </div>
-
       </section>
 
-
-      {/* ── 2. WHY SARIV EXISTS ──────────────────────────────── */}
+      {/* ── 2. THE STORY — narrow single column, quiet and personal ── */}
       <section className="border-t border-border py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 md:gap-24 items-start">
+          <ScrollReveal>
+            <div className="max-w-[620px] mx-auto">
+              <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted block mb-10 text-center">
+                How this started
+              </span>
+              <div className="flex flex-col gap-7 font-body text-secondary text-[17px] md:text-lg leading-[1.75]">
+                <p>
+                  SARIV started because of a pattern we kept running into. Software that technically
+                  worked, but that nobody actually wanted to use. Products shipped to hit a date,
+                  then quietly rebuilt a year later.
+                </p>
+                <p>
+                  It seemed like a solvable problem. Not with a new framework or a better process
+                  diagram — just with the willingness to think a thing through before building it,
+                  and to keep caring about it after launch.
+                </p>
+                <p className="text-primary">
+                  So that&apos;s the whole studio, really. Fewer projects. More attention on each
+                  one.
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── 3. THE BELIEF — oversized statement, dominates the viewport ── */}
+      <section className="bg-surface-elevated border-t border-border py-32 md:py-56">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
+          <ScrollReveal>
+            <p className="font-display font-normal text-primary text-[clamp(30px,4.6vw,64px)] leading-[1.1] tracking-[-0.02em] max-w-4xl">
+              Technology shouldn&apos;t add complexity.
+              <span className="text-muted"> It should remove it.</span>
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── 4. PRINCIPLES — asymmetric list, no cards ──────────────── */}
+      <section className="border-t border-border py-28 md:py-40">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-12 md:gap-24">
             <ScrollReveal>
-              <div>
-                <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-6">
-                  Why We Exist
+              <div className="md:sticky md:top-32">
+                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted block mb-6">
+                  What we hold to
                 </span>
-                <Typography variant="heading" className="text-3xl md:text-4xl leading-tight">
-                  Not another agency.
-                </Typography>
+                <h2 className="font-display font-normal text-primary text-3xl md:text-[40px] leading-[1.1]">
+                  Four things we
+                  <br />
+                  don&apos;t compromise.
+                </h2>
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delay={0.12}>
-              <div className="flex flex-col gap-6">
-                <p className="font-body text-xl md:text-2xl text-primary leading-relaxed font-medium">
-                  We started SARIV with a simple belief:<br />
-                  technology shouldn&apos;t add complexity — it should remove it.
-                </p>
-                <Typography variant="body" muted className="text-[17px]">
-                  Every product we build begins with a real problem, not a trend. We work closely with founders, businesses, and ambitious teams to create software that is thoughtful, scalable, and built to last.
-                </Typography>
-                <Typography variant="body" muted className="text-[17px]">
-                  We&apos;re not interested in building things that look good in screenshots. We&apos;re interested in building things that hold up when real people depend on them.
-                </Typography>
-              </div>
-            </ScrollReveal>
+            <div className="flex flex-col">
+              {PRINCIPLES.map((p, i) => (
+                <ScrollReveal key={p.title} delay={i * 0.06}>
+                  <div className="border-t border-border py-9 md:py-11 flex flex-col md:flex-row gap-3 md:gap-10">
+                    <span className="font-mono text-xs text-muted tracking-widest shrink-0 md:pt-2 md:w-8">
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-display font-normal text-primary text-2xl md:text-[28px] mb-3 leading-tight">
+                        {p.title}
+                      </h3>
+                      <p className="font-body text-secondary text-[15px] md:text-base leading-relaxed max-w-md">
+                        {p.description}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+              <div className="border-t border-border" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 3. PRINCIPLES ─────────────────────────────────────── */}
-      <section className="bg-surface-elevated py-28 md:py-40">
+      {/* ── 5. PROCESS — horizontal 4-up, dense, tinted ─────────────── */}
+      <section className="bg-surface-elevated border-t border-border py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
-              Our Principles
-            </span>
-            <h2 className="font-display font-normal text-primary text-[clamp(32px,5vw,60px)] leading-[1.05] mb-16 md:mb-20 max-w-lg">
-              Four beliefs we refuse to compromise on.
-            </h2>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24">
+              <h2 className="font-display font-normal text-primary text-3xl md:text-[40px] leading-tight max-w-md">
+                Every project runs the same four steps.
+              </h2>
+              <p className="font-body text-muted text-sm max-w-xs md:text-right">
+                Regardless of scope. The discipline is the point.
+              </p>
+            </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {PRINCIPLES.map((p, i) => (
-              <ScrollReveal key={p.title} delay={i * 0.08}>
-                <div className="bg-surface rounded-2xl border border-border p-10 md:p-12 flex flex-col gap-6 group hover:shadow-elevation hover:border-primary/20 transition-all duration-500 h-full">
-                  <span className="font-mono text-muted text-sm tracking-widest">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
+            {PROCESS.map((step, i) => (
+              <ScrollReveal key={step.step} delay={i * 0.08}>
+                <div className="bg-surface-elevated h-full px-6 py-10 md:px-8 md:py-12 flex flex-col gap-5">
+                  <span className="font-mono text-[10px] text-muted tracking-widest">
                     0{i + 1}
                   </span>
-                  <h3 className="font-display font-normal text-primary text-2xl md:text-3xl">
-                    {p.title}
+                  <h3 className="font-display font-normal text-primary text-xl md:text-2xl">
+                    {step.step}
                   </h3>
-                  <p className="font-body text-secondary text-[16px] leading-relaxed max-w-sm">
-                    {p.description}
+                  <p className="font-body text-secondary text-sm leading-relaxed">
+                    {step.description}
                   </p>
                 </div>
               </ScrollReveal>
@@ -245,38 +268,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 4. HOW WE BUILD ─────────────────────────────────── */}
-      <section className="py-28 md:py-40 border-t border-border">
+      {/* ── 6. TIMELINE — horizontal pinned scroll ─────────────────── */}
+      <JourneyScroll items={TIMELINE} />
+
+      {/* ── 7. CAPABILITIES — plain editorial list, no cards ───────── */}
+      <section className="border-t border-border py-28 md:py-40">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 mb-20">
-              <div>
-                <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-6">
-                  How We Build
-                </span>
-                <Typography variant="heading" className="text-3xl md:text-4xl">
-                  The process.
-                </Typography>
-              </div>
-              <Typography variant="body" muted className="text-[17px] self-end max-w-none">
-                Every engagement follows the same discipline — regardless of scope or complexity.
-              </Typography>
-            </div>
+            <h2 className="font-display font-normal text-primary text-3xl md:text-[40px] leading-tight mb-16 md:mb-20 max-w-sm">
+              What we take on.
+            </h2>
           </ScrollReveal>
-
           <div className="flex flex-col">
-            {PROCESS.map((step, i) => (
-              <ScrollReveal key={step.step} delay={i * 0.1}>
-                <div className="group grid grid-cols-1 md:grid-cols-[80px_200px_1fr] gap-4 md:gap-8 items-start border-t border-border py-10 hover:bg-surface-elevated transition-colors duration-300 rounded-2xl px-4 -mx-4">
-                  <span className="font-mono text-muted text-sm tracking-widest pt-1">
-                    {step.number}
-                  </span>
-                  <Typography variant="subheading" className="text-xl md:text-2xl">
-                    {step.step}
-                  </Typography>
-                  <Typography variant="body" muted className="text-[16px] leading-relaxed">
-                    {step.description}
-                  </Typography>
+            {CAPABILITIES.map((item, i) => (
+              <ScrollReveal key={item.category} delay={i * 0.08}>
+                <div className="group border-t border-border py-10 md:py-12 grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-3 md:gap-16 items-baseline">
+                  <h3 className="font-display font-normal text-primary text-2xl md:text-[32px] leading-tight">
+                    {item.category}
+                  </h3>
+                  <p className="font-body text-secondary text-[15px] md:text-base leading-relaxed max-w-md">
+                    {item.description}
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
@@ -285,92 +297,38 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 5. TIMELINE ─────────────────────────────────────── */}
-      <JourneyScroll items={TIMELINE} />
-
-      {/* ── 7. WHAT WE BUILD ────────────────────────────────── */}
-      <section className="bg-surface-elevated border-t border-border py-28 md:py-40">
+      {/* ── 8. MANIFESTO — single line, maximum silence ────────────── */}
+      <section className="border-t border-border py-40 md:py-64 bg-white">
         <div className="max-w-[1200px] mx-auto px-6 md:px-8">
           <ScrollReveal>
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-4">
-              What We Build
-            </span>
-            <Typography variant="heading" className="text-3xl md:text-4xl mb-16 md:mb-20 max-w-sm leading-tight">
-              Outcomes, not deliverables.
-            </Typography>
+            <blockquote className="font-display font-normal text-primary text-[clamp(28px,4.2vw,58px)] leading-[1.15] tracking-[-0.02em] max-w-3xl mx-auto text-balance text-center">
+              Good software doesn&apos;t demand attention. It quietly helps someone finish what they
+              came to do.
+            </blockquote>
           </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {WHAT_WE_BUILD.map((item, i) => (
-              <ScrollReveal key={item.category} delay={i * 0.1}>
-                <div className="bg-surface rounded-2xl border border-border p-10 md:p-12 flex flex-col gap-6 h-full group hover:shadow-elevation hover:border-primary/20 transition-all duration-500">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-muted text-xs tracking-widest">{item.number}</span>
-                    <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center group-hover:border-primary/30 transition-colors">
-                      <ArrowRight className="w-3 h-3 text-muted" />
-                    </div>
-                  </div>
-                  <h3 className="font-display font-normal text-primary text-xl md:text-2xl">
-                    {item.category}
-                  </h3>
-                  <p className="font-body text-secondary text-[15px] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* ── 8. WHAT WE BELIEVE ──────────────────────────────── */}
-      <section className="bg-white border-t border-neutral-200 py-28 md:py-40">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-16 items-start">
-            <ScrollReveal>
-              <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold block mb-6">
-                What We Believe
-              </span>
-              <Typography variant="heading" className="text-3xl md:text-4xl leading-tight">
-                A short manifesto.
-              </Typography>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.12}>
-              <div className="flex flex-col gap-8">
-                <blockquote className="font-display font-normal text-primary text-2xl md:text-3xl lg:text-[36px] leading-[1.25]">
-                  &ldquo;Technology should feel invisible. Good software doesn&apos;t demand attention — it quietly helps people achieve what they came to do.&rdquo;
-                </blockquote>
-                <div className="flex flex-col gap-4 pt-4 border-t border-border">
-                  {BELIEFS.map((belief) => (
-                    <div key={belief} className="flex items-center gap-4">
-                      <div className="w-1 h-1 rounded-full bg-muted flex-shrink-0" />
-                      <span className="font-body text-secondary text-[17px]">{belief}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 9. CTA ──────────────────────────────────────────── */}
+      {/* ── 9. INVITATION ─────────────────────────────────────────── */}
       <section className="relative py-32 md:py-48 overflow-hidden bg-surface-elevated border-t border-border">
         <ScrollReveal>
           <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 flex flex-col items-start gap-8">
-            <span className="font-body text-muted uppercase tracking-[0.2em] text-xs font-semibold">
-              Start a Conversation
+            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted">
+              Start a conversation
             </span>
             <h2 className="font-display font-normal text-primary text-[clamp(36px,6vw,88px)] leading-[0.95] tracking-[-0.02em] max-w-3xl">
-              Ready to build something that matters?
+              Working on something that deserves to exist?
             </h2>
             <p className="font-body text-secondary text-lg md:text-xl max-w-xl leading-relaxed">
-              Whether you&apos;re launching something new or improving something that already exists, we&apos;d love to hear what you&apos;re building.
+              Whether it&apos;s a new product or one that already exists and deserves better, we&apos;d
+              like to hear about it.
             </p>
             <div className="flex items-center gap-6 mt-4">
               <Magnetic strength={15}>
-                <Link href="/start-project" className={buttonVariants({ variant: "primary", size: "large" })}>
+                <Link
+                  href="/start-project"
+                  className={buttonVariants({ variant: "primary", size: "large" })}
+                >
                   Start a Project
                 </Link>
               </Magnetic>
@@ -387,8 +345,6 @@ export default function AboutPage() {
           </div>
         </ScrollReveal>
       </section>
-
-
     </main>
   );
 }
