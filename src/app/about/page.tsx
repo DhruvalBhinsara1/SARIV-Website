@@ -31,8 +31,13 @@ export default function AboutPage() {
   return (
     <main className="flex-1 w-full bg-background">
       {/* ── 1. HERO ────────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden bg-background pt-40 pb-20 md:pt-56 md:pb-28">
+      <section className="relative w-full min-h-[85vh] flex flex-col justify-center overflow-hidden bg-background pt-32 pb-20">
         <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 z-0 overflow-hidden pointer-events-none select-none flex justify-end">
+          <span className="text-[22vw] font-bold leading-[0.82] tracking-tighter text-neutral-200 pr-[1vw]">
+            SARIV
+          </span>
+        </div>
         
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 w-full">
           <ScrollReveal>
@@ -51,7 +56,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <p className="font-body text-secondary text-lg md:text-xl max-w-lg leading-relaxed mb-12">
+            <p className="font-body text-secondary text-lg md:text-xl max-w-lg leading-relaxed">
               SARIV is an independent studio. We partner with a few select teams each year to build digital tools that feel intuitive, fast, and crafted with care.
             </p>
           </ScrollReveal>
