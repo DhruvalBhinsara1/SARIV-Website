@@ -41,12 +41,9 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           <Footer />
           {/* ponytail: anchored to the document's true end (not the viewport), so it can never cover live content further up the page */}
           <GradualBlur
-            responsive={true}
             position="bottom"
             target="parent"
-            height="6rem"
-            mobileHeight="2rem"
-            tabletHeight="4rem"
+            height="5vw"
             strength={2}
             divCount={5}
             opacity={1}
