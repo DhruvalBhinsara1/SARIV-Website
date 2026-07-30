@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Pagination } from "@/components/ui/Pagination";
 import { cn } from "@/lib/utils";
 
@@ -229,51 +229,62 @@ export function JournalClient({ initialCategory, categories, allPosts }: Journal
         })}
       </div>
 
-      {lead && <LeadStory post={lead} />}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${activeCategory}-${currentPage}`}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col w-full"
+        >
+          {lead && <LeadStory post={lead} />}
 
-      {pair.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 py-16 md:py-24">
-          {pair.map((post, i) => (
-            <TallStory key={post.slug} post={post} tint={TINTS[i % TINTS.length]} />
-          ))}
-        </div>
-      )}
+          {pair.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 py-16 md:py-24">
+              {pair.map((post, i) => (
+                <TallStory key={post.slug} post={post} tint={TINTS[i % TINTS.length]} />
+              ))}
+            </div>
+          )}
 
-      {wide.length > 0 && (
-        <div className="flex flex-col border-t border-border">
-          {wide.map((post, i) => (
-            <WideStory key={post.slug} post={post} index={i + 1} />
-          ))}
-        </div>
-      )}
+          {wide.length > 0 && (
+            <div className="flex flex-col border-t border-border">
+              {wide.map((post, i) => (
+                <WideStory key={post.slug} post={post} index={i + 1} />
+              ))}
+            </div>
+          )}
 
-      {quiet.length > 0 && (
-        <div className="flex flex-col pt-16 md:pt-24">
-          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted mb-8">
-            More writing
-          </span>
-          {quiet.map((post) => (
-            <QuietStory key={post.slug} post={post} />
-          ))}
-        </div>
-      )}
+          {quiet.length > 0 && (
+            <div className="flex flex-col pt-16 md:pt-24">
+              <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted mb-8">
+                More writing
+              </span>
+              {quiet.map((post) => (
+                <QuietStory key={post.slug} post={post} />
+              ))}
+            </div>
+          )}
 
-      {currentPosts.length === 0 && (
-        <p className="font-body text-muted py-24">No articles in this category yet.</p>
-      )}
+          {currentPosts.length === 0 && (
+            <p className="font-body text-muted py-24">No articles in this category yet.</p>
+          )}
 
-      {totalPages > 1 && (
-        <div className="flex justify-center pt-20">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
-        </div>
-      )}
+          {totalPages > 1 && (
+            <div className="flex justify-center pt-20">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page) => {
+                  setCurrentPage(page);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
