@@ -90,7 +90,7 @@ export default function StartProjectPage() {
   };
 
   return (
-    <main className="flex-1 w-full bg-background min-h-[100dvh] pt-32 pb-24 flex items-center">
+    <main className="flex-1 w-full bg-background min-h-[100dvh] pt-24 pb-12 flex items-center">
       <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
@@ -105,7 +105,7 @@ export default function StartProjectPage() {
               </p>
             </ScrollReveal>
             
-            <ScrollReveal delay={0.2} className="mt-16 lg:mt-32">
+            <ScrollReveal delay={0.2} className="mt-12 lg:mt-16">
               <div className="space-y-10">
                 <div>
                   <h3 className="text-[11px] font-mono tracking-widest uppercase text-muted/60 mb-3">Direct Inquiries</h3>
@@ -118,16 +118,16 @@ export default function StartProjectPage() {
           {/* Right Column: Form */}
           <div className="lg:col-span-7">
             <ScrollReveal delay={0.1}>
-              <div className="bg-surface/50 border border-border/50 backdrop-blur-sm p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-black/5">
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+              <div className="bg-surface/50 border border-border/50 backdrop-blur-sm p-6 md:p-8 rounded-[2rem] shadow-2xl shadow-black/5">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                   {/* Honeypot field - visually hidden but accessible to bots */}
                   <div className="hidden" aria-hidden="true">
                     <label htmlFor="bot_field">Don&apos;t fill this out if you&apos;re human:</label>
                     <input type="text" id="bot_field" {...register("bot_field")} tabIndex={-1} />
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex-1 space-y-3">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex-1 space-y-1.5">
                       <label htmlFor="name" className="text-sm font-medium text-primary ml-1">Name</label>
                       <Controller
                         control={control}
@@ -143,7 +143,7 @@ export default function StartProjectPage() {
                       />
                       {errors.name && <p className="text-sm text-red-500 ml-1">{errors.name.message}</p>}
                     </div>
-                    <div className="flex-1 space-y-3">
+                    <div className="flex-1 space-y-1.5">
                       <label htmlFor="email" className="text-sm font-medium text-primary ml-1">Email</label>
                       <Controller
                         control={control}
@@ -163,7 +163,7 @@ export default function StartProjectPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-1.5">
                     <label htmlFor="company" className="text-sm font-medium text-primary ml-1">Company <span className="text-muted">(optional)</span></label>
                     <Controller
                       control={control}
@@ -179,8 +179,8 @@ export default function StartProjectPage() {
                     />
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-8">
-                    <div className="flex-1 space-y-3">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex-1 space-y-1.5">
                       <label className="text-sm font-medium text-primary ml-1">Project Type</label>
                       <Controller
                         control={control}
@@ -201,7 +201,7 @@ export default function StartProjectPage() {
                       {errors.projectType && <p className="text-sm text-red-500 ml-1">{errors.projectType.message}</p>}
                     </div>
 
-                    <div className="flex-1 space-y-3">
+                    <div className="flex-1 space-y-1.5">
                       <label className="text-sm font-medium text-primary ml-1">Budget Range</label>
                       <Controller
                         control={control}
@@ -223,7 +223,7 @@ export default function StartProjectPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-1.5">
                     <label className="text-sm font-medium text-primary ml-1">Timeline</label>
                     <Controller
                       control={control}
@@ -244,7 +244,7 @@ export default function StartProjectPage() {
                     {errors.timeline && <p className="text-sm text-red-500 ml-1">{errors.timeline.message}</p>}
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-1.5">
                     <label htmlFor="description" className="text-sm font-medium text-primary ml-1">Project Description</label>
                     <Controller
                       control={control}
@@ -253,7 +253,7 @@ export default function StartProjectPage() {
                         <Textarea
                           id="description"
                           placeholder="What are we building?"
-                          className="min-h-[160px] bg-background/50 border-border/60 focus:bg-background transition-colors"
+                          className="min-h-[100px] bg-background/50 border-border/60 focus:bg-background transition-colors"
                           {...field}
                         />
                       )}
