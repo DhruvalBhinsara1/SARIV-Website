@@ -18,7 +18,7 @@ export function SectionHeader({
   ...props
 }: SectionHeaderProps) {
   return (
-    <div className={cn("flex w-full max-w-[var(--max-reading-width,720px)] flex-col items-start gap-6 text-justify", className)} {...props}>
+    <div className={cn("flex w-full max-w-[var(--max-reading-width,720px)] flex-col items-start gap-6 text-left", className)} {...props}>
       {eyebrow && (
         <Typography variant="caption" transform="uppercase" muted>
           {eyebrow}

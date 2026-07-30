@@ -206,7 +206,7 @@ export const SmoothInput = React.forwardRef<HTMLInputElement, SmoothInputProps>(
             type={type}
             placeholder={placeholder}
             className={cn(
-              "flex h-[56px] w-full rounded-md border border-border bg-surface px-4 py-2 text-base text-primary placeholder:text-muted focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-colors font-body",
+              "flex h-[56px] w-full rounded-xl border border-border/80 bg-surface shadow-sm px-4 py-2 text-base text-primary placeholder:text-muted/70 focus-visible:outline-none focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 font-body",
               "col-start-1 col-end-2 row-start-1 row-end-2",
               className
             )}

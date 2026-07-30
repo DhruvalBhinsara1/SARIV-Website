@@ -112,7 +112,7 @@ export default function StartProjectPage() {
 
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 space-y-3">
-              <label htmlFor="name" className="text-sm font-medium text-primary">Name</label>
+              <label htmlFor="name" className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Name</label>
               <Controller
                 control={control}
                 name="name"
@@ -123,7 +123,7 @@ export default function StartProjectPage() {
               {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
             </div>
             <div className="flex-1 space-y-3">
-              <label htmlFor="email" className="text-sm font-medium text-primary">Email</label>
+              <label htmlFor="email" className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Email</label>
               <Controller
                 control={control}
                 name="email"
@@ -142,7 +142,7 @@ export default function StartProjectPage() {
           </div>
 
           <div className="space-y-3">
-            <label htmlFor="company" className="text-sm font-medium text-primary">Company <span className="text-muted">(optional)</span></label>
+            <label htmlFor="company" className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Company <span className="text-muted">(optional)</span></label>
             <Controller
               control={control}
               name="company"
@@ -154,7 +154,7 @@ export default function StartProjectPage() {
 
           <div className="flex flex-col md:flex-row gap-8">
             <div className="flex-1 space-y-3">
-              <label className="text-sm font-medium text-primary">Project Type</label>
+              <label className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Project Type</label>
               <Controller
                 control={control}
                 name="projectType"
@@ -175,7 +175,7 @@ export default function StartProjectPage() {
             </div>
 
             <div className="flex-1 space-y-3">
-              <label className="text-sm font-medium text-primary">Budget Range</label>
+              <label className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Budget Range</label>
               <Controller
                 control={control}
                 name="budget"
@@ -196,7 +196,7 @@ export default function StartProjectPage() {
             </div>
 
             <div className="flex-1 space-y-3">
-              <label className="text-sm font-medium text-primary">Timeline</label>
+              <label className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Timeline</label>
               <Controller
                 control={control}
                 name="timeline"
@@ -218,7 +218,7 @@ export default function StartProjectPage() {
           </div>
 
           <div className="space-y-3">
-            <label htmlFor="description" className="text-sm font-medium text-primary">Project Description</label>
+            <label htmlFor="description" className="text-[11px] font-mono font-semibold tracking-widest uppercase text-secondary">Project Description</label>
             <Controller
               control={control}
               name="description"

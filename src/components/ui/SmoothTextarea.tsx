@@ -164,13 +164,13 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
 
     return (
       <div className={cn("relative w-full", wrapperClassName)}>
-        <div ref={containerRef} className="relative p-0 overflow-hidden w-full h-full rounded-md">
+        <div ref={containerRef} className="relative p-0 overflow-hidden w-full h-full rounded-xl shadow-sm">
           <textarea
             {...props}
             ref={setRefs}
             placeholder={placeholder}
             className={cn(
-              "flex min-h-[160px] w-full rounded-md border border-border bg-surface px-4 py-3 text-base text-primary placeholder:text-muted focus-visible:outline-none focus-visible:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-colors font-body resize-y relative z-10 bg-transparent",
+              "flex min-h-[160px] w-full rounded-xl border border-border/80 bg-surface px-4 py-3 text-base text-primary placeholder:text-muted/70 focus-visible:outline-none focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 font-body resize-y relative z-10 bg-transparent",
               className
             )}
             style={{ ...style, caretColor: "transparent" }}
@@ -187,7 +187,7 @@ export const SmoothTextarea = React.forwardRef<HTMLTextAreaElement, SmoothTextar
               onBlur?.(e);
             }}
           />
-          <div className="absolute inset-0 bg-surface rounded-md pointer-events-none z-0" />
+          <div className="absolute inset-0 bg-surface rounded-xl pointer-events-none z-0" />
           <motion.div
             className="bg-primary pointer-events-none absolute top-0 left-0 h-[1.2em] w-[2px] z-20"
             style={{ x: springCaretX, y: springCaretY, opacity: caretOpacity }}
