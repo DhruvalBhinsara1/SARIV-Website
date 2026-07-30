@@ -16,9 +16,8 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     // Start tracking when the container enters the bottom 80% of the viewport.
-    // End tracking when the CENTER of the container reaches the CENTER of the viewport.
-    // This ensures it finishes coloring completely right when it is dead center on the screen.
-    offset: ["start 80%", "center 50%"]
+    // End tracking when the top of the container reaches the top 40% of the viewport.
+    offset: ["start 80%", "start 40%"]
   });
 
   const words = text.split(" ");
@@ -31,12 +30,11 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
         data-cursor="text"
       >
         {words.map((word, i) => {
-          // Calculate a slice of the 0 to 1 scroll progress for this specific word.
-          // By extending the end point, multiple words will be in a state of partial 
-          // opacity at the same time, creating a much smoother gradient blending effect.
-          const step = 1 / words.length;
-          const start = i * step;
-          const end = start + (step * 5); // 5 words overlapping in transition
+          // Mathematically ensure every word has the exact same transition length,
+          // and that the very last word finishes its transition exactly at progress = 1.0
+          const transitionLength = 0.35; // 35% of the scroll range
+          const start = (i / Math.max(1, words.length - 1)) * (1 - transitionLength);
+          const end = start + transitionLength;
 
           return (
             <React.Fragment key={i}>
