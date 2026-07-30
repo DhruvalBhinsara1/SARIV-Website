@@ -30,9 +30,12 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
         data-cursor="text"
       >
         {words.map((word, i) => {
-          // Calculate a slice of the 0 to 1 scroll progress for this specific word
-          const start = i / words.length;
-          const end = start + (1 / words.length);
+          // Calculate a slice of the 0 to 1 scroll progress for this specific word.
+          // By extending the end point, multiple words will be in a state of partial 
+          // opacity at the same time, creating a much smoother gradient blending effect.
+          const step = 1 / words.length;
+          const start = i * step;
+          const end = start + (step * 5); // 5 words overlapping in transition
           
           return (
             <React.Fragment key={i}>
