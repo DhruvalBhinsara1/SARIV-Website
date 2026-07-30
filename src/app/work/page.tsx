@@ -1,176 +1,262 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Typography } from "@/components/ui/Typography";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { ArrowRight } from "lucide-react";
+import { Magnetic } from "@/components/ui/Magnetic";
+import { Mark } from "@/components/Mark";
+import { buttonVariants } from "@/components/ui/Button";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type Project = {
+  id: string;
+  kind: string;
+  year: string;
+  title: string;
+  description: string;
+  caption: string;
+  image: string;
+  // Real intrinsic pixel dimensions — Next needs these to know the asset's
+  // actual aspect ratio when not cropping with `fill`.
+  imageWidth: number;
+  imageHeight: number;
+  logo?: string;
+  link: string;
+  external?: boolean;
+  ctaLabel: string;
+};
+
+const PROJECTS: Project[] = [
+  {
+    id: "freeflow",
+    kind: "Internal Product",
+    year: "2026",
+    title: "FreeFlow",
+    description:
+      "A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.",
+    caption: "Editorial mode — capture and render, entirely on-device",
+    image: "/freeflow-ui.png",
+    imageWidth: 3024,
+    imageHeight: 1890,
+    logo: "/freeflow-logo.png",
+    link: "/products/freeflow",
+    ctaLabel: "View case study",
+  },
+  {
+    id: "nexabrew",
+    kind: "Client Project",
+    year: "2026",
+    title: "NexaBrew",
+    description:
+      "A real-time cafe POS, kitchen display, and management system built for the floor.",
+    caption: "Order terminal — counter and kitchen, always in sync",
+    image: "/nexabrew.png",
+    imageWidth: 3024,
+    imageHeight: 1964,
+    link: "https://nexabrew.vercel.app",
+    external: true,
+    ctaLabel: "Visit live site",
+  },
+  {
+    id: "core-defenses",
+    kind: "Client Project",
+    year: "2026",
+    title: "Core Defenses",
+    description: "Architecting the digital presence for next-generation defense.",
+    caption: "Analytics and infrastructure for nuclear-grade environments",
+    image: "/core-defenses.png",
+    imageWidth: 3024,
+    imageHeight: 1722,
+    link: "https://www.core-defenses.com/",
+    external: true,
+    ctaLabel: "Visit live site",
+  },
+  {
+    id: "traveloop",
+    kind: "Side Project",
+    year: "2026",
+    title: "Traveloop",
+    description:
+      "A trip-planning app for building itineraries, tracking budgets, and splitting costs with your crew.",
+    caption: "Itinerary, budget, and cost-splitting for group trips",
+    image: "/traveloop.jpeg",
+    imageWidth: 1206,
+    imageHeight: 2622,
+    link: "https://github.com/DhruvalBhinsara1/traveloop",
+    external: true,
+    ctaLabel: "View on GitHub",
+  },
+];
+
+const p2 = (n: number) => String(n).padStart(2, "0");
+
+function ProjectSection({ project, index }: { project: Project; index: number }) {
+  // Alternating composition — the image swaps sides each section so the page
+  // never settles into a single repeating rhythm.
+  const flipped = index % 2 === 1;
+  const Tag = project.external ? "a" : Link;
+  const linkProps = project.external
+    ? { target: "_blank" as const, rel: "noopener noreferrer" as const }
+    : {};
+
+  return (
+    <section className="relative border-t border-border py-20 md:py-32 overflow-hidden">
+      {/* Oversized index numeral, bled off the edge — the recurring anchor */}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "pointer-events-none select-none absolute top-8 font-display leading-none text-[18vw] md:text-[13vw] text-primary/[0.045]",
+          flipped ? "right-[-2vw]" : "left-[-2vw]"
+        )}
+      >
+        {p2(index + 1)}
+      </span>
+
+      <div className="relative max-w-[1200px] mx-auto px-6 md:px-8">
+        {/* Eyebrow rule */}
+        <ScrollReveal>
+          <div className="flex items-baseline justify-between gap-6 border-b border-border pb-5 mb-12 md:mb-16">
+            <span className="font-mono text-[10px] md:text-[11px] tracking-[0.25em] uppercase text-muted">
+              {p2(index + 1)} — {project.kind}
+            </span>
+            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted">
+              {project.year}
+            </span>
+          </div>
+        </ScrollReveal>
+
+        <div
+          className={cn(
+            "grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center",
+            flipped && "lg:[direction:rtl] lg:[&>*]:[direction:ltr]"
+          )}
+        >
+          {/* Text column */}
+          <div className="lg:col-span-5">
+            <ScrollReveal delay={0.05}>
+              {project.logo ? (
+                <Image
+                  src={project.logo}
+                  alt={project.title}
+                  width={200}
+                  height={50}
+                  className="w-32 md:w-40 mb-6 invert"
+                />
+              ) : null}
+              <h2 className="font-display font-normal text-primary text-[clamp(44px,6vw,84px)] leading-[0.95] tracking-[-0.025em] mb-7">
+                {project.title}
+              </h2>
+              <p className="font-body text-secondary text-base md:text-lg leading-relaxed max-w-md mb-10">
+                {project.description}
+              </p>
+              <Tag
+                href={project.link}
+                {...linkProps}
+                className="group inline-flex items-center gap-2.5 font-body text-sm font-medium text-primary"
+              >
+                <span className="border-b border-primary/25 pb-0.5 group-hover:border-primary transition-colors">
+                  {project.ctaLabel}
+                </span>
+                {project.external ? (
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                ) : (
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                )}
+              </Tag>
+            </ScrollReveal>
+          </div>
+
+          {/* Image column — offset vertically so it never aligns flush with the type */}
+          <div className={cn("lg:col-span-7", flipped ? "lg:-mt-12" : "lg:mt-12")}>
+            <ScrollReveal delay={0.12}>
+              <Tag
+                href={project.link}
+                {...linkProps}
+                className="group block relative w-fit max-w-full rounded-2xl md:rounded-[2rem] overflow-hidden bg-[#0a0a0a] shadow-elevation"
+              >
+                {/* No `fill` + `object-cover` here on purpose — these four
+                    screenshots span landscape and portrait aspect ratios, and
+                    cropping to one fixed box was cutting off real content
+                    (nav bars, bottom rows). Intrinsic width/height lets each
+                    image keep its own ratio; max-h caps how tall the portrait
+                    one can get next to the others. */}
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={project.imageWidth}
+                  height={project.imageHeight}
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="block w-auto h-auto max-h-[70vh] md:max-h-[560px] max-w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+                />
+              </Tag>
+              {/* Editorial caption, in the manner of a photo credit */}
+              <p className="font-mono text-[10px] tracking-widest uppercase text-muted mt-4">
+                {project.caption}
+              </p>
+            </ScrollReveal>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function WorkPage() {
   return (
-    <main className="w-full bg-background h-screen flex flex-col justify-center pt-20 pb-4 md:pt-24 md:pb-8">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 mb-3 md:mb-6 shrink-0">
+    <main className="w-full bg-background">
+      {/* Index / masthead */}
+      <section className="max-w-[1200px] mx-auto px-6 md:px-8 pt-32 md:pt-40 pb-20 md:pb-28">
         <ScrollReveal>
-          <Typography variant="heading" className="text-2xl md:text-5xl">
-            Our Work
-          </Typography>
-        </ScrollReveal>
-        <ScrollReveal delay={0.1}>
-          <Typography variant="body" className="mt-1.5 md:mt-3 max-w-2xl text-xs md:text-base line-clamp-2 md:line-clamp-none">
-            We don&apos;t build generic products. We engineer precise, enduring tools designed to empower focused work. Here are our flagship projects.
-          </Typography>
-        </ScrollReveal>
-      </div>
-
-      {/*
-        Mobile (2-col, 3-row):
-          Row 1: FreeFlow spans full width (col-span-2)
-          Row 2: NexaBrew | CoreDefenses
-          Row 3: Traveloop | CTA
-
-        Desktop lg (3-col, 2-row):
-          Col 1 rows 1–2: FreeFlow (tall left column)
-          Col 2 row 1: NexaBrew
-          Col 3 row 1: CoreDefenses
-          Col 2 row 2: Traveloop
-          Col 3 row 2: CTA (col-span-1 on lg, overrides mobile col-span-1)
-      */}
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 w-full flex-1 min-h-0 grid grid-cols-2 lg:grid-cols-3 grid-rows-[1.6fr_1fr_1fr] lg:grid-rows-2 gap-2.5 md:gap-4">
-
-        {/* FreeFlow — spans full width on mobile (col-span-2), left tall column on desktop (col-span-1 row-span-2) */}
-        <ScrollReveal delay={0.1} className="col-span-2 lg:col-span-1 lg:row-span-2 min-h-0">
-          <Link href="/products/freeflow" className="block w-full h-full group">
-            <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
-              <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
-                <Image
-                  src="/freeflow-ui.png"
-                  alt="FreeFlow"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                  className="object-cover object-left-top opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-              <div className="relative z-20 mt-auto p-5 md:p-8 lg:p-10 flex flex-row items-end justify-between gap-4">
-                <div>
-                  <Image src="/freeflow-logo.png" alt="FreeFlow" width={160} height={40} className="w-28 md:w-36 mb-3 md:mb-5 drop-shadow-md" />
-                  <Typography variant="subheading" className="text-white/90 text-xs md:text-sm lg:text-base line-clamp-3 md:line-clamp-4 max-w-xs">
-                    A native macOS application engineered to capture and render buttery-smooth, auto-zooming product demos. Privacy-first, completely non-destructive, and visually stunning.
-                  </Typography>
-                </div>
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white text-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
-              </div>
-            </div>
-          </Link>
-        </ScrollReveal>
-
-        {/* NexaBrew */}
-        <ScrollReveal delay={0.15} className="col-span-1 min-h-0">
-          <a href="https://nexabrew.vercel.app" target="_blank" rel="noopener noreferrer" className="block w-full h-full group">
-            <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
-              <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
-                <Image
-                  src="/nexabrew.jpeg"
-                  alt="NexaBrew"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 33vw"
-                  className="object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-              <div className="relative z-20 p-3 md:p-6 flex flex-col h-full justify-end">
-                <Typography variant="caption" transform="uppercase" className="text-white/70 mb-0.5 md:mb-1.5 block font-medium tracking-widest text-[9px] md:text-[10px] lg:text-xs">
-                  Client Project
-                </Typography>
-                <Typography variant="heading" className="text-white mb-1 md:mb-2 text-base md:text-xl lg:text-2xl">
-                  NexaBrew
-                </Typography>
-                <Typography variant="body" className="text-white/80 text-[10px] md:text-xs lg:text-sm line-clamp-2">
-                  A real-time cafe POS, kitchen display, and management system built for the floor.
-                </Typography>
-              </div>
-            </div>
-          </a>
-        </ScrollReveal>
-
-        {/* Core Defenses */}
-        <ScrollReveal delay={0.2} className="col-span-1 min-h-0">
-          <a href="https://www.core-defenses.com/" target="_blank" rel="noopener noreferrer" className="block w-full h-full group">
-            <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
-              <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
-                <Image
-                  src="/core-defenses.png"
-                  alt="Core Defenses"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 33vw"
-                  className="object-cover object-[80%_center] opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-              <div className="relative z-20 p-3 md:p-6 flex flex-col h-full justify-end">
-                <Typography variant="caption" transform="uppercase" className="text-white/70 mb-0.5 md:mb-1.5 block font-medium tracking-widest text-[9px] md:text-[10px] lg:text-xs">
-                  Client Project
-                </Typography>
-                <Typography variant="heading" className="text-white mb-1 md:mb-2 text-base md:text-xl lg:text-2xl">
-                  Core Defenses
-                </Typography>
-                <Typography variant="body" className="text-white/80 text-[10px] md:text-xs lg:text-sm line-clamp-2">
-                  Architecting the digital presence for next-generation defense.
-                </Typography>
-              </div>
-            </div>
-          </a>
-        </ScrollReveal>
-
-        {/* Traveloop */}
-        <ScrollReveal delay={0.25} className="col-span-1 min-h-0">
-          <a href="https://github.com/DhruvalBhinsara1/traveloop" target="_blank" rel="noopener noreferrer" className="block w-full h-full group">
-            <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-surface-elevated border border-border overflow-hidden flex flex-col relative transition-all duration-500 hover:border-primary/50 hover:shadow-elevation">
-              <div className="absolute inset-0 z-0 bg-[#0a0a0a]">
-                <Image
-                  src="/traveloop.jpeg"
-                  alt="Traveloop"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 33vw"
-                  className="object-cover object-top opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
-              <div className="relative z-20 p-3 md:p-6 flex flex-col h-full justify-end">
-                <Typography variant="caption" transform="uppercase" className="text-white/70 mb-0.5 md:mb-1.5 block font-medium tracking-widest text-[9px] md:text-[10px] lg:text-xs">
-                  Side Project
-                </Typography>
-                <Typography variant="heading" className="text-white mb-1 md:mb-2 text-base md:text-xl lg:text-2xl">
-                  Traveloop
-                </Typography>
-                <Typography variant="body" className="text-white/80 text-[10px] md:text-xs lg:text-sm line-clamp-2">
-                  A trip-planning app for building itineraries, tracking budgets, and splitting costs with your crew.
-                </Typography>
-              </div>
-            </div>
-          </a>
-        </ScrollReveal>
-
-        {/* Start Project — spans 1 col on mobile, 1 col on desktop (sits right of Traveloop) */}
-        <ScrollReveal delay={0.3} className="col-span-1 min-h-0">
-          <div className="w-full h-full rounded-2xl md:rounded-[2rem] bg-primary text-surface p-4 md:p-7 lg:p-8 flex flex-col justify-between relative overflow-hidden group shadow-elevation">
-            <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
-            <div className="relative z-10">
-              <Typography variant="caption" transform="uppercase" className="text-surface/80 mb-1.5 md:mb-3 block font-medium tracking-widest text-[9px] md:text-[10px] lg:text-xs">
-                Available for Work
-              </Typography>
-              <Typography variant="display" className="text-surface text-xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight">
-                Start a<br />Project
-              </Typography>
-            </div>
-            <Link href="/start-project" className="relative z-10 mt-3 md:mt-6 flex items-center gap-2 bg-surface text-primary px-4 md:px-5 py-2 md:py-3 rounded-full font-medium text-xs md:text-sm w-fit group-hover:bg-surface/90 transition-colors shadow-sm">
-              <span>Get in touch</span>
-              <ArrowRight className="w-3 h-3 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+          <div className="flex items-center gap-3 mb-10">
+            <Mark className="w-4 h-4 text-secondary" />
+            <span className="font-body text-secondary uppercase tracking-[0.25em] text-[11px] font-semibold">
+              Selected Work
+            </span>
           </div>
         </ScrollReveal>
-        
-      </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-8 md:gap-20 items-end">
+          <ScrollReveal delay={0.08}>
+            <h1 className="font-display font-normal text-primary text-[clamp(48px,8vw,110px)] leading-[0.9] tracking-[-0.03em]">
+              Our work,
+              <br />
+              built properly.
+            </h1>
+          </ScrollReveal>
+          <ScrollReveal delay={0.16}>
+            <p className="font-body text-secondary text-base md:text-lg leading-relaxed md:pb-4">
+              We don&apos;t build generic products. We engineer precise, enduring tools designed to
+              empower focused work.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {PROJECTS.map((project, i) => (
+        <ProjectSection key={project.id} project={project} index={i} />
+      ))}
+
+      {/* Closing invitation */}
+      <section className="border-t border-border bg-surface-elevated py-28 md:py-40 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay pointer-events-none" />
+        <ScrollReveal>
+          <div className="relative max-w-[1200px] mx-auto px-6 md:px-8 flex flex-col items-start gap-8">
+            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted">
+              Available for work
+            </span>
+            <h2 className="font-display font-normal text-primary text-[clamp(40px,6.5vw,88px)] leading-[0.95] tracking-[-0.02em] max-w-3xl">
+              Have something worth building?
+            </h2>
+            <Magnetic strength={15}>
+              <Link
+                href="/start-project"
+                className={buttonVariants({ variant: "primary", size: "large" })}
+              >
+                Start a project
+              </Link>
+            </Magnetic>
+          </div>
+        </ScrollReveal>
+      </section>
     </main>
   );
 }
