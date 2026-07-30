@@ -170,6 +170,12 @@ export function HeroScene() {
           </button>
         </div>
       </div>
+
+      <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 z-20 pointer-events-none animate-fade-in" style={{ animationDelay: "0.8s" }}>
+        <Typography variant="body" className="text-white/40 text-xs tracking-[0.3em] font-medium uppercase">
+          EST 2026
+        </Typography>
+      </div>
     </div>
   );
 }

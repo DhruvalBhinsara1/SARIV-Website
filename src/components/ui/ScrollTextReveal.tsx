@@ -16,9 +16,9 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
   const { scrollYProgress } = useScroll({
     target: containerRef,
     // Start tracking when the container enters the bottom 80% of the viewport.
-    // End tracking when the TOP of the container reaches the top 35% of the viewport.
-    // This ensures it finishes coloring completely while the text is still in view.
-    offset: ["start 50%", "start 20%"]
+    // End tracking when the CENTER of the container reaches the CENTER of the viewport.
+    // This ensures it finishes coloring completely right when it is dead center on the screen.
+    offset: ["start 80%", "center 50%"]
   });
 
   const words = text.split(" ");
