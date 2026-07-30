@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <main className="flex-1 w-full bg-background">
       {/* ── 1. HERO ────────────────────────────────────────────── */}
-      <section className="relative w-full min-h-[85vh] flex flex-col justify-start overflow-hidden bg-background pt-40 md:pt-48 pb-20">
+      <section className="relative w-full min-h-screen flex flex-col justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 z-0 opacity-40 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 z-0 overflow-hidden pointer-events-none select-none flex justify-end">
           <span className="text-[22vw] font-bold leading-[0.82] tracking-tighter text-neutral-200 pr-[1vw]">
@@ -39,7 +39,7 @@ export default function AboutPage() {
           </span>
         </div>
         
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 w-full">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-8 w-full pb-20 md:pb-32">
           <ScrollReveal>
             <div className="flex items-center gap-3 mb-10">
               <Mark className="w-4 h-4 text-secondary" />
