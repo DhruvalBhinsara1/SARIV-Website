@@ -58,9 +58,9 @@ function LeadStory({ post }: { post: Post }) {
           <Meta post={post} className="mb-8" />
           <h2 className="font-display font-normal text-primary text-[clamp(34px,5.2vw,68px)] leading-[1.02] tracking-[-0.02em] mb-6">
             <span
-              className="bg-no-repeat bg-left-bottom bg-[length:0%_100%] transition-[background-size] duration-500 ease-out group-hover:bg-[length:100%_100%]"
+              className="bg-no-repeat bg-left-bottom [background-size:0%_100%] transition-[background-size] duration-500 ease-out group-hover:[background-size:100%_100%]"
               style={{
-                backgroundImage: "linear-gradient(transparent 65%, hsl(var(--foreground) / 0.1) 65%)",
+                backgroundImage: "linear-gradient(transparent 60%, rgba(253, 224, 71, 0.8) 60%)",
               }}
             >
               {post.title}
