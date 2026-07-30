@@ -24,13 +24,11 @@ export type WorkProject = {
 // py = total Y drift (px) over the full scroll distance.
 // projIdx = which project this slot represents (for link + highlight).
 const DESKTOP_SLOTS = [
-  { left: "4%",  top: "4%",  width: "32vw", rot: -5, py: -70,  src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
-  { left: "66%", top: "4%",  width: "32vw", rot:  4, py: -30, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
-  { left: "8%", top: "48%", width: "28vw", rot:  3, py: -40,  src: "/nexabrew.png",          label: "NexaBrew",      projIdx: 2 },
-  { left: "62%", top: "56%", width: "25vw", rot: -3, py: -30,  src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
+  { left: "3%",    right: "auto", top: "6%",  width: "clamp(260px, 30vw, 420px)", rot: -4, py: -50, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
+  { left: "auto", right: "3%",    top: "8%",  width: "clamp(280px, 32vw, 460px)", rot:  3, py: -30, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
+  { left: "5%",    right: "auto", top: "55%", width: "clamp(220px, 26vw, 380px)", rot:  2, py: -40, src: "/nexabrew.png",          label: "NexaBrew",      projIdx: 2 },
+  { left: "auto", right: "4%",    top: "60%", width: "clamp(200px, 24vw, 340px)", rot: -2, py: -25, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
 ] as const;
-
-
 
 const p2 = (n: number) => String(n).padStart(2, "0");
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
@@ -52,12 +50,12 @@ function LinkedCard({
     <Tag
       href={link}
       {...extraProps}
-      className={`block relative w-full ${rounded} overflow-hidden group/card ${shadow ? 'shadow-2xl shadow-black/25' : ''}`}
+      className={`block relative w-full ${rounded} overflow-hidden group/card ${shadow ? 'shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)]' : ''}`}
       style={{
         aspectRatio: aspect,
       }}
     >
-      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition-transform duration-500 group-hover/card:scale-105" />
+      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition-transform duration-700 group-hover/card:scale-[1.03]" />
       {/* Subtle hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover/card:bg-black/10 transition-colors duration-300" />
       {children}
@@ -125,13 +123,13 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
       }
     }
 
-    // Highlight — opacity only, no blur, and pop active cards to the front for depth!
+    // Highlight — bring active card to the front while fading others
     floatRefs.current.forEach((el, i) => {
       if (!el) return;
       const isActive = DESKTOP_SLOTS[i].projIdx === index;
       gsap.killTweensOf(el);
       
-      // Depth effect: active image pops in front of the z-20 text
+      // Depth effect: active image pops in front, but NEVER covers the z-40 text
       gsap.set(el, { zIndex: isActive ? 30 : 10 });
       
       gsap.to(el, {
@@ -153,17 +151,17 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
     const outer = outerRef.current;
     const inner = innerRef.current;
     
-    // Continuous random floating for all images (mobile & desktop)
+    // Continuous random floating for all images
     gsap.utils.toArray(".floating-img").forEach((el: any) => {
       gsap.to(el, {
-        y: -10 - Math.random() * 10,
-        x: (Math.random() - 0.5) * 8,
-        rotation: (Math.random() - 0.5) * 3,
+        y: -10 - Math.random() * 8,
+        x: (Math.random() - 0.5) * 6,
+        rotation: (Math.random() - 0.5) * 2,
         duration: 3 + Math.random() * 2,
         yoyo: true,
         repeat: -1,
         ease: "sine.inOut",
-        delay: -Math.random() * 5, // start at random points in the animation
+        delay: -Math.random() * 5,
       });
     });
 
@@ -175,7 +173,6 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
       "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
       () => {
         const N = projects.length;
-        // Tighter budget: ~0.8 screen per project instead of 1.2
         const scrollBudget = window.innerHeight * (N * 0.8 + 0.4);
         
         const section = document.getElementById("selected-work-section");
@@ -198,13 +195,13 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
           },
         });
 
-        // Entrance
+        // Entrance animation
         gsap.fromTo(
           floatRefs.current.filter(Boolean),
-          { y: 50, opacity: 0 },
+          { opacity: 0, scale: 0.9 },
           {
-            y: 0,
             opacity: (i: number) => DESKTOP_SLOTS[i].projIdx === 0 ? 1 : 0.15,
+            scale: (i: number) => DESKTOP_SLOTS[i].projIdx === 0 ? 1 : 0.94,
             stagger: 0.1,
             duration: 0.9,
             ease: "power3.out",
@@ -238,7 +235,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               ref={el => { floatRefs.current[i] = el; }}
               className="absolute will-change-transform"
               style={{
-                left: slot.left, top: slot.top, width: slot.width,
+                left: slot.left, right: slot.right, top: slot.top, width: slot.width,
                 rotate: `${slot.rot}deg`, opacity: 0,
                 zIndex: slot.projIdx < projects.length ? 10 : 6,
               }}
@@ -250,31 +247,31 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   link={proj.link}
                   external={proj.external}
                   sizes="35vw"
-                  rounded="rounded-lg"
+                  rounded="rounded-xl"
                 />
               </div>
-              <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-2 px-1">{slot.label}</p>
+              <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-3 px-2 text-center opacity-70">{slot.label}</p>
             </div>
           );
         })}
 
         {/* Center content */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none"
-          style={{ padding: "0 min(22%, 300px)" }}
+          className="absolute inset-0 flex flex-col items-center justify-center text-center z-40 pointer-events-none"
+          style={{ padding: "0 min(25%, 350px)" }}
         >
-          <p className="text-[10px] font-mono text-muted/50 tracking-[0.3em] uppercase mb-5">Scroll to explore</p>
-          <span ref={counterRef} className="text-[11px] font-mono text-muted tracking-[0.35em] uppercase mb-4 block">
+          <p className="text-[10px] font-mono text-muted/50 tracking-[0.3em] uppercase mb-6">Scroll to explore</p>
+          <span ref={counterRef} className="text-[11px] font-mono text-muted tracking-[0.35em] uppercase mb-5 block">
             {p2(1)} / {p2(projects.length)}
           </span>
           <h2
             ref={titleRef}
-            className="font-display text-primary leading-none tracking-tight mb-4"
-            style={{ fontSize: "clamp(3.5rem, 8.5vw, 7.5rem)" }}
+            className="font-display text-primary leading-none tracking-tight mb-5 drop-shadow-sm"
+            style={{ fontSize: "clamp(3rem, 6.5vw, 6rem)" }}
           >
             {p0.title}
           </h2>
-          <p ref={subRef} className="text-muted text-sm leading-relaxed mb-7 line-clamp-3" style={{ maxWidth: "26ch" }}>
+          <p ref={subRef} className="text-muted text-sm leading-relaxed mb-8 line-clamp-3 bg-background/50 backdrop-blur-sm p-2 rounded-lg" style={{ maxWidth: "30ch" }}>
             {p0.subtitle}
           </p>
           <div className="pointer-events-auto">
@@ -282,7 +279,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               ref={anchorRef}
               href={p0.link}
               {...(p0.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              className="group inline-flex items-center gap-2.5 border border-primary/35 text-primary text-sm font-medium px-7 py-3.5 rounded-full hover:bg-primary hover:text-surface transition-all duration-300"
+              className="group inline-flex items-center gap-2.5 border border-primary/35 bg-background/80 backdrop-blur-md text-primary text-sm font-medium px-8 py-3.5 rounded-full hover:bg-primary hover:text-surface transition-all duration-300"
             >
               <span ref={anchorTextRef}>{p0.external ? "Live Site" : "View Case Study"}</span>
               <span className="inline-block group-hover:translate-x-0.5 transition-transform">→</span>
@@ -291,7 +288,7 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         </div>
 
         {/* Progress dots */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2.5 items-center">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex gap-3 items-center bg-background/80 backdrop-blur-sm py-2 px-4 rounded-full">
           {projects.map((_, i) => (
             <div
               key={i}
@@ -300,59 +297,56 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
               style={{
                 width: "6px", height: "6px",
                 background: i === 0 ? "var(--color-primary)" : "var(--color-border)",
-                transform:  i === 0 ? "scale(1.6)" : "scale(1)",
+                transform:  i === 0 ? "scale(1.5)" : "scale(1)",
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* ══ MOBILE: static scattered flex layout ════════════
-          Uses flex-col justify-between to guarantee no overlap.
-          Images are rotated and margined to look scattered.
-      ════════════════════════════════════════════════════════════════════════ */}
-      <div className="lg:hidden w-full h-full flex flex-col justify-between py-4 pb-8 z-10">
+      {/* ══ MOBILE: static scattered flex layout ════════════ */}
+      <div className="lg:hidden w-full h-full flex flex-col justify-between py-6 pb-12 z-10 overflow-hidden">
         
         {/* Top Pair */}
         <div className="flex justify-between items-start px-2">
           {/* Top Left */}
-          <div className="w-[44%] -rotate-3 origin-top-left z-10">
+          <div className="w-[46%] -rotate-3 origin-top-left z-10">
             <div className="floating-img w-full h-full">
               <LinkedCard
                 src="/freeflow-ui.png"
                 alt="FreeFlow"
                 link={projects[0]?.link || "#"}
                 external={projects[0]?.external}
-                sizes="45vw"
-                rounded="rounded-xl"
+                sizes="50vw"
+                rounded="rounded-2xl"
               />
             </div>
           </div>
           {/* Top Right */}
-          <div className="w-[42%] rotate-3 origin-top-right mt-6 z-10">
+          <div className="w-[44%] rotate-3 origin-top-right mt-8 z-10">
             <div className="floating-img w-full h-full">
               <LinkedCard
                 src="/core-defenses.png"
                 alt="Core Defenses"
                 link={projects[1]?.link || "#"}
                 external={projects[1]?.external}
-                sizes="45vw"
-                rounded="rounded-xl"
+                sizes="50vw"
+                rounded="rounded-2xl"
               />
             </div>
           </div>
         </div>
 
         {/* Centre overlay — project titles + CTA */}
-        <div className="flex flex-col items-center justify-center text-center px-6 relative z-20 my-auto py-4">
-          <div className="flex flex-col w-full gap-1 mb-2">
+        <div className="flex flex-col items-center justify-center text-center px-4 relative z-20 my-10 py-6">
+          <div className="flex flex-col w-full gap-2 mb-2">
             {projects.map((proj, i) => (
               <h2
                 key={proj.id}
-                className={`font-display text-primary leading-tight ${
-                  i % 2 === 0 ? "self-start text-left pl-4" : "self-end text-right pr-4"
+                className={`font-display text-primary leading-tight drop-shadow-md ${
+                  i % 2 === 0 ? "self-start text-left pl-2" : "self-end text-right pr-2"
                 }`}
-                style={{ fontSize: "clamp(1.75rem, 8vw, 2.5rem)" }}
+                style={{ fontSize: "clamp(2rem, 9vw, 3rem)" }}
               >
                 {proj.title}
               </h2>
@@ -363,28 +357,28 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         {/* Bottom Pair */}
         <div className="flex justify-between items-end px-2">
           {/* Bottom Left */}
-          <div className="w-[42%] rotate-3 origin-bottom-left mb-4 z-10">
+          <div className="w-[45%] rotate-3 origin-bottom-left mb-6 z-10">
             <div className="floating-img w-full h-full">
               <LinkedCard
                 src="/nexabrew.png"
                 alt="NexaBrew"
                 link={projects[2]?.link || "#"}
                 external={projects[2]?.external}
-                sizes="45vw"
-                rounded="rounded-xl"
+                sizes="50vw"
+                rounded="rounded-2xl"
               />
             </div>
           </div>
           {/* Bottom Right */}
-          <div className="w-[40%] -rotate-2 origin-bottom-right z-10">
+          <div className="w-[43%] -rotate-2 origin-bottom-right z-10">
             <div className="floating-img w-full h-full">
               <LinkedCard
                 src="/nexabrew-dashboard.jpg"
                 alt="NexaBrew POS"
                 link={projects[2]?.link || "#"}
                 external={projects[2]?.external}
-                sizes="45vw"
-                rounded="rounded-xl"
+                sizes="50vw"
+                rounded="rounded-2xl"
               />
             </div>
           </div>
