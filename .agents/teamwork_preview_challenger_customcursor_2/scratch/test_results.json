@@ -1,0 +1,178 @@
+{
+  "task1_interactive_elements": [
+    {
+      "desc": "Standard Anchor link <a>",
+      "tag": "a",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Standard <button>",
+      "tag": "button",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Standard <input>",
+      "tag": "input",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Standard <textarea>",
+      "tag": "textarea",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Standard <select>",
+      "tag": "select",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Element with role=\"button\"",
+      "tag": "div",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Form <label>",
+      "tag": "label",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Element with [data-cursor]",
+      "tag": "div",
+      "isHovered": true,
+      "passed": true
+    },
+    {
+      "desc": "Span with empty [data-cursor]",
+      "tag": "span",
+      "isHovered": true,
+      "passed": true
+    }
+  ],
+  "task2_non_interactive_elements": [
+    {
+      "desc": "Paragraph <p>",
+      "tag": "p",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Inline <span>",
+      "tag": "span",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h1>",
+      "tag": "h1",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h2>",
+      "tag": "h2",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h3>",
+      "tag": "h3",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h4>",
+      "tag": "h4",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h5>",
+      "tag": "h5",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Heading <h6>",
+      "tag": "h6",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "List item <li>",
+      "tag": "li",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Image <img>",
+      "tag": "img",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "SVG <svg>",
+      "tag": "svg",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Generic <div>",
+      "tag": "div",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Semantic <article>",
+      "tag": "article",
+      "isHovered": false,
+      "passed": true
+    },
+    {
+      "desc": "Semantic <section>",
+      "tag": "section",
+      "isHovered": false,
+      "passed": true
+    }
+  ],
+  "task3_state_transitions_and_flickering": [
+    {
+      "test": "Nested element mouse movement within same interactive parent",
+      "step1State": true,
+      "step2State": true,
+      "step3State": true,
+      "totalStateUpdates": 1,
+      "passed": true
+    },
+    {
+      "test": "Moving between adjacent interactive elements",
+      "stateUpdates": 1,
+      "passed": true
+    },
+    {
+      "test": "Transition interactive -> non-interactive -> interactive",
+      "stateUpdates": 3,
+      "passed": true
+    }
+  ],
+  "edge_cases": [
+    {
+      "test": "Touch device suppresses hover",
+      "passed": true
+    },
+    {
+      "test": "Mouse leave viewport via mouseout",
+      "passed": true
+    },
+    {
+      "test": "Non-element target without closest method",
+      "passed": true
+    }
+  ]
+}

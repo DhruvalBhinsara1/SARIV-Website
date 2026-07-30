@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeroScene } from "@/components/HeroScene";
+import { TechStack } from "@/components/TechStack";
 import { Typography } from "@/components/ui/Typography";
 import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
@@ -84,6 +85,9 @@ export default function Home() {
           <SelectedWorkScroll projects={PROJECTS} />
         </div>
       </section>
+
+      {/* Tech Stack Section */}
+      <TechStack />
 
       {/* CTA Section */}
       <section className="px-4 md:px-20 py-32 border-t border-border bg-surface-elevated">

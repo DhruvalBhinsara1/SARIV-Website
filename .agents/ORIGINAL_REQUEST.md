@@ -25,3 +25,33 @@ Ensure the `ScrollSmoother` wrapper continues to function flawlessly across page
 - [ ] Scroll down `/identity` to verify the sidebar updates dynamically.
 - [ ] Navigate back and forth between pages multiple times to guarantee no memory leaks, duplicate triggers, or broken states.
 - [ ] Verify that the sticky sidebar pinning logic (`asideRef`) works perfectly on soft loads.
+
+## 2026-07-30T19:57:54Z
+
+# Teamwork Project Prompt — Draft
+
+> Status: Launched
+
+Fix the performance lag and "springy" delay in the CustomCursor component on the SARIV website to ensure a buttery-smooth, native-feeling experience without dropping frames.
+
+Working directory: /Users/dhruvalbhinsara/SARIV-Website
+Integrity mode: demo
+
+## Requirements
+
+### R1. Eliminate Performance Bottlenecks
+The cursor must not cause frame drops. Refactor the hover detection to avoid running expensive operations (like `target.closest` with complex selectors) and state updates continuously on every `mousemove` event. Consider CSS-based approaches or more efficient event delegation.
+
+### R2. Tighten Cursor Physics
+Adjust the Framer Motion `useSpring` configuration. The cursor should still feel organic, but track the user's mouse much more responsively than the current floaty physics.
+
+## Acceptance Criteria
+
+### Performance
+- [ ] Rapidly moving the mouse continuously across the screen causes zero noticeable frame drops or jank in the browser.
+- [ ] The `mousemove` event listener does not execute expensive DOM traversals on every pixel of movement.
+
+### Experience
+- [ ] The cursor smoothly tracks the mouse with a tight, responsive spring effect (not 1:1, but significantly faster than the current implementation).
+- [ ] Hovering over interactive elements (links, buttons, inputs) still correctly expands the cursor size and scales down when leaving.
+

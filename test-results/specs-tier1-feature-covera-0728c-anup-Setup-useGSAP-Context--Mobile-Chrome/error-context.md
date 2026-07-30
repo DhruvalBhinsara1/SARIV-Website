@@ -1,0 +1,24 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: specs/tier1-feature-coverage/F1-build-integration.spec.ts >> Tier 1 - Feature F1: App Build & @gsap/react Integration >> T1-F1-04: Scoped Context Cleanup Setup (useGSAP Context)
+- Location: e2e/specs/tier1-feature-coverage/F1-build-integration.spec.ts:37:7
+
+# Error details
+
+```
+Error: browserType.launch: Executable doesn't exist at /Users/dhruvalbhinsara/Library/Caches/ms-playwright/chromium_headless_shell-1228/chrome-headless-shell-mac-arm64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     npx playwright install                                 ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+```

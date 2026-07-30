@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Complex DOM Tree Navigation",
+    "pass": true
+  },
+  {
+    "name": "Rapid 100-Element Oscillating Hover",
+    "pass": true
+  },
+  {
+    "name": "100 Micro-Movements inside Single Button",
+    "pass": true
+  }
+]
