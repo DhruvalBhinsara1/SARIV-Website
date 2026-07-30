@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HeroScene } from "@/components/HeroScene";
 import { TechStack } from "@/components/TechStack";
 import { Typography } from "@/components/ui/Typography";
+import { ScrollTextReveal } from "@/components/ui/ScrollTextReveal";
 import { buttonVariants } from "@/components/ui/Button";
 import CurvedLoop from "@/components/ui/CurvedLoop";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -44,15 +45,7 @@ export default function Home() {
 
       {/* Manifesto Section */}
       <section className="px-4 md:px-20 py-24 md:py-40 flex justify-center border-t border-border">
-        <ScrollReveal>
-          <Typography 
-            variant="heading" 
-            className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
-            data-cursor="text"
-          >
-            We don't build generic products. We engineer precise, enduring tools designed to empower focused work.
-          </Typography>
-        </ScrollReveal>
+        <ScrollTextReveal text="We don't build generic products. We engineer precise, enduring tools designed to empower focused work." />
       </section>
 
       {/* Curved Loop Divider */}
