@@ -13,39 +13,53 @@ interface ScrollTextRevealProps {
 export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Track scroll over the entire 150vh container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // Start tracking when the container enters the bottom 80% of the viewport.
-    // End tracking when the top of the container reaches the top 40% of the viewport.
-    offset: ["start 80%", "start 40%"]
+    // Track from when the top of the container hits the top of the viewport
+    // until the bottom of the container hits the bottom of the viewport
+    offset: ["start start", "end end"]
   });
 
   const words = text.split(" ");
 
-  return (
-    <div ref={containerRef} className={className}>
-      <Typography
-        variant="heading"
-        className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
-        data-cursor="text"
-      >
-        {words.map((word, i) => {
-          // Mathematically ensure every word has the exact same transition length,
-          // and that the very last word finishes its transition exactly at progress = 1.0
-          const transitionLength = 0.35; // 35% of the scroll range
-          const start = (i / Math.max(1, words.length - 1)) * (1 - transitionLength);
-          const end = start + transitionLength;
+  // The entire text block fades out at the very end of the scroll (80% to 100%)
+  const blockOpacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
+  const blockY = useTransform(scrollYProgress, [0.8, 1], [0, -50]);
 
-          return (
-            <React.Fragment key={i}>
-              <Word progress={scrollYProgress} range={[start, end]}>
-                {word}
-              </Word>
-              {i < words.length - 1 && " "}
-            </React.Fragment>
-          );
-        })}
-      </Typography>
+  return (
+    // Tall container creates scrollable space (150vh means 50vh of extra scrolling)
+    <div ref={containerRef} className={cn("h-[150vh] relative", className)}>
+      {/* Sticky container locks to viewport */}
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        <motion.div 
+          style={{ opacity: blockOpacity, y: blockY }}
+          className="px-4 md:px-20 w-full flex justify-center"
+        >
+          <Typography 
+            variant="heading" 
+            className="text-4xl md:text-5xl lg:text-7xl leading-[1.1] max-w-[1200px] text-center"
+            data-cursor="text"
+          >
+            {words.map((word, i) => {
+              // Word fade in happens during 0% -> 60% of the total container scroll
+              const transitionLength = 0.15; 
+              // start ranges from 0 to (0.6 - 0.15 = 0.45)
+              const start = (i / Math.max(1, words.length - 1)) * (0.6 - transitionLength);
+              const end = start + transitionLength;
+              
+              return (
+                <React.Fragment key={i}>
+                  <Word progress={scrollYProgress} range={[start, end]}>
+                    {word}
+                  </Word>
+                  {i < words.length - 1 && " "}
+                </React.Fragment>
+              );
+            })}
+          </Typography>
+        </motion.div>
+      </div>
     </div>
   );
 }

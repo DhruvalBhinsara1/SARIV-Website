@@ -44,7 +44,7 @@ export default function Home() {
       <HeroScene />
 
       {/* Manifesto Section */}
-      <section className="px-4 md:px-20 py-24 md:py-40 flex justify-center border-t border-border">
+      <section className="border-t border-border">
         <ScrollTextReveal text="We don't build generic products. We engineer precise, enduring tools designed to empower focused work." />
       </section>
 
