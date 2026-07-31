@@ -5,9 +5,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Mark } from "./Mark";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { Typography } from "./ui/Typography";
 import { buttonVariants } from "./ui/Button";
 import { Magnetic } from "./ui/Magnetic";
+
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
 
 const BASE_SCENES = [
   // mountains.png has a Mark-shaped cutout — needs the sky image behind it to fill that hole.
@@ -31,7 +37,10 @@ function shuffleRest<T>(scenes: T[]): T[] {
 
 export function HeroScene() {
   const [scenes, setScenes] = useState(BASE_SCENES);
-  const [activeScene, setActiveScene] = useState(0);
+  const [[page, direction], setPage] = useState([0, 0]);
+
+  // Derive active scene from page
+  const activeScene = ((page % scenes.length) + scenes.length) % scenes.length;
 
   // Shuffle client-side only, after hydration — randomizing during the
   // initial render would mismatch the server-rendered order.
@@ -39,17 +48,19 @@ export function HeroScene() {
     setScenes((s) => shuffleRest(s));
   }, []);
 
-  // Keyed on activeScene so a manual prev/next/dot pick restarts the countdown
-  // instead of auto-advancing a moment later.
+  // Keyed on page so a manual prev/next/dot pick restarts the countdown
   useEffect(() => {
     const id = setTimeout(() => {
-      setActiveScene((i) => (i + 1) % scenes.length);
+      setPage([page + 1, 1]);
     }, ROTATE_INTERVAL_MS);
     return () => clearTimeout(id);
-  }, [activeScene, scenes.length]);
+  }, [page, scenes.length]);
 
-  const prevScene = () => setActiveScene((i) => (i - 1 + scenes.length) % scenes.length);
-  const nextScene = () => setActiveScene((i) => (i + 1) % scenes.length);
+  const prevScene = () => setPage([page - 1, -1]);
+  const nextScene = () => setPage([page + 1, 1]);
+  const jumpToScene = (i: number) => {
+    setPage([i, i > activeScene ? 1 : -1]);
+  };
 
   return (
     <div 
@@ -61,26 +72,61 @@ export function HeroScene() {
     >
       {/* Background Layering */}
       <div className="absolute inset-0 z-0">
-        {/* Layer 1: Rotating hero scene, crossfaded */}
-        {scenes.map((scene, i) => (
-          <div
-            key={scene.src}
-            className={`absolute inset-0 transition-opacity duration-500 ease-out ${
-              i === activeScene ? "opacity-100" : "opacity-0"
-            }`}
+        {/* Layer 1: Rotating hero scene, draggable */}
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={page}
+            custom={direction}
+            variants={{
+              enter: (direction: number) => ({
+                x: direction > 0 ? "10%" : "-10%",
+                opacity: 0,
+              }),
+              center: {
+                zIndex: 1,
+                x: 0,
+                opacity: 1,
+              },
+              exit: (direction: number) => ({
+                zIndex: 0,
+                x: direction < 0 ? "10%" : "-10%",
+                opacity: 0,
+              }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.6, ease: "easeInOut" },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.5}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+
+              if (swipe < -swipeConfidenceThreshold) {
+                nextScene();
+              } else if (swipe > swipeConfidenceThreshold) {
+                prevScene();
+              }
+            }}
+            className="absolute inset-0 cursor-grab active:cursor-grabbing touch-pan-y"
           >
-            {scene.base && (
-              <Image src={scene.base} alt="" fill className="object-cover" priority={i === 0} />
+            {scenes[activeScene].base && (
+              <Image src={scenes[activeScene].base} alt="" fill className="object-cover" priority={true} draggable={false} />
             )}
             <Image
-              src={scene.src}
-              alt={scene.alt}
+              src={scenes[activeScene].src}
+              alt={scenes[activeScene].alt}
               fill
               className="object-cover"
-              priority={i === 0 && !scene.base}
+              priority={true}
+              draggable={false}
             />
-          </div>
-        ))}
+          </motion.div>
+        </AnimatePresence>
 
         {/* Paper Shader Overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.65] mix-blend-multiply">
@@ -152,7 +198,7 @@ export function HeroScene() {
             {scenes.map((scene, i) => (
               <button
                 key={scene.src}
-                onClick={() => setActiveScene(i)}
+                onClick={() => jumpToScene(i)}
                 aria-label={`Show ${scene.alt}`}
                 aria-current={i === activeScene}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
