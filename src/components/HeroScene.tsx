@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Mark } from "./Mark";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Typography } from "./ui/Typography";
 import { buttonVariants } from "./ui/Button";
 import { Magnetic } from "./ui/Magnetic";
@@ -39,8 +39,17 @@ export function HeroScene() {
   const [scenes, setScenes] = useState(BASE_SCENES);
   const [[page, direction], setPage] = useState([0, 0]);
 
-  // Derive active scene from page
-  const activeScene = ((page % scenes.length) + scenes.length) % scenes.length;
+  const wrapIndex = (i: number) => ((i % scenes.length) + scenes.length) % scenes.length;
+  const activeScene = wrapIndex(page);
+
+  // Render a window of 5 scenes around the current page to ensure adjacent images are always physically present.
+  const renderItems = [];
+  for (let i = page - 2; i <= page + 2; i++) {
+    renderItems.push({
+      pageIndex: i,
+      scene: scenes[wrapIndex(i)]
+    });
+  }
 
   // Shuffle client-side only, after hydration — randomizing during the
   // initial render would mismatch the server-rendered order.
@@ -72,61 +81,43 @@ export function HeroScene() {
     >
       {/* Background Layering */}
       <div className="absolute inset-0 z-0">
-        {/* Layer 1: Rotating hero scene, draggable */}
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={page}
-            custom={direction}
-            variants={{
-              enter: (direction: number) => ({
-                x: direction > 0 ? "10%" : "-10%",
-                opacity: 0,
-              }),
-              center: {
-                zIndex: 1,
-                x: 0,
-                opacity: 1,
-              },
-              exit: (direction: number) => ({
-                zIndex: 0,
-                x: direction < 0 ? "10%" : "-10%",
-                opacity: 0,
-              }),
-            }}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.6, ease: "easeInOut" },
-            }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.5}
-            onDragEnd={(e, { offset, velocity }) => {
-              const swipe = swipePower(offset.x, velocity.x);
-
-              if (swipe < -swipeConfidenceThreshold) {
-                nextScene();
-              } else if (swipe > swipeConfidenceThreshold) {
-                prevScene();
-              }
-            }}
-            className="absolute inset-0 cursor-grab active:cursor-grabbing touch-pan-y"
-          >
-            {scenes[activeScene].base && (
-              <Image src={scenes[activeScene].base} alt="" fill className="object-cover" priority={true} draggable={false} />
-            )}
-            <Image
-              src={scenes[activeScene].src}
-              alt={scenes[activeScene].alt}
-              fill
-              className="object-cover"
-              priority={true}
-              draggable={false}
-            />
-          </motion.div>
-        </AnimatePresence>
+        {/* Layer 1: Infinite physical slider track */}
+        <motion.div
+          className="absolute inset-0 cursor-grab active:cursor-grabbing touch-pan-y"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={1}
+          animate={{ x: `${page * -100}%` }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          onDragEnd={(e, { offset, velocity }) => {
+            const swipe = swipePower(offset.x, velocity.x);
+            if (swipe < -swipeConfidenceThreshold) {
+              nextScene();
+            } else if (swipe > swipeConfidenceThreshold) {
+              prevScene();
+            }
+          }}
+        >
+          {renderItems.map((item) => (
+            <div
+              key={item.pageIndex}
+              className="absolute top-0 bottom-0 w-full h-full"
+              style={{ left: `${item.pageIndex * 100}%` }}
+            >
+              {item.scene.base && (
+                <Image src={item.scene.base} alt="" fill className="object-cover" priority={item.pageIndex === page} draggable={false} />
+              )}
+              <Image
+                src={item.scene.src}
+                alt={item.scene.alt}
+                fill
+                className="object-cover"
+                priority={item.pageIndex === page}
+                draggable={false}
+              />
+            </div>
+          ))}
+        </motion.div>
 
         {/* Paper Shader Overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.65] mix-blend-multiply">
