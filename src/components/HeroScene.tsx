@@ -1,75 +1,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Mark } from "./Mark";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Typography } from "./ui/Typography";
 import { buttonVariants } from "./ui/Button";
 import { Magnetic } from "./ui/Magnetic";
 
-const swipeConfidenceThreshold = 10000;
-const swipePower = (offset: number, velocity: number) => {
-  return Math.abs(offset) * velocity;
-};
-
-const BASE_SCENES = [
-  // mountains.png has a Mark-shaped cutout — needs the sky image behind it to fill that hole.
-  // Always first: kept fixed as the opening scene, the rest shuffle around it.
-  { src: "/mountains.png", alt: "Mountain range at golden hour", base: "/hero_image_upscale.png" },
+const SCENES = [
   { src: "/trees.png", alt: "Sunlit forest canopy" },
   { src: "/valcano.png", alt: "Erupting volcano at dusk" },
   { src: "/earth.png", alt: "Earth viewed from orbit" },
+  { src: "/mountains.png", alt: "Mountain range at golden hour", base: "/hero_image_upscale.png" },
+  { src: "/winter.png", alt: "Winter village with aurora" },
+  { src: "/lake.png", alt: "Lake and mountains at sunset" },
+  { src: "/bridge.png", alt: "Autumn forest bridge" },
 ];
 
-const ROTATE_INTERVAL_MS = 10 * 1000;
-
-function shuffleRest<T>(scenes: T[]): T[] {
-  const [first, ...rest] = scenes;
-  for (let i = rest.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [rest[i], rest[j]] = [rest[j], rest[i]];
-  }
-  return [first, ...rest];
-}
-
 export function HeroScene() {
-  const [scenes, setScenes] = useState(BASE_SCENES);
-  const [[page, direction], setPage] = useState([0, 0]);
+  const [dailyIndex, setDailyIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
-  const wrapIndex = (i: number) => ((i % scenes.length) + scenes.length) % scenes.length;
-  const activeScene = wrapIndex(page);
-
-  // Render a window of 5 scenes around the current page to ensure adjacent images are always physically present.
-  const renderItems = [];
-  for (let i = page - 2; i <= page + 2; i++) {
-    renderItems.push({
-      pageIndex: i,
-      scene: scenes[wrapIndex(i)]
-    });
-  }
-
-  // Shuffle client-side only, after hydration — randomizing during the
-  // initial render would mismatch the server-rendered order.
   useEffect(() => {
-    setScenes((s) => shuffleRest(s));
+    // Calculate the current day since epoch
+    const epochDays = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    setDailyIndex(epochDays % SCENES.length);
+    setIsMounted(true);
   }, []);
 
-  // Keyed on page so a manual prev/next/dot pick restarts the countdown
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setPage([page + 1, 1]);
-    }, ROTATE_INTERVAL_MS);
-    return () => clearTimeout(id);
-  }, [page, scenes.length]);
-
-  const prevScene = () => setPage([page - 1, -1]);
-  const nextScene = () => setPage([page + 1, 1]);
-  const jumpToScene = (i: number) => {
-    setPage([i, i > activeScene ? 1 : -1]);
-  };
+  const scene = SCENES[dailyIndex];
+  
+  // During SSR, we render the first scene as a fallback to avoid hydration errors.
+  // We use opacity transition so the switch to the daily image is seamless once hydrated.
 
   return (
     <div 
@@ -80,44 +43,27 @@ export function HeroScene() {
       }}
     >
       {/* Background Layering */}
-      <div className="absolute inset-0 z-0">
-        {/* Layer 1: Infinite physical slider track */}
-        <motion.div
-          className="absolute inset-0 cursor-grab active:cursor-grabbing touch-pan-y"
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          animate={{ x: `${page * -100}%` }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
-            if (swipe < -swipeConfidenceThreshold) {
-              nextScene();
-            } else if (swipe > swipeConfidenceThreshold) {
-              prevScene();
-            }
-          }}
-        >
-          {renderItems.map((item) => (
-            <div
-              key={item.pageIndex}
-              className="absolute top-0 bottom-0 w-full h-full"
-              style={{ left: `${item.pageIndex * 100}%` }}
-            >
-              {item.scene.base && (
-                <Image src={item.scene.base} alt="" fill className="object-cover" priority={item.pageIndex === page} draggable={false} />
-              )}
-              <Image
-                src={item.scene.src}
-                alt={item.scene.alt}
-                fill
-                className="object-cover"
-                priority={item.pageIndex === page}
-                draggable={false}
-              />
-            </div>
-          ))}
-        </motion.div>
+      <div className="absolute inset-0 z-0 bg-black">
+        {SCENES.map((s, i) => (
+          <div
+            key={s.src}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+              (isMounted && i === dailyIndex) || (!isMounted && i === 0) ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {s.base && (
+              <Image src={s.base} alt="" fill className="object-cover" priority={i === 0 || i === dailyIndex} draggable={false} />
+            )}
+            <Image
+              src={s.src}
+              alt={s.alt}
+              fill
+              className="object-cover"
+              priority={i === 0 || i === dailyIndex}
+              draggable={false}
+            />
+          </div>
+        ))}
 
         {/* Paper Shader Overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.65] mix-blend-multiply">
@@ -172,39 +118,6 @@ export function HeroScene() {
               Get in touch
             </Link>
           </Magnetic>
-        </div>
-
-        <div
-          className="animate-fade-up mt-10 flex items-center gap-5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
-          style={{ animationDelay: "0.4s" }}
-        >
-          <button
-            onClick={prevScene}
-            aria-label="Previous scene"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <div className="flex items-center gap-2">
-            {scenes.map((scene, i) => (
-              <button
-                key={scene.src}
-                onClick={() => jumpToScene(i)}
-                aria-label={`Show ${scene.alt}`}
-                aria-current={i === activeScene}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === activeScene ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
-                }`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={nextScene}
-            aria-label="Next scene"
-            className="text-white/60 hover:text-white transition-colors"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
