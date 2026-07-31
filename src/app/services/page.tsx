@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { ScrollTextReveal } from "@/components/ui/ScrollTextReveal";
+import { Statement } from "@/components/ui/Statement";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { Mark } from "@/components/Mark";
 import { buttonVariants } from "@/components/ui/Button";
@@ -153,26 +154,13 @@ export default function ServicesPage() {
 
       {/* ═══════════════════════════════════════════════════════
           SECTION 2 — MANIFESTO
-          A single, powerful statement in a high-contrast dark block.
+          A unique editorial statement component for the manifesto.
           ═══════════════════════════════════════════════════════ */}
-      <section className="bg-primary text-surface py-24 md:py-40">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
-          <ScrollReveal>
-            <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8 md:gap-12">
-              <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-surface/60">
-                The SARIV Standard
-              </span>
-              <p className="font-display font-normal text-[clamp(32px,5vw,64px)] leading-[1.05] tracking-[-0.02em]">
-                A cheap agency builds a liability you have to manage.
-                <br className="hidden md:block" />
-                <span className="text-surface/50">
-                  We build assets that work reliably, require zero babysitting, and scale with your growth.
-                </span>
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <Statement 
+        label="The SARIV Standard"
+        text="A cheap agency builds a liability you have to manage."
+        highlightText="We build assets that work reliably, require zero babysitting, and scale with your growth."
+      />
 
       {/* ═══════════════════════════════════════════════════════
           SECTION 3 — OFFER 1: HIGH-PERFORMANCE DIGITAL PLATFORMS
