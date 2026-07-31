@@ -5,12 +5,14 @@ import { Mark } from "@/components/Mark";
 import { buttonVariants } from "@/components/ui/Button";
 import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { LocalizedPrice } from "@/components/ui/LocalizedPrice";
 
 type ServiceTier = {
   id: string;
   name: string;
   description: string;
-  price: string;
+  usdPrice: string;
+  inrPrice: string;
   features: string[];
 };
 
@@ -21,7 +23,8 @@ const SERVICES: ServiceTier[] = [
     id: "landing-page",
     name: "Premium Landing Page",
     description: "A high-conversion, beautifully animated single-page marketing site designed to capture leads and make a stunning first impression.",
-    price: "Starting at $1,500",
+    usdPrice: "Starting at $1,500",
+    inrPrice: "Starting at ₹1,20,000",
     features: [
       "Bespoke UI/UX Design",
       "Framer Motion Animations",
@@ -34,7 +37,8 @@ const SERVICES: ServiceTier[] = [
     id: "web-app",
     name: "Custom Web Application",
     description: "End-to-end engineering of complex, data-driven web applications using modern tech stacks like Next.js, React, and Node.",
-    price: "Starting at $4,000",
+    usdPrice: "Starting at $4,000",
+    inrPrice: "Starting at ₹3,20,000",
     features: [
       "Full-Stack Development",
       "Database & Auth Architecture",
@@ -47,7 +51,8 @@ const SERVICES: ServiceTier[] = [
     id: "ecommerce-pos",
     name: "E-Commerce & POS",
     description: "Real-time digital storefronts and physical point-of-sale systems built for speed, reliability, and seamless inventory management.",
-    price: "Starting at $3,500",
+    usdPrice: "Starting at $3,500",
+    inrPrice: "Starting at ₹2,80,000",
     features: [
       "Custom Storefront Design",
       "Payment Gateway Setup",
@@ -101,7 +106,9 @@ export default function ServicesPage() {
                 
                 <div className="mb-10 pb-10 border-b border-border/50">
                   <span className="font-mono text-xs tracking-widest uppercase text-muted block mb-2">Investment</span>
-                  <span className="font-display text-4xl text-primary">{service.price}</span>
+                  <span className="font-display text-4xl text-primary">
+                    <LocalizedPrice usdPrice={service.usdPrice} inrPrice={service.inrPrice} />
+                  </span>
                 </div>
 
                 <ul className="flex-1 flex flex-col gap-4 mb-10">
