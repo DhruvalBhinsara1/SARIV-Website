@@ -13,6 +13,7 @@ import { Magnetic } from "@/components/ui/Magnetic";
 const NAV_LINKS = [
   { label: "Home", href: "/", icon: <Home className="h-5 w-5 flex-shrink-0" /> },
   { label: "Work", href: "/work", icon: <Briefcase className="h-5 w-5 flex-shrink-0" /> },
+  { label: "Services", href: "/services", icon: <Briefcase className="h-5 w-5 flex-shrink-0" /> },
   { label: "Journal", href: "/journal", icon: <PenTool className="h-5 w-5 flex-shrink-0" /> },
   { label: "About", href: "/about", icon: <Info className="h-5 w-5 flex-shrink-0" /> },
   { label: "Contact", href: "/contact", icon: <Mail className="h-5 w-5 flex-shrink-0" /> },
