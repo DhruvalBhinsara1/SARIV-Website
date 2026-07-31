@@ -15,9 +15,9 @@ export function ScrollTextReveal({ text, className }: ScrollTextRevealProps) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // Start tracking when the container enters the bottom 75% of the viewport.
-    // End tracking when the container reaches the top 25% of the viewport.
-    offset: ["start 75%", "start 25%"]
+    // Start tracking when the container enters the bottom 90% of the viewport (delayed).
+    // End tracking when the container reaches the top 40% of the viewport.
+    offset: ["start 90%", "start 40%"]
   });
 
   const words = text.split(" ");
