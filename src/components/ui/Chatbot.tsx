@@ -2,13 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { MessageCircle, X, ArrowUp, Square } from "lucide-react";
+import { MessageCircle, X, ArrowUp, Square, ThumbsUp, ThumbsDown } from "lucide-react";
 import { Mark } from "@/components/Mark";
 import { buttonVariants } from "@/components/ui/Button";
 import { SmoothTextarea } from "@/components/ui/SmoothTextarea";
 import { cn } from "@/lib/utils";
 
-type ChatMessage = { id: string; role: "user" | "assistant"; text: string };
+type ChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  text: string;
+  /** The user question this reply answers — only set on assistant messages, needed to submit feedback. */
+  question?: string;
+  feedback?: "up" | "down";
+};
 
 const GREETING: ChatMessage = {
   id: "greeting",
@@ -95,7 +102,7 @@ export function Chatbot() {
           receivedAny = true;
           setIsTyping(false);
           setStreamingId(assistantId);
-          setMessages((m) => [...m, { id: assistantId, role: "assistant", text: chunk }]);
+          setMessages((m) => [...m, { id: assistantId, role: "assistant", text: chunk, question: text }]);
         } else {
           setMessages((m) =>
             m.map((msg) => (msg.id === assistantId ? { ...msg, text: msg.text + chunk } : msg))
@@ -118,6 +125,23 @@ export function Chatbot() {
 
   function stopGenerating() {
     abortRef.current?.abort();
+  }
+
+  // Fire-and-forget: feedback is a nice-to-have signal for reviewing/tuning
+  // the assistant later, not something a failed request should surface to the visitor.
+  function submitFeedback(message: ChatMessage, rating: "up" | "down") {
+    if (message.feedback || !message.question) return;
+    setMessages((m) => m.map((msg) => (msg.id === message.id ? { ...msg, feedback: rating } : msg)));
+    fetch("/api/chat/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        conversationId: conversationIdRef.current ?? undefined,
+        question: message.question,
+        answer: message.text,
+        rating,
+      }),
+    }).catch((err) => console.error("Error submitting chat feedback", err));
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -180,16 +204,47 @@ export function Chatbot() {
 
             <div ref={listRef} className="flex-1 overflow-y-auto px-5 py-5 flex flex-col gap-4 min-h-[280px]">
               {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={cn(
-                    "max-w-[85%] rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed font-body",
-                    m.role === "user"
-                      ? "self-end bg-primary text-surface rounded-br-md"
-                      : "self-start bg-surface-elevated text-primary rounded-bl-md"
+                <div key={m.id} className={cn("flex flex-col gap-1.5", m.role === "user" ? "items-end" : "items-start")}>
+                  <div
+                    className={cn(
+                      "max-w-[85%] rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed font-body",
+                      m.role === "user"
+                        ? "bg-primary text-surface rounded-br-md"
+                        : "bg-surface-elevated text-primary rounded-bl-md"
+                    )}
+                  >
+                    {m.text}
+                  </div>
+                  {m.role === "assistant" && m.question && m.id !== streamingId && (
+                    <div className="flex items-center gap-1 px-1">
+                      <button
+                        type="button"
+                        onClick={() => submitFeedback(m, "up")}
+                        aria-label="Good reply"
+                        aria-pressed={m.feedback === "up"}
+                        disabled={!!m.feedback}
+                        className={cn(
+                          "flex items-center justify-center w-6 h-6 rounded-full transition-colors",
+                          m.feedback === "up" ? "text-primary" : "text-muted hover:text-primary disabled:hover:text-muted"
+                        )}
+                      >
+                        <ThumbsUp className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => submitFeedback(m, "down")}
+                        aria-label="Poor reply"
+                        aria-pressed={m.feedback === "down"}
+                        disabled={!!m.feedback}
+                        className={cn(
+                          "flex items-center justify-center w-6 h-6 rounded-full transition-colors",
+                          m.feedback === "down" ? "text-primary" : "text-muted hover:text-primary disabled:hover:text-muted"
+                        )}
+                      >
+                        <ThumbsDown className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   )}
-                >
-                  {m.text}
                 </div>
               ))}
               {isTyping && (
