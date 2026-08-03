@@ -159,8 +159,8 @@ export default function ServicesPage() {
           ═══════════════════════════════════════════════════════ */}
       <Statement 
         label="The SARIV Standard"
-        text="A cheap agency builds a liability you have to manage."
-        highlightText="We build assets that work reliably, require zero babysitting, and scale with your growth."
+        text="Subpar engineering creates technical debt you are forced to manage."
+        highlightText="We build resilient digital assets that perform reliably, demand minimal oversight, and scale seamlessly with your growth."
       />
 
       {/* ═══════════════════════════════════════════════════════

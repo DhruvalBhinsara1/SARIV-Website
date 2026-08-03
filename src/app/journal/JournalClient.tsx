@@ -23,6 +23,7 @@ function extractFirstImage(markdown?: string): string | null {
 
 type JournalClientProps = {
   initialCategory: string;
+  initialPage: number;
   categories: string[];
   allPosts: Post[];
 };
@@ -169,9 +170,9 @@ function QuietStory({ post }: { post: Post }) {
   );
 }
 
-export function JournalClient({ initialCategory, categories, allPosts }: JournalClientProps) {
+export function JournalClient({ initialCategory, initialPage, categories, allPosts }: JournalClientProps) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   const filteredPosts =
     activeCategory === "All"
@@ -278,6 +279,18 @@ export function JournalClient({ initialCategory, categories, allPosts }: Journal
                 totalPages={totalPages}
                 onPageChange={(page) => {
                   setCurrentPage(page);
+                  const searchParams = new URLSearchParams();
+                  if (activeCategory !== "All") {
+                    searchParams.set("category", activeCategory);
+                  }
+                  if (page > 1) {
+                    searchParams.set("page", page.toString());
+                  }
+                  
+                  const queryString = searchParams.toString();
+                  const newUrl = queryString ? `/journal?${queryString}` : "/journal";
+                  
+                  window.history.pushState(null, "", newUrl);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               />

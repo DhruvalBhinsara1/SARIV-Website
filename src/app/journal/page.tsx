@@ -5,9 +5,12 @@ import { JournalClient } from "./JournalClient";
 export default async function JournalIndexPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; page?: string }>;
 }) {
-  const { category: activeCategory = "All" } = await searchParams;
+  const params = await searchParams;
+  const activeCategory = params.category || "All";
+  const initialPage = params.page ? parseInt(params.page, 10) : 1;
+
   const allPosts = await getJournalPosts();
   const categories = await getJournalCategories();
 
@@ -37,6 +40,7 @@ export default async function JournalIndexPage({
 
         <JournalClient
           initialCategory={activeCategory}
+          initialPage={initialPage}
           categories={categories}
           allPosts={allPosts}
         />
