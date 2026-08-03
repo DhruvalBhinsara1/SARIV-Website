@@ -30,16 +30,16 @@ export function HeroScene() {
   }, []);
 
   const scene = SCENES[dailyIndex];
-  
+
   // During SSR, we render the first scene as a fallback to avoid hydration errors.
   // We use opacity transition so the switch to the daily image is seamless once hydrated.
 
   return (
-    <div 
+    <div
       className="relative w-full flex items-center justify-center px-4 overflow-hidden pt-40 pb-20"
-      style={{ 
-        minHeight: 'calc(100vh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px))', 
-        marginTop: 'calc(-1 * env(safe-area-inset-top, 0px))' 
+      style={{
+        minHeight: 'calc(100vh + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px))',
+        marginTop: 'calc(-1 * env(safe-area-inset-top, 0px))'
       }}
     >
       {/* Background Layering */}
@@ -47,9 +47,8 @@ export function HeroScene() {
         {SCENES.map((s, i) => (
           <div
             key={s.src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
-              (isMounted && i === dailyIndex) || (!isMounted && i === 0) ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-out ${(isMounted && i === dailyIndex) || (!isMounted && i === 0) ? "opacity-100" : "opacity-0"
+              }`}
           >
             {s.base && (
               <Image src={s.base} alt="" fill className="object-cover" priority={i === 0 || i === dailyIndex} draggable={false} />
@@ -79,7 +78,7 @@ export function HeroScene() {
 
       {/* Background ambient gradient orb */}
       <div className="absolute inset-0 gradient-orb opacity-50 animate-fade-in z-0 pointer-events-none" />
-      
+
       <div className="relative z-10 flex flex-col items-center w-full mt-24">
 
         <Mark
@@ -97,11 +96,13 @@ export function HeroScene() {
 
         <Typography
           variant="body"
-          className="animate-fade-up mt-8 max-w-xl text-center text-white/85 text-lg md:text-xl [text-shadow:0_2px_16px_rgba(0,0,0,0.55)]"
+          className="animate-fade-up mt-8 max-w-xl text-center text-lg md:text-xl leading-relaxed"
           style={{ animationDelay: "0.2s" }}
         >
-          We design and build digital products that feel timeless, intentional, and technically
-          exceptional. We don&apos;t chase trends. We build products people remember.
+          <span className="bg-black/70 backdrop-blur-md text-white px-2 py-1 box-decoration-clone">
+            We design and build digital products that feel timeless, intentional, and technically
+            exceptional. We don&apos;t chase trends. We build products people remember.
+          </span>
         </Typography>
 
         <div className="animate-fade-up mt-8 flex gap-4" style={{ animationDelay: "0.3s" }}>

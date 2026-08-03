@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -332,22 +333,14 @@ export default function ServicesPage() {
                   foundations that scale.
                 </p>
 
-                {/* Architecture visualization — ASCII-inspired diagram */}
-                <div className="bg-background border border-border rounded-2xl p-6 md:p-8 mb-10 font-mono text-[11px] md:text-xs text-muted leading-relaxed overflow-x-auto">
-                  <div className="text-primary/40 mb-4">// Typical system architecture</div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-secondary">┌─────────────────┐     ┌──────────────┐</span>
-                    <span className="text-secondary">│  <span className="text-primary">Client App</span>    │────▶│  <span className="text-primary">API Layer</span>  │</span>
-                    <span className="text-secondary">│  Next.js / React │     │  REST / tRPC │</span>
-                    <span className="text-secondary">└─────────────────┘     └──────┬───────┘</span>
-                    <span className="text-secondary">                               │</span>
-                    <span className="text-secondary">              ┌────────────────┼────────────────┐</span>
-                    <span className="text-secondary">              │                │                │</span>
-                    <span className="text-secondary">        ┌─────▼─────┐   ┌──────▼──────┐  ┌─────▼─────┐</span>
-                    <span className="text-secondary">        │ <span className="text-primary">Database</span> │   │ <span className="text-primary">Auth / IAM</span> │  │ <span className="text-primary">Storage</span>  │</span>
-                    <span className="text-secondary">        │ Postgres  │   │  Sessions   │  │  S3 / R2  │</span>
-                    <span className="text-secondary">        └───────────┘   └─────────────┘  └───────────┘</span>
-                  </div>
+                {/* Architecture visualization */}
+                <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden border border-border bg-background mb-10">
+                  <Image
+                    src="/digital_product.png"
+                    alt="Typical system architecture: client app to API layer to database, auth, and storage"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
 
                 {/* Business outcomes */}
