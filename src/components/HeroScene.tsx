@@ -99,7 +99,13 @@ export function HeroScene() {
           className="animate-fade-up mt-8 max-w-xl text-center text-lg md:text-xl leading-relaxed"
           style={{ animationDelay: "0.2s" }}
         >
-          <span className="bg-black/70 backdrop-blur-md text-white px-2 py-1 box-decoration-clone">
+          <span
+            className={`text-white [text-shadow:0_2px_20px_rgba(0,0,0,0.5)] ${
+              scene.src === "/winter.png"
+                ? "bg-black/70 backdrop-blur-md px-2 py-1 box-decoration-clone"
+                : ""
+            }`}
+          >
             We design and build digital products that feel timeless, intentional, and technically
             exceptional. We don&apos;t chase trends. We build products people remember.
           </span>
