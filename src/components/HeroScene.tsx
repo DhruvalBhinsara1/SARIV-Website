@@ -16,6 +16,10 @@ const SCENES = [
   { src: "/winter.png", alt: "Winter village with aurora" },
   { src: "/lake.png", alt: "Lake and mountains at sunset" },
   { src: "/bridge.png", alt: "Autumn forest bridge" },
+  { src: "/bedroom-anime-background-Anime-Wallpapers-classroom-lofi-room-backgrounds-computer.png", alt: "Cozy attic study with desk and guitar" },
+  { src: "/bedroom-anime-background-Anime-Wallpapers-classroom-room-backgrounds-computer-windows.png", alt: "Sunlit study with bookshelves" },
+  { src: "/anime-background-Anime-Wallpapers-ghibli-backgrounds-evergarden-scenery-landscape.png", alt: "Hillside meadow with distant castle" },
+  { src: "/anime-background-characters-Anime-Wallpapers-backgrounds-scenery-flcl-background.png", alt: "Empty court under a bright sky" },
 ];
 
 export function HeroScene() {
