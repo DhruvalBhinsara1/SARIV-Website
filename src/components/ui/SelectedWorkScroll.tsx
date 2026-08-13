@@ -35,6 +35,7 @@ const p2 = (n: number) => String(n).padStart(2, "0");
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 // ─── Linked image card ────────────────────────────────────────────────────────
+function LinkedCard({
   src, alt, link, external, sizes, rounded = "rounded-2xl",
   aspect = "16 / 10", shadow = true, objectFit = "object-cover", children,
 }: {
