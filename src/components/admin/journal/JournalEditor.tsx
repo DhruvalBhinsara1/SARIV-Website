@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Typography } from "@/components/ui/Typography";
-import { ArrowLeft, Save, Image as ImageIcon, Eye, Edit2 } from "lucide-react";
+import { ArrowLeft, Save, Image as ImageIcon, Eye, Edit2, Copy, Check, UploadCloud } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 export type JournalPostDraft = {
@@ -40,6 +40,8 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
   const [error, setError] = useState("");
   const [uploadingImage, setUploadingImage] = useState(false);
   const [mode, setMode] = useState<"write" | "preview">("write");
+  const [assets, setAssets] = useState<{url: string, name: string}[]>([]);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
 
   const handleSave = async () => {
     setLoading(true);
@@ -96,25 +98,9 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
       }
 
       const { url } = await res.json();
-
-      // Insert image markdown at cursor
-      const textarea = contentTextareaRef.current;
-      if (textarea) {
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const imageMarkdown = `\n![${file.name}](${url})\n`;
-        
-        const newContent = post.content.substring(0, start) + imageMarkdown + post.content.substring(end);
-        setPost({ ...post, content: newContent });
-        
-        // Reset cursor position
-        setTimeout(() => {
-          textarea.focus();
-          textarea.setSelectionRange(start + imageMarkdown.length, start + imageMarkdown.length);
-        }, 0);
-      } else {
-        setPost({ ...post, content: post.content + `\n![${file.name}](${url})\n` });
-      }
+      
+      // Store in our session assets list instead of auto-inserting
+      setAssets(prev => [{ url, name: file.name }, ...prev]);
 
     } catch (err: any) {
       setError(err.message || "Failed to upload image");
@@ -122,6 +108,33 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
       setUploadingImage(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
+  };
+
+  const insertImageAtCursor = (url: string, alt: string) => {
+    const textarea = contentTextareaRef.current;
+    const imageMarkdown = `\n![${alt}](${url})\n`;
+
+    if (textarea) {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      
+      const newContent = post.content.substring(0, start) + imageMarkdown + post.content.substring(end);
+      setPost({ ...post, content: newContent });
+      
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(start + imageMarkdown.length, start + imageMarkdown.length);
+      }, 0);
+    } else {
+      setPost({ ...post, content: post.content + imageMarkdown });
+    }
+  };
+
+  const copyMarkdown = (url: string, alt: string) => {
+    const markdown = `![${alt}](${url})`;
+    navigator.clipboard.writeText(markdown);
+    setCopiedUrl(url);
+    setTimeout(() => setCopiedUrl(null), 2000);
   };
 
   return (
@@ -195,25 +208,6 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
                     </button>
                   </div>
                 </div>
-                <div>
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    ref={fileInputRef} 
-                    className="hidden" 
-                    onChange={handleImageUpload} 
-                  />
-                  {mode === "write" && (
-                    <Button 
-                      variant="secondary" 
-                      size="small" 
-                      icon={<ImageIcon className="w-4 h-4" />}
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={uploadingImage}
-                    >
-                      {uploadingImage ? "Uploading..." : "Insert Image"}
-                    </Button>
-                  )}
                 </div>
               </div>
               
@@ -314,6 +308,67 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
                 placeholder="Brief summary for the journal feed..."
                 className="w-full h-32 p-3 rounded-xl bg-background border border-border text-primary text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary/20"
               />
+            </div>
+          </div>
+
+          {/* Media / Post Assets */}
+          <div className="bg-surface rounded-3xl p-6 shadow-sm border border-border/50 flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <Typography variant="subheading" className="text-lg">Media</Typography>
+              <div className="text-xs text-muted-foreground">{assets.length} uploaded</div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <input 
+                type="file" 
+                accept="image/*" 
+                ref={fileInputRef} 
+                className="hidden" 
+                onChange={handleImageUpload} 
+              />
+              <button 
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingImage}
+                className="w-full h-24 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-surface-elevated hover:border-primary/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed group"
+              >
+                <UploadCloud className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <span className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+                  {uploadingImage ? "Uploading..." : "Click to upload image"}
+                </span>
+              </button>
+
+              {assets.length > 0 && (
+                <div className="flex flex-col gap-3 mt-2 max-h-[400px] overflow-y-auto pr-2 -mr-2">
+                  {assets.map((asset, i) => (
+                    <div key={i} className="flex flex-col gap-2 p-2 bg-surface-elevated rounded-lg border border-border/50">
+                      <div className="relative w-full h-24 rounded-md overflow-hidden bg-background">
+                        <img src={asset.url} alt={asset.name} className="object-cover w-full h-full" />
+                      </div>
+                      <div className="flex items-center justify-between gap-2 mt-1">
+                        <p className="text-xs font-mono text-muted truncate flex-1" title={asset.name}>
+                          {asset.name}
+                        </p>
+                        <div className="flex items-center gap-1">
+                          <button 
+                            onClick={() => copyMarkdown(asset.url, asset.name)}
+                            className="p-1.5 bg-background hover:bg-border rounded text-muted-foreground hover:text-primary transition-colors"
+                            title="Copy Markdown"
+                          >
+                            {copiedUrl === asset.url ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
+                          </button>
+                          <button 
+                            onClick={() => insertImageAtCursor(asset.url, asset.name)}
+                            className="p-1.5 bg-background hover:bg-primary/20 hover:text-primary rounded text-muted-foreground transition-colors"
+                            title="Insert at cursor"
+                          >
+                            <ImageIcon className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
