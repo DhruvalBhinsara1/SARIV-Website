@@ -14,6 +14,7 @@ export type WorkProject = {
   title: string;
   subtitle: string;
   image: string;
+  link: string;
   external?: boolean;
   align?: "left" | "right";
   aspect?: string;
