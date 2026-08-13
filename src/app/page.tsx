@@ -36,6 +36,15 @@ const PROJECTS: WorkProject[] = [
     external: true,
     align: "left",
   },
+  {
+    id: "civicos",
+    title: "CivicOS",
+    subtitle: "AI-driven operating system for modern civic infrastructure.",
+    image: "/civicos_footer.png",
+    link: "#",
+    external: true,
+    align: "right",
+  },
 ];
 
 export default function Home() {

@@ -24,10 +24,10 @@ export type WorkProject = {
 // py = total Y drift (px) over the full scroll distance.
 // projIdx = which project this slot represents (for link + highlight).
 const DESKTOP_SLOTS = [
-  { left: "3%",    right: "auto", top: "6%",  width: "clamp(260px, 30vw, 420px)", rot: -4, py: -50, src: "/freeflow-ui.png",       label: "FreeFlow",      projIdx: 0 },
-  { left: "auto", right: "3%",    top: "8%",  width: "clamp(280px, 32vw, 460px)", rot:  3, py: -30, src: "/core-defenses.png",     label: "Core Defenses", projIdx: 1 },
-  { left: "5%",    right: "auto", top: "55%", width: "clamp(220px, 26vw, 380px)", rot:  2, py: -40, src: "/nexabrew.png",          label: "NexaBrew",      projIdx: 2 },
-  { left: "auto", right: "4%",    top: "60%", width: "clamp(200px, 24vw, 340px)", rot: -2, py: -25, src: "/nexabrew-dashboard.jpg", label: "NexaBrew POS",  projIdx: 2 },
+  { left: "3%",    right: "auto", top: "6%",  width: "clamp(260px, 30vw, 420px)", rot: -4, py: -50, projIdx: 0 },
+  { left: "auto", right: "3%",    top: "8%",  width: "clamp(280px, 32vw, 460px)", rot:  3, py: -30, projIdx: 1 },
+  { left: "5%",    right: "auto", top: "55%", width: "clamp(220px, 26vw, 380px)", rot:  2, py: -40, projIdx: 2 },
+  { left: "auto", right: "4%",    top: "60%", width: "clamp(200px, 24vw, 340px)", rot: -2, py: -25, projIdx: 3 },
 ] as const;
 
 const p2 = (n: number) => String(n).padStart(2, "0");
@@ -242,15 +242,15 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
             >
               <div className="floating-img w-full h-full">
                 <LinkedCard
-                  src={slot.src}
-                  alt={slot.label}
+                  src={proj.image}
+                  alt={proj.title}
                   link={proj.link}
                   external={proj.external}
                   sizes="35vw"
                   rounded="rounded-xl"
                 />
               </div>
-              <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-3 px-2 text-center opacity-70">{slot.label}</p>
+              <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-3 px-2 text-center opacity-70">{proj.title}</p>
             </div>
           );
         })}
@@ -310,31 +310,35 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         {/* Top Pair */}
         <div className="flex justify-between items-start px-2">
           {/* Top Left */}
-          <div className="w-[46%] -rotate-3 origin-top-left z-10">
-            <div className="floating-img w-full h-full">
-              <LinkedCard
-                src="/freeflow-ui.png"
-                alt="FreeFlow"
-                link={projects[0]?.link || "#"}
-                external={projects[0]?.external}
-                sizes="50vw"
-                rounded="rounded-2xl"
-              />
+          {projects[0] && (
+            <div className="w-[46%] -rotate-3 origin-top-left z-10">
+              <div className="floating-img w-full h-full">
+                <LinkedCard
+                  src={projects[0].image}
+                  alt={projects[0].title}
+                  link={projects[0].link}
+                  external={projects[0].external}
+                  sizes="50vw"
+                  rounded="rounded-2xl"
+                />
+              </div>
             </div>
-          </div>
+          )}
           {/* Top Right */}
-          <div className="w-[44%] rotate-3 origin-top-right mt-8 z-10">
-            <div className="floating-img w-full h-full">
-              <LinkedCard
-                src="/core-defenses.png"
-                alt="Core Defenses"
-                link={projects[1]?.link || "#"}
-                external={projects[1]?.external}
-                sizes="50vw"
-                rounded="rounded-2xl"
-              />
+          {projects[1] && (
+            <div className="w-[44%] rotate-3 origin-top-right mt-8 z-10">
+              <div className="floating-img w-full h-full">
+                <LinkedCard
+                  src={projects[1].image}
+                  alt={projects[1].title}
+                  link={projects[1].link}
+                  external={projects[1].external}
+                  sizes="50vw"
+                  rounded="rounded-2xl"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Centre overlay — project titles + CTA */}
@@ -357,31 +361,35 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
         {/* Bottom Pair */}
         <div className="flex justify-between items-end px-2">
           {/* Bottom Left */}
-          <div className="w-[45%] rotate-3 origin-bottom-left mb-6 z-10">
-            <div className="floating-img w-full h-full">
-              <LinkedCard
-                src="/nexabrew.png"
-                alt="NexaBrew"
-                link={projects[2]?.link || "#"}
-                external={projects[2]?.external}
-                sizes="50vw"
-                rounded="rounded-2xl"
-              />
+          {projects[2] && (
+            <div className="w-[45%] rotate-3 origin-bottom-left mb-6 z-10">
+              <div className="floating-img w-full h-full">
+                <LinkedCard
+                  src={projects[2].image}
+                  alt={projects[2].title}
+                  link={projects[2].link}
+                  external={projects[2].external}
+                  sizes="50vw"
+                  rounded="rounded-2xl"
+                />
+              </div>
             </div>
-          </div>
+          )}
           {/* Bottom Right */}
-          <div className="w-[43%] -rotate-2 origin-bottom-right z-10">
-            <div className="floating-img w-full h-full">
-              <LinkedCard
-                src="/nexabrew-dashboard.jpg"
-                alt="NexaBrew POS"
-                link={projects[2]?.link || "#"}
-                external={projects[2]?.external}
-                sizes="50vw"
-                rounded="rounded-2xl"
-              />
+          {projects[3] && (
+            <div className="w-[43%] -rotate-2 origin-bottom-right z-10">
+              <div className="floating-img w-full h-full">
+                <LinkedCard
+                  src={projects[3].image}
+                  alt={projects[3].title}
+                  link={projects[3].link}
+                  external={projects[3].external}
+                  sizes="50vw"
+                  rounded="rounded-2xl"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
