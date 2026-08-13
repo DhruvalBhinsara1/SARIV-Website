@@ -44,6 +44,8 @@ const PROJECTS: WorkProject[] = [
     link: "#",
     external: true,
     align: "right",
+    aspect: "21 / 9",
+    objectFit: "object-contain",
   },
 ];
 

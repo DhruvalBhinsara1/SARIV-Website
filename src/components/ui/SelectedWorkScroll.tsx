@@ -14,9 +14,10 @@ export type WorkProject = {
   title: string;
   subtitle: string;
   image: string;
-  link: string;
   external?: boolean;
   align?: "left" | "right";
+  aspect?: string;
+  objectFit?: string;
 };
 
 // ─── Desktop float slot config ────────────────────────────────────────────────
@@ -34,12 +35,12 @@ const p2 = (n: number) => String(n).padStart(2, "0");
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 // ─── Linked image card ────────────────────────────────────────────────────────
-function LinkedCard({
   src, alt, link, external, sizes, rounded = "rounded-2xl",
-  aspect = "16 / 10", shadow = true, children,
+  aspect = "16 / 10", shadow = true, objectFit = "object-cover", children,
 }: {
   src: string; alt: string; link: string; external?: boolean;
   sizes: string; rounded?: string; aspect?: string; shadow?: boolean;
+  objectFit?: string;
   children?: React.ReactNode;
 }) {
   const Tag = external ? "a" : Link;
@@ -55,7 +56,7 @@ function LinkedCard({
         aspectRatio: aspect,
       }}
     >
-      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover transition-transform duration-700 group-hover/card:scale-[1.03]" />
+      <Image src={src} alt={alt} fill sizes={sizes} className={`${objectFit} transition-transform duration-700 group-hover/card:scale-[1.03]`} />
       {/* Subtle hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover/card:bg-black/10 transition-colors duration-300" />
       {children}
@@ -248,6 +249,8 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   external={proj.external}
                   sizes="35vw"
                   rounded="rounded-xl"
+                  aspect={proj.aspect}
+                  objectFit={proj.objectFit}
                 />
               </div>
               <p className="text-[9px] font-mono text-muted tracking-widest uppercase mt-3 px-2 text-center opacity-70">{proj.title}</p>
@@ -320,6 +323,8 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   external={projects[0].external}
                   sizes="50vw"
                   rounded="rounded-2xl"
+                  aspect={projects[0].aspect}
+                  objectFit={projects[0].objectFit}
                 />
               </div>
             </div>
@@ -335,6 +340,8 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   external={projects[1].external}
                   sizes="50vw"
                   rounded="rounded-2xl"
+                  aspect={projects[1].aspect}
+                  objectFit={projects[1].objectFit}
                 />
               </div>
             </div>
@@ -371,6 +378,8 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   external={projects[2].external}
                   sizes="50vw"
                   rounded="rounded-2xl"
+                  aspect={projects[2].aspect}
+                  objectFit={projects[2].objectFit}
                 />
               </div>
             </div>
@@ -386,6 +395,8 @@ export function SelectedWorkScroll({ projects }: { projects: WorkProject[] }) {
                   external={projects[3].external}
                   sizes="50vw"
                   rounded="rounded-2xl"
+                  aspect={projects[3].aspect}
+                  objectFit={projects[3].objectFit}
                 />
               </div>
             </div>
