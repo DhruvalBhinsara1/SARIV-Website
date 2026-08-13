@@ -41,7 +41,7 @@ const PROJECTS: WorkProject[] = [
     title: "CivicOS",
     subtitle: "AI-driven operating system for modern civic infrastructure.",
     image: "/civicos_footer.png",
-    link: "#",
+    link: "https://webcivicos.vercel.app/",
     external: true,
     align: "right",
     aspect: "21 / 9",
