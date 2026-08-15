@@ -43,18 +43,17 @@ const PROJECTS: Project[] = [
   },
   {
     id: "civicos",
-    kind: "Side Project",
+    kind: "Internal Product",
     year: "2026",
     title: "CivicOS",
     description:
-      "Infrastructure for the modern municipality — a unified platform for reporting and managing civic issues, connecting citizens and municipal teams.",
-    caption: "AI-triaged issue reporting and dispatch for city governments",
+      "Infrastructure for the modern municipality — a unified platform for reporting and managing civic issues, connecting 1.4B citizens with municipal response teams via multimodal AI and GIS dispatch.",
+    caption: "AI-triaged issue reporting and real-time GIS dispatch for city governments",
     image: "/civicos.png",
     imageWidth: 1536,
     imageHeight: 1024,
-    link: "https://webcivicos.vercel.app/",
-    external: true,
-    ctaLabel: "Visit live site",
+    link: "/products/civicos",
+    ctaLabel: "View case study",
   },
   {
     id: "core-defenses",

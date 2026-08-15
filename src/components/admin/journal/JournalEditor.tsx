@@ -208,7 +208,6 @@ export function JournalEditor({ initialData }: { initialData?: JournalPostDraft 
                     </button>
                   </div>
                 </div>
-                </div>
               </div>
               
               {mode === "write" ? (

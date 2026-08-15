@@ -12,6 +12,7 @@ const STATIC_ROUTES = [
   "/start-project",
   "/journal",
   "/products/freeflow",
+  "/products/civicos",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
