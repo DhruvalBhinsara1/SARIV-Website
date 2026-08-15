@@ -45,18 +45,14 @@ export function CivicOSHeroMockup() {
       </div>
 
       {/* Overlapping Floating Mobile App Frame */}
-      <div className="absolute -bottom-6 -right-2 md:-bottom-10 md:-right-6 w-[42%] md:w-[36%] aspect-[9/17.5] bg-[#0E0E10] border-2 border-white/20 rounded-[1.75rem] md:rounded-[2.25rem] overflow-hidden p-1.5 md:p-2 shadow-2xl shadow-black/80 z-20 transition-transform duration-500 hover:scale-[1.03]">
-        {/* Dynamic Island / Speaker notch */}
-        <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-12 md:w-16 h-3 md:h-4 bg-black rounded-full z-30 flex items-center justify-center">
-          <div className="w-2 h-2 rounded-full bg-white/10" />
-        </div>
-        
-        <div className="relative w-full h-full rounded-[1.25rem] md:rounded-[1.75rem] overflow-hidden bg-black">
+      <div className="absolute -bottom-6 -right-2 md:-bottom-10 md:-right-6 w-[40%] md:w-[34%] aspect-[9/19.5] bg-[#0E0E10] border-2 border-white/20 rounded-[1.75rem] md:rounded-[2.25rem] overflow-hidden p-1 shadow-2xl shadow-black/80 z-20 transition-transform duration-500 hover:scale-[1.03]">
+        <div className="relative w-full h-full rounded-[1.4rem] md:rounded-[1.9rem] overflow-hidden bg-[#FBFBFC]">
           <Image
-            src="/civicos-mobile-real.jpg"
-            alt="CivicOS Citizen AI Assistant Mobile App Interface"
+            src="/civicos-mobile-home.png"
+            alt="CivicOS Citizen Mobile Operating System"
             fill
-            className="object-cover object-center"
+            className="object-cover object-top"
+            priority
           />
         </div>
       </div>

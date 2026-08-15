@@ -33,7 +33,7 @@ const TABS: FeatureTab[] = [
     title: "Instant Dual-Mode Grievance Reporting",
     subtitle: "Citizens can report by snapping a quick photo or having a voice conversation in their mother tongue.",
     icon: Bot,
-    image: "/civicos-mobile-real.jpg",
+    image: "/civicos-mobile-ai.png",
     tag: "Mobile OS · AI Engine",
     bullets: [
       {
@@ -196,16 +196,44 @@ export function CivicOSInteractiveShowcase() {
 
           {/* Right Visual / Mockup Column */}
           <div className="lg:col-span-6">
-            <div className="relative w-full rounded-2xl overflow-hidden border border-border bg-surface-elevated p-2 md:p-3 shadow-elevation group">
-              <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#0A0A0E] border border-border/40">
-                <Image
-                  src={activeTab.image}
-                  alt={activeTab.title}
-                  fill
-                  className="object-contain p-1 md:p-2 group-hover:scale-[1.02] transition-transform duration-500"
-                />
+            {activeTab.id === "ai-capture" ? (
+              <div className="flex items-center justify-center gap-4 md:gap-6 py-2">
+                {/* Mobile Phone 1 - Home Dashboard */}
+                <div className="w-[48%] max-w-[240px] aspect-[9/18] bg-[#0E0E10] border-2 border-white/20 rounded-[1.75rem] md:rounded-[2rem] overflow-hidden p-1.5 shadow-xl transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="relative w-full h-full rounded-[1.25rem] md:rounded-[1.5rem] overflow-hidden bg-[#FBFBFC]">
+                    <Image
+                      src="/civicos-mobile-home.png"
+                      alt="CivicOS Citizen Dashboard Mobile Interface"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
+
+                {/* Mobile Phone 2 - AI Assistant */}
+                <div className="w-[48%] max-w-[240px] aspect-[9/18] bg-[#0E0E10] border-2 border-white/20 rounded-[1.75rem] md:rounded-[2rem] overflow-hidden p-1.5 shadow-xl transition-transform duration-300 hover:scale-[1.02]">
+                  <div className="relative w-full h-full rounded-[1.25rem] md:rounded-[1.5rem] overflow-hidden bg-[#FBFBFC]">
+                    <Image
+                      src="/civicos-mobile-ai.png"
+                      alt="CivicOS AI Grievance Assistant Mobile Interface"
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative w-full rounded-2xl overflow-hidden border border-border bg-surface-elevated p-2 md:p-3 shadow-elevation group">
+                <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-[#0A0A0E] border border-border/40">
+                  <Image
+                    src={activeTab.image}
+                    alt={activeTab.title}
+                    fill
+                    className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </AnimatePresence>

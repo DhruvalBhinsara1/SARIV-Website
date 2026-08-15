@@ -460,10 +460,10 @@ export default function CivicOSProductPage() {
             <ScrollReveal delay={0.2} className="md:col-span-4">
               <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
                 <Image
-                  src="/civicos-mobile-real.jpg"
+                  src="/civicos-mobile-home.png"
                   alt="CivicOS Citizen Mobile Operating System"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-top"
                 />
               </div>
               <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
