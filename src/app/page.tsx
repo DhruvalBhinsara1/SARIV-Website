@@ -17,6 +17,9 @@ const PROJECTS: WorkProject[] = [
     image: "/freeflow-ui.png",
     link: "/products/freeflow",
     external: false,
+    bg: "#ECEFF8",
+    accent: "#4F46E5",
+    border: "#D5DCF0",
   },
   {
     id: "core-defenses",
@@ -26,6 +29,9 @@ const PROJECTS: WorkProject[] = [
     link: "https://www.core-defenses.com/",
     external: true,
     align: "right",
+    bg: "#E8F1F7",
+    accent: "#0284C7",
+    border: "#CDDFEC",
   },
   {
     id: "nexabrew",
@@ -35,6 +41,9 @@ const PROJECTS: WorkProject[] = [
     link: "https://nexabrew.vercel.app",
     external: true,
     align: "left",
+    bg: "#EAF4EE",
+    accent: "#059669",
+    border: "#D0E6D8",
   },
   {
     id: "civicos",
@@ -44,6 +53,9 @@ const PROJECTS: WorkProject[] = [
     link: "/products/civicos",
     external: false,
     align: "right",
+    bg: "#FAF0E6",
+    accent: "#EA580C",
+    border: "#F3DFCB",
   },
 ];
 
@@ -67,25 +79,8 @@ export default function Home() {
       </section>
 
       {/* Selected Works Section */}
-      <section id="selected-work-section" className="pt-12 md:pt-16 pb-0 h-auto lg:h-[100svh] flex flex-col">
-        {/* Header row — constrained width */}
-        <div className="px-4 md:px-20 max-w-[1400px] mx-auto w-full shrink-0 relative z-20">
-          <ScrollReveal>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-12">
-              <Typography variant="display" className="text-5xl md:text-7xl">
-                Selected Work
-              </Typography>
-              <Link href="/work" className={buttonVariants({ variant: "secondary" })}>
-                View All Projects
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Full-bleed interactive section */}
-        <div className="flex-1 min-h-0 relative">
-          <SelectedWorkScroll projects={PROJECTS} />
-        </div>
+      <section id="selected-work-section" className="w-full relative">
+        <SelectedWorkScroll projects={PROJECTS} />
       </section>
 
       {/* Tech Stack Section */}
