@@ -17,9 +17,9 @@ const PROJECTS: WorkProject[] = [
     image: "/freeflow-ui.png",
     link: "/products/freeflow",
     external: false,
-    bg: "#ECEFF8",
-    accent: "#4F46E5",
-    border: "#D5DCF0",
+    bg: "#F5F6F9",
+    accent: "#6366F1",
+    border: "#E2E4F0",
   },
   {
     id: "core-defenses",
@@ -29,9 +29,9 @@ const PROJECTS: WorkProject[] = [
     link: "https://www.core-defenses.com/",
     external: true,
     align: "right",
-    bg: "#E8F1F7",
+    bg: "#F3F6F8",
     accent: "#0284C7",
-    border: "#CDDFEC",
+    border: "#DEE7EE",
   },
   {
     id: "nexabrew",
@@ -41,9 +41,9 @@ const PROJECTS: WorkProject[] = [
     link: "https://nexabrew.vercel.app",
     external: true,
     align: "left",
-    bg: "#EAF4EE",
+    bg: "#F3F7F5",
     accent: "#059669",
-    border: "#D0E6D8",
+    border: "#DFEBE4",
   },
   {
     id: "civicos",
@@ -53,9 +53,9 @@ const PROJECTS: WorkProject[] = [
     link: "/products/civicos",
     external: false,
     align: "right",
-    bg: "#FAF0E6",
+    bg: "#FAF6F0",
     accent: "#EA580C",
-    border: "#F3DFCB",
+    border: "#F5ECE1",
   },
 ];
 
