@@ -49,9 +49,9 @@ const PROJECTS: Project[] = [
     description:
       "Infrastructure for the modern municipality — a unified platform for reporting and managing civic issues, connecting 1.4B citizens with municipal response teams via multimodal AI and GIS dispatch.",
     caption: "AI-triaged issue reporting and real-time GIS dispatch for city governments",
-    image: "/civicos.png",
-    imageWidth: 1536,
-    imageHeight: 1024,
+    image: "/web-home.png",
+    imageWidth: 2880,
+    imageHeight: 1800,
     link: "/products/civicos",
     ctaLabel: "View case study",
   },

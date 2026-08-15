@@ -40,12 +40,10 @@ const PROJECTS: WorkProject[] = [
     id: "civicos",
     title: "CivicOS",
     subtitle: "AI-driven operating system for modern civic infrastructure.",
-    image: "/civicos_footer.png",
+    image: "/web-home.png",
     link: "/products/civicos",
     external: false,
     align: "right",
-    aspect: "21 / 9",
-    objectFit: "object-contain",
   },
 ];
 
