@@ -692,14 +692,14 @@ export default function CivicOSProductPage() {
       />
 
       {/* 12. Next Work & CTA */}
-      <section className="max-w-[720px] mx-auto px-4 md:px-8 text-center flex flex-col items-center pt-8">
-        <ScrollReveal>
-          <Typography variant="heading" className="mb-6">
+      <section className="max-w-[720px] mx-auto px-4 md:px-8 text-center flex flex-col items-center pt-8 pb-16">
+        <ScrollReveal className="w-full flex flex-col items-center text-center">
+          <h2 className="font-display font-normal text-primary text-[clamp(36px,5vw,64px)] leading-[1.1] text-center mb-6 max-w-2xl mx-auto">
             Explore more of our engineering &amp; design work.
-          </Typography>
-          <Typography variant="body" muted className="mb-10 max-w-xl text-center">
+          </h2>
+          <p className="font-body font-normal text-[18px] leading-[1.7] text-muted mb-10 max-w-xl text-center mx-auto">
             From high-performance native macOS tools like FreeFlow to municipal-scale civic operating systems, SARIV designs software with craft, depth, and purpose.
-          </Typography>
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Magnetic strength={15}>
               <Link href="/contact" className={buttonVariants({ variant: "primary", size: "large" })}>
