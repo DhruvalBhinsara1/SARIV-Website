@@ -428,7 +428,83 @@ export default function CivicOSProductPage() {
         </div>
       </section>
 
-      {/* 8. Engineering Highlights */}
+      {/* 8. Product Gallery */}
+      <section className="border-t border-border py-20 md:py-32 bg-surface-elevated">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-8">
+          <ScrollReveal>
+            <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted block mb-8">
+              Product Gallery
+            </span>
+            <h2 className="font-display font-normal text-primary text-[clamp(32px,5vw,56px)] leading-[1.05] tracking-[-0.02em] max-w-2xl mb-16">
+              The live platform, in detail.
+            </h2>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+            {/* Real Screenshot 1: Municipal Dashboard */}
+            <ScrollReveal delay={0.1} className="md:col-span-8">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
+                <Image
+                  src="/civicos-dashboard.png"
+                  alt="CivicOS Live GIS Municipal Command Center"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
+                Municipal Command Center &amp; Live GIS Dispatch
+              </span>
+            </ScrollReveal>
+
+            {/* Real Screenshot 2: Mobile Citizen App */}
+            <ScrollReveal delay={0.2} className="md:col-span-4">
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
+                <Image
+                  src="/civicos-mobile-home.png"
+                  alt="CivicOS Citizen Mobile Operating System"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
+                Citizen Mobile App &amp; Quick Capture
+              </span>
+            </ScrollReveal>
+
+            {/* Real Screenshot 3: Incident Management Feed */}
+            <ScrollReveal delay={0.3} className="md:col-span-6">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
+                <Image
+                  src="/civicos-incidents.png"
+                  alt="CivicOS Incident Triage and Department Routing Feed"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
+                Incident Triage &amp; Automated Ward Routing
+              </span>
+            </ScrollReveal>
+
+            {/* Real Screenshot 4: SLA Analytics & Heatmaps */}
+            <ScrollReveal delay={0.4} className="md:col-span-6">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
+                <Image
+                  src="/civicos-analytics.png"
+                  alt="CivicOS Municipal Ward Density Heatmaps and SLA Analytics"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+              <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
+                Ward Density Heatmaps &amp; SLA Response Metrics
+              </span>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. Engineering Highlights */}
       <section className="border-t border-border py-20 md:py-32 bg-surface-elevated relative overflow-hidden">
         <span
           aria-hidden="true"
