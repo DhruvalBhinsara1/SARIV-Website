@@ -33,7 +33,7 @@ const TABS: FeatureTab[] = [
     title: "Instant Dual-Mode Grievance Reporting",
     subtitle: "Citizens can report by snapping a quick photo or having a voice conversation in their mother tongue.",
     icon: Bot,
-    image: "/civicos-mobile-ai.png",
+    image: "/civicos-mobile-real.jpg",
     tag: "Mobile OS · AI Engine",
     bullets: [
       {
@@ -56,7 +56,7 @@ const TABS: FeatureTab[] = [
     title: "Real-Time Spatial Clustering & SLA Escalations",
     subtitle: "Municipal departments gain bird's-eye visibility across all wards with automated spatial deduplication.",
     icon: MapPin,
-    image: "/civicos-dashboard.png",
+    image: "/web-dashboard.png",
     tag: "Web Command Portal",
     bullets: [
       {
@@ -75,16 +75,16 @@ const TABS: FeatureTab[] = [
   },
   {
     id: "resolution-proof",
-    label: "Resolution Proof Engine",
-    title: "Verifiable Before-and-After Accountability",
-    subtitle: "Eliminating ghost resolutions with geo-fenced photographic evidence and citizen confirmation.",
+    label: "Incident Triage Queue",
+    title: "Real-Time Dispatch & Department Routing",
+    subtitle: "Automated triage categorizes incoming grievances and assigns them directly to municipal department work queues.",
     icon: CheckCircle2,
-    image: "/civicos-resolution.png",
-    tag: "Field Officer App",
+    image: "/web-incidents.png",
+    tag: "Field Officer Dispatch",
     bullets: [
       {
-        title: "Before / After Slider Comparison",
-        desc: "Interactive visual proof comparing the initial grievance photo with the completed repair photo.",
+        title: "Live Priority Queue",
+        desc: "Automated severity classification sorts tickets by critical urgency, response SLAs, and ward jurisdiction.",
       },
       {
         title: "GPS & EXIF Verification",
@@ -98,16 +98,16 @@ const TABS: FeatureTab[] = [
   },
   {
     id: "gamification",
-    label: "Rewards & Community",
-    title: "Gamified Citizen Engagement & Civic Points",
-    subtitle: "Turning civic participation into a positive-sum game through rewards, streaks, and community cleanups.",
+    label: "Analytics & Heatmaps",
+    title: "Civic Intelligence & Municipal Response SLAs",
+    subtitle: "Real-time municipal performance analytics, ward resolution velocity, and citizen satisfaction tracking.",
     icon: Trophy,
-    image: "/civicos-analytics.png",
-    tag: "Citizen Engagement",
+    image: "/web-analytics.png",
+    tag: "Intelligence & Analytics",
     bullets: [
       {
-        title: "Civic Points & Streaks",
-        desc: "Citizens earn points (+10 for valid report, +25 for verifying repairs) and unlock Pioneer, Guardian, Champion, and Legend tiers.",
+        title: "Ward Performance Velocity",
+        desc: "Benchmark turnaround times across departments to identify infrastructure bottlenecks before public escalation.",
       },
       {
         title: "Community Cleanup Drives",
@@ -202,7 +202,7 @@ export function CivicOSInteractiveShowcase() {
                   src={activeTab.image}
                   alt={activeTab.title}
                   fill
-                  className="object-contain p-2 md:p-4 group-hover:scale-[1.02] transition-transform duration-500"
+                  className="object-contain p-1 md:p-2 group-hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
             </div>

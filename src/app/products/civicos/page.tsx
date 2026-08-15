@@ -445,14 +445,14 @@ export default function CivicOSProductPage() {
             <ScrollReveal delay={0.1} className="md:col-span-8">
               <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
                 <Image
-                  src="/civicos-dashboard.png"
+                  src="/web-dashboard.png"
                   alt="CivicOS Live GIS Municipal Command Center"
                   fill
                   className="object-cover object-top"
                 />
               </div>
               <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
-                Municipal Command Center &amp; Live GIS Dispatch
+                Municipal Operations Command &amp; Live GIS Dispatch
               </span>
             </ScrollReveal>
 
@@ -460,10 +460,10 @@ export default function CivicOSProductPage() {
             <ScrollReveal delay={0.2} className="md:col-span-4">
               <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
                 <Image
-                  src="/civicos-mobile-home.png"
+                  src="/civicos-mobile-real.jpg"
                   alt="CivicOS Citizen Mobile Operating System"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                 />
               </div>
               <span className="font-mono text-[10px] tracking-widest uppercase text-muted block mt-4">
@@ -475,7 +475,7 @@ export default function CivicOSProductPage() {
             <ScrollReveal delay={0.3} className="md:col-span-6">
               <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
                 <Image
-                  src="/civicos-incidents.png"
+                  src="/web-incidents.png"
                   alt="CivicOS Incident Triage and Department Routing Feed"
                   fill
                   className="object-cover object-top"
@@ -490,7 +490,7 @@ export default function CivicOSProductPage() {
             <ScrollReveal delay={0.4} className="md:col-span-6">
               <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-[#0a0a0a]">
                 <Image
-                  src="/civicos-analytics.png"
+                  src="/web-analytics.png"
                   alt="CivicOS Municipal Ward Density Heatmaps and SLA Analytics"
                   fill
                   className="object-cover object-top"
